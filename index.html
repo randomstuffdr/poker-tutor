@@ -983,6 +983,10 @@ function has(l,k){return l && l.indexOf(k)>=0;}
 function act(k){
   var R=D.r[tbl], inR=has(R[pos],k), hu=(tbl==="2");
   if(sit==="limp"){
+    if(pos==="BB"){
+      if(has(D.il[tbl][pos],k)) return ["SUBIR (ISOLATION)","El limpeador te llega en tu ciega. Súbele: castigas su mano floja y juegas el bote solo con él con la iniciativa.","rai"];
+      return ["PASAR (CHECK)","Ya tienes la ciega puesta y nadie ha subido. Pasas y ves el flop gratis — retirarse aquí sería regalar la ciega que ya has puesto.","cal"];
+    }
     if(has(D.il[tbl][pos],k)) return ["SUBIR","Alguien ha entrado pagando sin subir. Súbele: te quedas a solas con él, tomas la iniciativa y castigas su mano floja.","rai"];
     if(has(D.cl[tbl][pos],k)) return ["IGUALAR","Mano especulativa y precio barato. Se paga para ver un flop con varios, buscando ligar fuerte. Si el flop no te da nada, se abandona sin dudar.","cal"];
     return ["RETIRAR","Contra un limpeador casi nunca se iguala: o le subes para quedarte solo con él, o lo dejas. Entrar detrás sin nada es regalar una ciega.","fld"];
@@ -1568,8 +1572,8 @@ var SC=[
   w:"Farol. Para que funcione tiene que doler: una apuesta pequeña se paga por curiosidad."},
  {b:"7&clubs; 7&diams; 2&hearts;",h:"A&spades; K&clubs;",d:"nada ligado, pero la mesa es horrible para todos",lo:25,hi:40,
   w:"Casi nadie liga esta mesa. Con apostar poco basta para llevártelo; no hace falta arriesgar mucho para que se retiren."},
- {b:"J&hearts; T&hearts; 4&clubs; 9&spades;",h:"Q&hearts; 9&hearts;",d:"turn: tienes color y proyecto de escalera de color",lo:65,hi:90,
-  w:"La mano casi perfecta. Construye el bote ya: te quedan dos calles y quieres que el dinero entre antes de que la mesa asuste."},
+ {b:"J&hearts; T&hearts; 4&clubs; 9&spades;",h:"Q&hearts; 9&hearts;",d:"turn: pareja de nueves + proyecto de color al as + proyecto de escalera abierta (a 8 o a K)",lo:65,hi:90,
+  w:"Como proyecto es casi perfecto: 9 outs de color, 6 outs más de escalera limpia y encima ya tienes pareja. Construye el bote ya: te quedan dos calles y quieres que el dinero entre antes de que la mesa asuste."},
  {b:"K&spades; 7&diams; 2&clubs;",h:"A&diams; K&hearts;",d:"pareja máxima, mesa seca, un solo rival",lo:40,hi:65,
   w:"Vas muy por delante y hay poco peligro. No hace falta la apuesta máxima: con una media le sacas dinero a más manos."},
  {b:"Q&spades; J&diams; 9&hearts; 8&clubs; 3&spades;",h:"K&clubs; T&spades;",d:"river: has ligado la escalera máxima",lo:65,hi:90,
@@ -2247,8 +2251,8 @@ function pintaOdds(){
   var B=usaCifras?ESC[+document.getElementById("fkBetR").value]:0;
   var need, expl;
   if(P>0&&B>0){
-    need=B/(P+B);
-    expl='Pagas '+fmt(B)+' para llevarte '+fmt(P+B)+'. La cuenta: '+fmt(B)+' ÷ '+fmt(P+B)+' = '+(need*100).toFixed(0)+' %.';
+    need=B/(P+2*B);
+    expl='En el bote hay '+fmt(P)+', te apuestan '+fmt(B)+' y para pagar aportas otros '+fmt(B)+'. Si ganas, te llevas '+fmt(P+2*B)+'. La cuenta: '+fmt(B)+' ÷ '+fmt(P+2*B)+' = '+(need*100).toFixed(0)+' %.';
   } else {
     need=ask/(1+2*ask);
     var etiqueta=ASKS.filter(function(x){return Math.abs(x[0]-ask)<0.001;})[0][1];
