@@ -346,6 +346,13 @@ html.sinPersonal nav button[data-t="s8"]{display:none}
 .swPers button{background:var(--bg3);color:var(--dim);border:1px solid var(--line);
   border-radius:7px;padding:5px 10px;font:600 11.5px inherit;cursor:pointer;font-family:inherit;margin-left:8px}
 
+/* ---- modo pila corta dentro de "Con la mesa" ---- */
+#fkCortoBox{display:none}
+#s4.corto #fkCortoBox{display:block}
+#s4.corto .cols2,#s4.corto details.ref,#s4.corto>h3,#s4.corto>table,#s4.corto>.card,#s4.corto>.warn,#s4.corto>.note{display:none}
+#s4.corto #fkCortoBox .card,#s4.corto #fkCortoBox .warn,#s4.corto #fkCortoBox .note{display:block}
+#fkCortoBtn.on{background-color:#ff5ecb!important;background-image:var(--metal)!important;color:#2a0620!important;border-color:#ffb0e2!important}
+
 /* ============ piel: magenta metalico ============ */
 :root{
   --mag:#ff5ecb; --mag2:#ff9fd6; --mag3:#e23fae;
@@ -445,10 +452,9 @@ h2::before{content:"♠";
 </header>
 
 <nav>
-  <button class="on" data-t="s0">Asesor</button>
-  <button data-t="s4">Mi mano</button>
+  <button class="on" data-t="s0" data-slug="asesor">Antes del flop</button>
+  <button data-t="s4" data-slug="mi-mano">Con la mesa</button>
   <button data-t="sN">Narrador</button>
-  <button data-t="sA">Pila corta</button>
   <button data-t="s9">Entrenador</button>
   <button data-t="s8">Mi juego</button>
   <button data-t="s7">Diccionario</button>
@@ -459,7 +465,8 @@ h2::before{content:"♠";
 
 <!-- ============ 0. ASESOR ============ -->
 <section id="s0" class="on">
-  <h2>Asesor de manos iniciales</h2>
+  <h2>Antes del flop</h2>
+  <p class="sub" style="margin-bottom:8px">Aquí decides qué hacer con tus <b>2 cartas</b> antes de que salga la mesa. Si ya hay cartas comunitarias, ve a <a href="#mi-mano">Con la mesa</a>.</p>
   <p>Elige <b>mesa</b>, <b>posición</b> y <b>situación</b>. Luego toca tu mano en la rejilla.</p>
 
   <div class="cols2">
@@ -534,7 +541,9 @@ h2::before{content:"♠";
 
 <!-- ============ 4. OUTS ============ -->
 <section id="s4">
-  <h2>¿Qué tengo y qué me falta?</h2>
+  <h2>Con la mesa</h2>
+  <p class="sub" style="margin-bottom:8px">Aquí analizas la mano <b>con las cartas comunitarias</b> delante. Para decidir antes del flop, ve a <a href="#asesor">Antes del flop</a>.</p>
+  <div class="pick" id="fkCortoSw" style="margin:2px 0 4px"><button id="fkCortoBtn" style="flex:0 0 auto">⚡ Estoy en pila corta (15 ciegas o menos)</button></div>
   <p>Pon tus dos cartas y las de la mesa. Te digo de un vistazo si la mano es buena o mala, y cuántos outs te quedan.</p>
   <div class="cols2">
   <div class="card">
@@ -622,6 +631,28 @@ h2::before{content:"♠";
     </details>
   </div>
   </div>
+  <div id="fkCortoBox">
+  <h2>Pila corta: all-in o retirar</h2>
+  <p>Cuando te quedan pocas fichas no hay término medio. Elige cuántas <b>ciegas grandes</b> te quedan y cuánta gente habla después de ti.</p>
+
+  <div class="card">
+    <div class="lbl">Rivales que hablan después de ti</div>
+    <div class="pick" id="pfN"></div>
+    <div class="lbl">Tu pila, en ciegas grandes</div>
+    <div class="pick" id="pfS"></div>
+    <div id="pfGrid"></div>
+    <div class="key">
+      <span><i style="background:rgba(69,211,138,.5)"></i>all-in</span>
+      <span><i style="background:#221b2e;border:1px solid #3d3350"></i>retirar</span>
+    </div>
+    <p class="sub" id="pfTxt"></p>
+  </div>
+
+  <div class="warn"><b>Por qué esto importa más que ninguna otra tabla.</b> Te ha eliminado de dos torneos: con 3,3 y con 4,5 ciegas subiste a 2 ciegas en vez de ir con todo. Subir a medias te compromete igual pero le regala al rival la opción de elegir. Aquí no hay que leer a nadie: se mira la tabla y se ejecuta.</p>
+
+  <details><summary>De dónde salen estos rangos</summary><div class="in" id="pfMod"></div></details>
+  </div>
+
 
   <h2>Outs: las cartas que te salvan</h2>
   <p>Un <b>out</b> es una carta que aún está en la baraja y que convierte tu mano en ganadora. Contar outs es la única "matemática de mesa" que necesitas.</p>
@@ -730,28 +761,7 @@ h2::before{content:"♠";
 
 
 
-<!-- ============ 10. PILA CORTA ============ -->
-<section id="sA">
-  <h2>Pila corta: all-in o retirar</h2>
-  <p>Cuando te quedan pocas fichas no hay término medio. Elige cuántas <b>ciegas grandes</b> te quedan y cuánta gente habla después de ti.</p>
 
-  <div class="card">
-    <div class="lbl">Rivales que hablan después de ti</div>
-    <div class="pick" id="pfN"></div>
-    <div class="lbl">Tu pila, en ciegas grandes</div>
-    <div class="pick" id="pfS"></div>
-    <div id="pfGrid"></div>
-    <div class="key">
-      <span><i style="background:rgba(69,211,138,.5)"></i>all-in</span>
-      <span><i style="background:#221b2e;border:1px solid #3d3350"></i>retirar</span>
-    </div>
-    <p class="sub" id="pfTxt"></p>
-  </div>
-
-  <div class="warn"><b>Por qué esto importa más que ninguna otra tabla.</b> Te ha eliminado de dos torneos: con 3,3 y con 4,5 ciegas subiste a 2 ciegas en vez de ir con todo. Subir a medias te compromete igual pero le regala al rival la opción de elegir. Aquí no hay que leer a nadie: se mira la tabla y se ejecuta.</p>
-
-  <details><summary>De dónde salen estos rangos</summary><div class="in" id="pfMod"></div></details>
-</section>
 
 <!-- ============ 9. ENTRENADOR ============ -->
 <section id="s9">
@@ -939,6 +949,19 @@ h2::before{content:"♠";
 
   <h2>Según el tipo de partida</h2>
   <p>No es lo mismo un torneo de cientos de personas que un Sit &amp; Go de 4 o una mesa de dinero: cambian las ciegas, la prisa y el rival. El tipo lo deduzco del propio archivo (cuántas mesas hay, hasta qué puesto llega la gente), no del nombre.</p>
+  
+  <div class="card" id="mgCarga">
+    <div class="lbl">Tus manos</div>
+    <p class="sub" style="margin:4px 0 8px" id="mgCargaTxt"></p>
+    <div class="pick">
+      <button id="mgCargaBtn" style="flex:0 0 auto">Cargar mis manos</button>
+      <button id="mgDemoBtn" style="flex:0 0 auto;display:none">Volver a los datos de ejemplo</button>
+      <button id="mgBorrarBtn" style="flex:0 0 auto;display:none">Borrar lo cargado</button>
+    </div>
+    <input id="mgFile" type="file" accept=".txt,.log,text/plain" multiple style="display:none">
+    <div id="mgCargaOut"></div>
+    <p class="sub" style="margin-top:8px">Tu historial <b>se queda en este dispositivo</b>. No viaja a ningún sitio, no lo veo yo y no sale del navegador. Se guarda para que no tengas que volver a cargarlo.</p>
+  </div>
   <div class="mgcats" id="mgCats"></div>
 
   <h2>Evolución</h2>
@@ -1238,8 +1261,13 @@ document.getElementById("gq").addEventListener("input",function(){drawGlos(this.
 drawGlos("");
 </script>
 <script>
-(function(){
-var M={"s": [{"cod": "P1", "tipo": "Ficticio", "mesa": "6 jug.", "res": "1º de 6", "fecha": "20 ago 17:28", "n": 50, "score": 54, "c": [4.6, 5.0, 0, 4.4, 8.3], "vpip": 34, "pfr": 12, "limps": 10, "conf": "alta", "vband": {"6": [44, 20, 32, 9], "5": [100, 24, 38, 1], "4": [33, 30, 45, 6], "3": [17, 38, 55, 12], "2": [36, 55, 80, 22]}, "cat": "sng", "c6": 8.8, "pagos": "7/8", "antes": 44}, {"cod": "P2", "tipo": "€1", "mesa": "4 jug.", "res": "3º de 4", "fecha": "21 ago 00:44", "n": 19, "score": 74, "c": [10.0, 10, 4.7, 4.3, 6.0], "vpip": 42, "pfr": 32, "limps": 2, "conf": "alta", "vband": {"4": [40, 30, 45, 10], "3": [44, 38, 55, 9]}, "cat": "sng", "c6": 6.0, "pagos": "3/5", "antes": 77}, {"cod": "P3", "tipo": "€1,50", "mesa": "8 jug.", "res": "5º de 8", "fecha": "21 ago 00:56", "n": 3, "score": 35, "c": [1.1, 0.0, 0, 10.0, 10], "vpip": 67, "pfr": 0, "limps": 1, "conf": "nula", "vband": {"8": [100, 18, 28, 1], "7": [0, 20, 30, 1], "5": [100, 24, 38, 1]}, "cat": "sng", "c6": 5.0, "pagos": "2/4", "antes": 33}, {"cod": "P4", "tipo": "€1,50", "mesa": "8 jug.", "res": "7º de 8", "fecha": "21 ago 01:00", "n": 5, "score": 8, "c": [0.0, 0.0, 0, null, 10.0], "vpip": 60, "pfr": 0, "limps": 3, "conf": "nula", "vband": {"8": [60, 18, 28, 5]}, "cat": "sng", "c6": null, "pagos": "0/2", "antes": 12}, {"cod": "P5", "tipo": "€2", "mesa": "6 jug.", "res": "1º de 6", "fecha": "21 ago 01:07", "n": 19, "score": 84, "c": [7.8, 8.6, 7.4, 10.0, 10], "vpip": 26, "pfr": 16, "limps": 1, "conf": "alta", "vband": {"6": [0, 20, 32, 1], "4": [20, 30, 45, 10], "3": [38, 38, 55, 8]}, "cat": "sng", "c6": 8.0, "pagos": "4/5", "antes": 86}, {"cod": "P6", "tipo": "€5 bounty", "mesa": "multimesa", "res": "10º", "fecha": "21 ago 10:06", "n": 58, "score": 81, "c": [8.9, 10, 9.1, 6.4, 0], "vpip": 33, "pfr": 26, "limps": 1, "conf": "alta", "vband": {"5": [24, 24, 38, 37], "6": [40, 20, 32, 10], "4": [55, 30, 45, 11]}, "cat": "mtt", "c6": null, "pagos": null, "antes": 78}, {"cod": "P7", "tipo": "6× rápidos €1", "mesa": "3 jug.", "res": "1 de 6 ganado", "fecha": "21 ago 10:43", "n": 56, "score": 88, "c": [10.0, 10, 9.1, 5.5, 8.0], "vpip": 43, "pfr": 39, "limps": 1, "conf": "alta", "vband": {"3": [43, 38, 55, 56]}, "cat": "sng", "c6": null, "pagos": null, "antes": 88}, {"cod": "P8", "tipo": "Cash 1-2c", "mesa": "6 jug.", "res": "mesa de dinero", "fecha": "21 ago 11:45", "n": 28, "score": 73, "c": [8.4, 10, 6.4, 1.7, 10], "vpip": 36, "pfr": 29, "limps": 2, "conf": "alta", "vband": {"6": [39, 20, 32, 18], "5": [25, 24, 38, 8], "4": [50, 30, 45, 2]}, "cat": "cash", "c6": null, "pagos": null, "antes": 73}, {"cod": "P9", "tipo": "Cash 1-2c", "mesa": "6 jug.", "res": "67 manos", "fecha": "21 ago 11:52", "n": 67, "score": 78, "c": [9.2, 9.9, 5.5, 7.2, 10], "vpip": 34, "pfr": 24, "limps": 6, "conf": "alta", "vband": {"6": [34, 20, 32, 64], "5": [33, 24, 38, 3]}, "cat": "cash", "c6": 5.7, "pagos": "8/14", "antes": 85}, {"cod": "P10", "tipo": "Cash 1-2c", "mesa": "6 jug.", "res": "4 manos", "fecha": "21 ago 17:46", "n": 4, "score": 70, "c": [4.0, 10, 10.0, 5.0, 10], "vpip": 50, "pfr": 50, "limps": 0, "conf": "nula", "vband": {"6": [50, 20, 32, 4]}, "cat": "cash", "c6": null, "pagos": "1/1", "antes": 72}, {"cod": "P11", "tipo": "Torneo", "mesa": "4 jug.", "res": "3º de 4", "fecha": "21 ago 18:20", "n": 8, "score": 76, "c": [4.2, 10, 10.0, null, 10], "vpip": 12, "pfr": 12, "limps": 0, "conf": "nula", "vband": {"4": [12, 30, 45, 8]}, "cat": "sng", "c6": null, "pagos": "0/0", "antes": 78}, {"cod": "P12", "tipo": "Torneo", "mesa": "4→2 jug.", "res": "2º de 4", "fecha": "21 ago 18:26", "n": 29, "score": 53, "c": [1.7, 8.2, 6.6, null, 8.6], "vpip": 24, "pfr": 14, "limps": 2, "conf": "alta", "vband": {"4": [0, 30, 45, 7], "2": [32, 55, 80, 22]}, "cat": "sng", "c6": null, "pagos": "0/0", "antes": 55}, {"cod": "P13", "tipo": "Torneo €0,50", "mesa": "3 jug.", "res": "2º · +0,21 €", "fecha": "21 ago 18:37", "n": 28, "score": 76, "c": [7.4, 10, 8.2, 3.8, 10.0], "vpip": 39, "pfr": 29, "limps": 1, "conf": "alta", "vband": {"6": [0, 20, 32, 1], "5": [0, 24, 38, 3], "4": [0, 30, 45, 2], "3": [50, 38, 55, 8], "2": [50, 55, 80, 14]}, "cat": "sng", "c6": 7.5, "pagos": "3/4", "antes": 77}, {"cod": "P14", "tipo": "Torneo €0,50", "mesa": "4 jug.", "res": "4º · −0,39 €", "fecha": "21 ago 18:49", "n": 14, "score": 77, "c": [8.1, 8.2, 6.4, 10.0, 0], "vpip": 50, "pfr": 29, "limps": 1, "conf": "baja", "vband": {"6": [100, 20, 32, 1], "5": [33, 24, 38, 3], "4": [50, 30, 45, 10]}, "cat": "sng", "c6": null, "pagos": "2/2", "antes": 74}, {"cod": "P15", "tipo": "Torneo €1", "mesa": "multimesa", "res": "18º · −1,00 €", "fecha": "22 ago 10:39", "n": 37, "score": 70, "c": [7.5, 5.1, 5.9, 10.0, 5.0], "vpip": 38, "pfr": 14, "limps": 3, "conf": "alta", "vband": {"7": [37, 20, 30, 19], "6": [31, 20, 32, 13], "8": [60, 18, 28, 5]}, "cat": "mtt", "c6": 7.1, "pagos": "5/7", "antes": 69}, {"cod": "P16", "tipo": "Torneo €5 bounty", "mesa": "multimesa", "res": "47º · +8,51 €", "fecha": "22 ago 13:08", "n": 121, "score": 69, "c": [7.8, 6.6, 5.5, 5.2, 8.6], "vpip": 34, "pfr": 16, "limps": 11, "conf": "alta", "vband": {"8": [36, 18, 28, 59], "7": [34, 20, 30, 58], "6": [0, 20, 32, 4]}, "cat": "mtt", "c6": 7.3, "pagos": "24/33", "antes": 67}, {"cod": "P17", "tipo": "Torneo €0,50 bounty", "mesa": "multimesa", "res": "eliminado · −0,50 €", "fecha": "22 ago 15:30", "n": 42, "score": 80, "c": [7.2, 10, 5.2, 6.7, 10], "vpip": 45, "pfr": 33, "limps": 4, "conf": "alta", "vband": {"4": [33, 30, 45, 3], "5": [46, 24, 38, 26], "6": [42, 20, 32, 12], "3": [100, 38, 55, 1]}, "cat": "mtt", "c6": 8.8, "pagos": "7/8", "antes": 78}, {"cod": "P18", "tipo": "Torneo €0,50 bounty", "mesa": "multimesa", "res": "9.º · €1,27 en recompensas", "fecha": "22 ago 19:38", "n": 108, "score": 80, "c": [10.0, 10, 8.1, 5.2, 10], "vpip": 35, "pfr": 30, "limps": 4, "conf": "alta", "vband": {"6": [32, 20, 32, 50], "5": [36, 24, 38, 47], "4": [45, 30, 45, 11]}, "cat": "mtt", "c6": 5.7, "pagos": "12/21", "antes": 88}, {"cod": "P19", "tipo": "Cash Zoom €0,05/€0,10", "mesa": "6 jug.", "res": "−19,64 € en 196 manos · perdió la entrada dos veces", "fecha": "23 ago 00:24", "n": 196, "score": 66, "c": [7.2, 7.1, 3.6, 3.9, 10], "vpip": 40, "pfr": 20, "limps": 25, "conf": "alta", "vband": {"6": [40, 20, 32, 196]}, "cat": "cash", "c6": 7.6, "pagos": "29/38", "antes": 62}, {"cod": "P20", "tipo": "Cash Zoom €0,10/€0,25", "mesa": "6 jug.", "res": "+4,59 € en 15 manos", "fecha": "22 ago 20:46", "n": 15, "score": 79, "c": [5.1, 10, 6.7, 10.0, 10], "vpip": 47, "pfr": 33, "limps": 1, "conf": "baja", "vband": {"6": [47, 20, 32, 15]}, "cat": "cash", "c6": null, "pagos": "1/1", "antes": 80}, {"cod": "P21", "tipo": "Cash Zoom €0,10/€0,25", "mesa": "6 jug.", "res": "−12,00 € en 19 manos · pila perdida", "fecha": "22 ago 22:14", "n": 19, "score": 89, "c": [10.0, 5.7, 7.4, 10.0, 10], "vpip": 26, "pfr": 11, "limps": 1, "conf": "alta", "vband": {"6": [26, 20, 32, 19]}, "cat": "cash", "c6": 10.0, "pagos": "4/4", "antes": 85}, {"cod": "P22", "tipo": "Torneo €2", "mesa": "multimesa", "res": "eliminado · 14 manos", "fecha": "22 ago 23:13", "n": 14, "score": 71, "c": [9.0, 9.5, 6.4, 0.0, 8.0], "vpip": 21, "pfr": 14, "limps": 1, "conf": "baja", "vband": {"6": [14, 20, 32, 7], "5": [29, 24, 38, 7]}, "cat": "mtt", "c6": 7.5, "pagos": "3/4", "antes": 69}, {"cod": "P23", "tipo": "Torneo €0,50", "mesa": "multimesa", "res": "31.º de 72 · −0,50 €", "fecha": "23 ago 11:03", "n": 10, "score": 82, "c": [8.8, 7.1, 5.0, 10.0, 10], "vpip": 20, "pfr": 10, "limps": 1, "conf": "baja", "vband": {"6": [0, 20, 32, 1], "5": [22, 24, 38, 9]}, "cat": "mtt", "c6": null, "pagos": "—", "antes": null}, {"cod": "P24", "tipo": "Cash €0,02/€0,05", "mesa": "6 jug.", "res": "−0,33 € en 37 manos", "fecha": "23 ago 12:59", "n": 37, "score": 52, "c": [6.9, 6.2, 0.5, 2.2, 10], "vpip": 43, "pfr": 19, "limps": 7, "conf": "media", "vband": {"5": [58, 24, 38, 12], "6": [36, 20, 32, 25]}, "cat": "cash", "c6": 10.0, "pagos": "4/4", "antes": null}, {"cod": "P25", "tipo": "Cash €0,02/€0,05", "mesa": "6 jug.", "res": "−0,67 € en 14 manos", "fecha": "23 ago 15:33", "n": 14, "score": 56, "c": [8.3, 0.0, 6.4, null, 10], "vpip": 21, "pfr": 0, "limps": 1, "conf": "baja", "vband": {"6": [27, 20, 32, 11], "5": [0, 24, 38, 3]}, "cat": "cash", "c6": 8.3, "pagos": "5/6", "antes": null}, {"cod": "P26", "tipo": "Cash €0,02/€0,05", "mesa": "6 jug.", "res": "−1,30 € en 11 manos", "fecha": "23 ago 16:50", "n": 11, "score": 44, "c": [2.5, 4.8, 0.9, 6.7, 10], "vpip": 55, "pfr": 18, "limps": 2, "conf": "baja", "vband": {"6": [55, 20, 32, 11]}, "cat": "cash", "c6": 8.3, "pagos": "5/6", "antes": null}], "bets": [{"s": "1", "pct": 12, "bet": 20, "pot": 170, "calle": "flop"}, {"s": "1", "pct": 50, "bet": 106, "pot": 210, "calle": "turn"}, {"s": "1", "pct": 36, "bet": 40, "pot": 112, "calle": "flop"}, {"s": "1", "pct": 12, "bet": 20, "pot": 172, "calle": "river"}, {"s": "1", "pct": 12, "bet": 30, "pot": 255, "calle": "flop"}, {"s": "1", "pct": 59, "bet": 360, "pot": 615, "calle": "river"}, {"s": "1", "pct": 50, "bet": 87, "pot": 174, "calle": "turn"}, {"s": "1", "pct": 30, "bet": 100, "pot": 330, "calle": "flop"}, {"s": "1", "pct": 30, "bet": 100, "pot": 330, "calle": "flop"}, {"s": "1", "pct": 36, "bet": 120, "pot": 336, "calle": "turn"}, {"s": "1", "pct": 24, "bet": 150, "pot": 615, "calle": "flop"}, {"s": "1", "pct": 16, "bet": 150, "pot": 915, "calle": "turn"}, {"s": "1", "pct": 38, "bet": 360, "pot": 936, "calle": "river"}, {"s": "1", "pct": 45, "bet": 210, "pot": 462, "calle": "flop"}, {"s": "1", "pct": 45, "bet": 210, "pot": 462, "calle": "flop"}, {"s": "1", "pct": 45, "bet": 210, "pot": 462, "calle": "flop"}, {"s": "1", "pct": 50, "bet": 441, "pot": 882, "calle": "turn"}, {"s": "1", "pct": 45, "bet": 250, "pot": 550, "calle": "turn"}, {"s": "2", "pct": 50, "bet": 20, "pot": 40, "calle": "flop"}, {"s": "2", "pct": 50, "bet": 40, "pot": 80, "calle": "turn"}, {"s": "2", "pct": 50, "bet": 80, "pot": 160, "calle": "river"}, {"s": "2", "pct": 25, "bet": 30, "pot": 120, "calle": "flop"}, {"s": "2", "pct": 22, "bet": 60, "pot": 270, "calle": "flop"}, {"s": "2", "pct": 33, "bet": 60, "pot": 180, "calle": "flop"}, {"s": "2", "pct": 20, "bet": 60, "pot": 300, "calle": "turn"}, {"s": "3", "pct": 50, "bet": 125, "pot": 250, "calle": "flop"}, {"s": "5", "pct": 50, "bet": 83, "pot": 165, "calle": "flop"}, {"s": "P6", "pct": 51, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 40, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 52, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 52, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 40, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 40, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 27, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 18, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 13, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 18, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 100, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 120, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 100, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 256, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 42, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 100, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 100, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 100, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 11, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 5, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 100, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P8", "pct": 162, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P8", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P8", "pct": 240, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P8", "pct": 83, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P8", "pct": 125, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P8", "pct": 160, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 92, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 65, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 48, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 46, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 48, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 142, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 88, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 47, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 48, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 47, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 160, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 44, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 44, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 95, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 45, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 95, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 93, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P10", "pct": 47, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P10", "pct": 37, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 134, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 51, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 101, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 101, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 340, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 51, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 182, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P14", "pct": 51, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P14", "pct": 68, "bet": 0, "pot": 0, "calle": "post"}, {"bet": 1480.0, "pot": 2960.0, "pct": 50, "calle": "river"}, {"bet": 1400.0, "pot": 5270.0, "pct": 27, "calle": "river"}, {"bet": 33200.0, "pot": 26600.0, "pct": 125, "calle": "flop"}, {"bet": 9600.0, "pot": 31400.0, "pct": 31, "calle": "flop"}, {"bet": 2550.0, "pot": 5000.0, "pct": 51, "calle": "flop"}, {"bet": 1000.0, "pot": 5375.0, "pct": 19, "calle": "river"}, {"bet": 4800.0, "pot": 15150.0, "pct": 32, "calle": "flop"}, {"bet": 13725.0, "pot": 27150.0, "pct": 51, "calle": "turn"}, {"bet": 27450.0, "pot": 54600.0, "pct": 50, "calle": "river"}, {"bet": 2000.0, "pot": 8750.0, "pct": 23, "calle": "flop"}, {"bet": 11375.0, "pot": 22750.0, "pct": 50, "calle": "turn"}, {"bet": 8800.0, "pot": 17275.0, "pct": 51, "calle": "flop"}, {"bet": 7500.0, "pot": 24125.0, "pct": 31, "calle": "turn"}, {"bet": 14625.0, "pot": 14625.0, "pct": 100, "calle": "turn"}, {"bet": 3000.0, "pot": 13125.0, "pct": 23, "calle": "turn"}, {"bet": 9563.0, "pot": 19125.0, "pct": 50, "calle": "river"}, {"bet": 9450.0, "pot": 18450.0, "pct": 51, "calle": "flop"}, {"bet": 18900.0, "pot": 37350.0, "pct": 51, "calle": "turn"}, {"bet": 44276.0, "pot": 71875.0, "pct": 62, "calle": "flop"}, {"bet": 97637.0, "pot": 43500.0, "pct": 224, "calle": "flop"}, {"bet": 19375.0, "pot": 38750.0, "pct": 50, "calle": "flop"}, {"bet": 29375.0, "pot": 57500.0, "pct": 51, "calle": "flop"}, {"bet": 190.0, "pot": 375.0, "pct": 51, "calle": "flop"}, {"bet": 380.0, "pot": 755.0, "pct": 50, "calle": "turn"}, {"bet": 205.0, "pot": 400.0, "pct": 51, "calle": "flop"}, {"bet": 410.0, "pot": 810.0, "pct": 51, "calle": "turn"}, {"bet": 80.0, "pot": 220.0, "pct": 36, "calle": "turn"}, {"bet": 1019.0, "pot": 11901.0, "pct": 9, "calle": "turn"}, {"bet": 2908.0, "pot": 686.0, "pct": 424, "calle": "river"}, {"bet": 170.0, "pot": 340.0, "pct": 50, "calle": "flop"}, {"bet": 238.0, "pot": 475.0, "pct": 50, "calle": "river"}, {"bet": 375.0, "pot": 375.0, "pct": 100, "calle": "river"}, {"bet": 363.0, "pot": 710.0, "pct": 51, "calle": "turn"}, {"bet": 726.0, "pot": 1436.0, "pct": 51, "calle": "river"}, {"bet": 792.0, "pot": 1560.0, "pct": 51, "calle": "flop"}, {"bet": 1395.0, "pot": 1341.0, "pct": 104, "calle": "flop"}, {"bet": 3054.0, "pot": 4131.0, "pct": 74, "calle": "turn"}, {"bet": 4960.0, "pot": 4900.0, "pct": 101, "calle": "flop"}, {"bet": 5500.0, "pot": 5440.0, "pct": 101, "calle": "river"}, {"bet": 826.0, "pot": 1614.0, "pct": 51, "calle": "flop"}, {"bet": 3304.0, "pot": 3266.0, "pct": 101, "calle": "turn"}, {"bet": 9912.0, "pot": 9874.0, "pct": 100, "calle": "river"}, {"bet": 1100.0, "pot": 2150.0, "pct": 51, "calle": "flop"}, {"bet": 5480.0, "pot": 5400.0, "pct": 101, "calle": "flop"}, {"bet": 2940.0, "pot": 2940.0, "pct": 100, "calle": "flop"}, {"bet": 8820.0, "pot": 8820.0, "pct": 100, "calle": "turn"}, {"bet": 600.0, "pot": 6390.0, "pct": 9, "calle": "flop"}, {"bet": 4185.0, "pot": 8190.0, "pct": 51, "calle": "turn"}, {"bet": 4400.0, "pot": 6490.0, "pct": 68, "calle": "river"}, {"bet": 8400.0, "pot": 6250.0, "pct": 134, "calle": "flop"}, {"bet": 3600.0, "pot": 6900.0, "pct": 52, "calle": "flop"}, {"bet": 5320.0, "pot": 10430.0, "pct": 51, "calle": "flop"}, {"bet": 13440.0, "pot": 13230.0, "pct": 102, "calle": "flop"}, {"bet": 8734.0, "pot": 13680.0, "pct": 64, "calle": "flop"}, {"bet": 7650.0, "pot": 7650.0, "pct": 100, "calle": "flop"}, {"bet": 6750.0, "pot": 13200.0, "pct": 51, "calle": "flop"}, {"bet": 5250.0, "pot": 10200.0, "pct": 51, "calle": "flop"}, {"bet": 14500.0, "pot": 22700.0, "pct": 64, "calle": "turn"}, {"bet": 25000.0, "pot": 62200.0, "pct": 40, "calle": "turn"}, {"bet": 0.1, "pot": 0.2, "pct": 50, "calle": "turn"}, {"bet": 0.1, "pot": 0.9500000000000002, "pct": 11, "calle": "flop"}, {"bet": 0.2, "pot": 1.4500000000000002, "pct": 14, "calle": "turn"}, {"bet": 1.66, "pot": 1.7500000000000002, "pct": 95, "calle": "river"}, {"bet": 0.19, "pot": 0.4, "pct": 48, "calle": "flop"}, {"bet": 0.19, "pot": 0.4, "pct": 48, "calle": "flop"}, {"bet": 0.1, "pot": 0.65, "pct": 15, "calle": "flop"}, {"bet": 1.6, "pot": 0.8500000000000001, "pct": 188, "calle": "turn"}, {"bet": 2.0, "pot": 4.380000000000001, "pct": 46, "calle": "flop"}, {"bet": 4.24, "pot": 8.38, "pct": 51, "calle": "turn"}, {"bet": 0.71, "pot": 1.5, "pct": 47, "calle": "flop"}, {"bet": 0.64, "pot": 1.3399999999999999, "pct": 48, "calle": "flop"}, {"bet": 1.25, "pot": 2.62, "pct": 48, "calle": "turn"}, {"bet": 0.25, "pot": 0.6, "pct": 42, "calle": "turn"}, {"bet": 0.86, "pot": 0.9, "pct": 96, "calle": "flop"}, {"bet": 0.1, "pot": 0.25, "pct": 40, "calle": "flop"}, {"bet": 1.0, "pot": 0.45, "pct": 222, "calle": "river"}, {"bet": 0.36, "pot": 0.75, "pct": 48, "calle": "flop"}, {"bet": 0.14, "pot": 0.30000000000000004, "pct": 47, "calle": "flop"}, {"bet": 0.55, "pot": 0.5800000000000001, "pct": 95, "calle": "turn"}, {"bet": 0.66, "pot": 0.75, "pct": 88, "calle": "flop"}, {"bet": 0.5, "pot": 1.05, "pct": 48, "calle": "flop"}, {"bet": 1.21, "pot": 2.55, "pct": 47, "calle": "turn"}, {"bet": 0.2, "pot": 0.5, "pct": 40, "calle": "flop"}, {"bet": 0.86, "pot": 0.88, "pct": 98, "calle": "flop"}, {"bet": 0.1, "pot": 0.2, "pct": 50, "calle": "flop"}, {"bet": 0.38, "pot": 0.4, "pct": 95, "calle": "turn"}, {"bet": 1.1, "pot": 1.1600000000000001, "pct": 95, "calle": "river"}, {"bet": 0.1, "pot": 0.35, "pct": 29, "calle": "flop"}, {"bet": 1.14, "pot": 1.2000000000000002, "pct": 95, "calle": "flop"}, {"bet": 3.31, "pot": 3.48, "pct": 95, "calle": "turn"}, {"bet": 1.28, "pot": 1.35, "pct": 95, "calle": "flop"}, {"bet": 0.62, "pot": 0.65, "pct": 95, "calle": "flop"}, {"bet": 1.8, "pot": 1.8900000000000001, "pct": 95, "calle": "turn"}, {"bet": 5.22, "pot": 5.49, "pct": 95, "calle": "river"}, {"bet": 0.22, "pot": 0.45, "pct": 49, "calle": "flop"}, {"bet": 0.85, "pot": 0.89, "pct": 96, "calle": "turn"}, {"bet": 2.46, "pot": 2.59, "pct": 95, "calle": "river"}, {"bet": 0.28, "pot": 0.44000000000000006, "pct": 64, "calle": "turn"}, {"bet": 4.3, "pot": 0.8600000000000001, "pct": 500, "calle": "river"}, {"bet": 700.0, "pot": 4540.0, "pct": 15, "calle": "flop"}, {"bet": 1.36, "pot": 1.43, "pct": 95, "calle": "river"}, {"bet": 0.1, "pot": 0.6, "pct": 17, "calle": "flop"}, {"bet": 0.31, "pot": 0.65, "pct": 48, "calle": "flop"}, {"bet": 0.1, "pot": 0.45, "pct": 22, "calle": "flop"}, {"bet": 0.26, "pot": 0.55, "pct": 47, "calle": "flop"}, {"bet": 0.51, "pot": 1.07, "pct": 48, "calle": "turn"}, {"bet": 3.66, "pot": 7.68, "pct": 48, "calle": "flop"}], "res": {"nap": 210, "med": 50, "bajas": 27, "buenas": 112, "altas": 26}, "tot": {"n": 1012, "media": 71, "mejor": 89, "fiables": 914}, "crit": [["Selección de manos", 25], ["Iniciativa", 20], ["Evitar entradas pasivas", 10], ["Tamaño de apuesta", 15], ["Fichas cortas", 5], ["Pagos tras el flop", 25]], "vband": [{"t": 8, "pct": 38, "lo": 18, "hi": 28, "n": 64, "e": "de más"}, {"t": 7, "pct": 35, "lo": 20, "hi": 30, "n": 77, "e": "de más"}, {"t": 6, "pct": 37, "lo": 20, "hi": 32, "n": 397, "e": "de más"}, {"t": 5, "pct": 33, "lo": 24, "hi": 38, "n": 125, "e": "ok"}, {"t": 4, "pct": 34, "lo": 30, "hi": 45, "n": 62, "e": "ok"}, {"t": 3, "pct": 41, "lo": 38, "hi": 55, "n": 94, "e": "ok"}, {"t": 2, "pct": 38, "lo": 55, "hi": 80, "n": 58, "e": "corto"}], "defi": [{"nm": "Pagos tras el flop", "w": 25, "m": 7.5, "d": 6.2}, {"nm": "Tamaño de apuesta", "w": 15, "m": 6.0, "d": 6.0}, {"nm": "Selección de manos", "w": 25, "m": 7.8, "d": 5.4}, {"nm": "Evitar entradas pasivas", "w": 10, "m": 6.2, "d": 3.8}, {"nm": "Iniciativa", "w": 20, "m": 8.4, "d": 3.2}, {"nm": "Fichas cortas", "w": 5, "m": 8.3, "d": 0.8}], "cats": [{"k": "sng", "nm": "Sit & Go", "p": 10, "n": 231, "media": 70, "fiables": 6}, {"k": "mtt", "nm": "Torneos multimesa", "p": 7, "n": 390, "media": 76, "fiables": 5}, {"k": "cash", "nm": "Cash", "p": 9, "n": 391, "media": 68, "fiables": 5}], "excl": [{"id": "4022758604", "tipo": "Torneo €3", "n": 41, "fecha": "22 ago 20:17", "motivo": "Jugado con prisa y a la vez que otras cosas, con la intención de acabar cuanto antes. Diego pidió no contabilizarlo porque no representa su juego. No lo he puntuado."}], "pagos": {"ok": 125, "n": 177, "pct": 71}, "calles": [{"c": "flop", "ok": 58, "n": 76}, {"c": "turn", "ok": 48, "n": 69}, {"c": "river", "ok": 19, "n": 32}]};
+/* La vista se pinta desde M. Por defecto M es el ejemplo incrustado; si el usuario
+   ha cargado su propio historial, __mgDatos() devuelve el agregado guardado en el
+   navegador y se repinta llamando otra vez a __mgPinta(). */
+var M_DEMO={"s": [{"cod": "P1", "tipo": "Ficticio", "mesa": "6 jug.", "res": "1º de 6", "fecha": "20 ago 17:28", "n": 50, "score": 54, "c": [4.6, 5.0, 0, 4.4, 8.3], "vpip": 34, "pfr": 12, "limps": 10, "conf": "alta", "vband": {"6": [44, 20, 32, 9], "5": [100, 24, 38, 1], "4": [33, 30, 45, 6], "3": [17, 38, 55, 12], "2": [36, 55, 80, 22]}, "cat": "sng", "c6": 8.8, "pagos": "7/8", "antes": 44}, {"cod": "P2", "tipo": "€1", "mesa": "4 jug.", "res": "3º de 4", "fecha": "21 ago 00:44", "n": 19, "score": 74, "c": [10.0, 10, 4.7, 4.3, 6.0], "vpip": 42, "pfr": 32, "limps": 2, "conf": "alta", "vband": {"4": [40, 30, 45, 10], "3": [44, 38, 55, 9]}, "cat": "sng", "c6": 6.0, "pagos": "3/5", "antes": 77}, {"cod": "P3", "tipo": "€1,50", "mesa": "8 jug.", "res": "5º de 8", "fecha": "21 ago 00:56", "n": 3, "score": 35, "c": [1.1, 0.0, 0, 10.0, 10], "vpip": 67, "pfr": 0, "limps": 1, "conf": "nula", "vband": {"8": [100, 18, 28, 1], "7": [0, 20, 30, 1], "5": [100, 24, 38, 1]}, "cat": "sng", "c6": 5.0, "pagos": "2/4", "antes": 33}, {"cod": "P4", "tipo": "€1,50", "mesa": "8 jug.", "res": "7º de 8", "fecha": "21 ago 01:00", "n": 5, "score": 8, "c": [0.0, 0.0, 0, null, 10.0], "vpip": 60, "pfr": 0, "limps": 3, "conf": "nula", "vband": {"8": [60, 18, 28, 5]}, "cat": "sng", "c6": null, "pagos": "0/2", "antes": 12}, {"cod": "P5", "tipo": "€2", "mesa": "6 jug.", "res": "1º de 6", "fecha": "21 ago 01:07", "n": 19, "score": 84, "c": [7.8, 8.6, 7.4, 10.0, 10], "vpip": 26, "pfr": 16, "limps": 1, "conf": "alta", "vband": {"6": [0, 20, 32, 1], "4": [20, 30, 45, 10], "3": [38, 38, 55, 8]}, "cat": "sng", "c6": 8.0, "pagos": "4/5", "antes": 86}, {"cod": "P6", "tipo": "€5 bounty", "mesa": "multimesa", "res": "10º", "fecha": "21 ago 10:06", "n": 58, "score": 81, "c": [8.9, 10, 9.1, 6.4, 0], "vpip": 33, "pfr": 26, "limps": 1, "conf": "alta", "vband": {"5": [24, 24, 38, 37], "6": [40, 20, 32, 10], "4": [55, 30, 45, 11]}, "cat": "mtt", "c6": null, "pagos": null, "antes": 78}, {"cod": "P7", "tipo": "6× rápidos €1", "mesa": "3 jug.", "res": "1 de 6 ganado", "fecha": "21 ago 10:43", "n": 56, "score": 88, "c": [10.0, 10, 9.1, 5.5, 8.0], "vpip": 43, "pfr": 39, "limps": 1, "conf": "alta", "vband": {"3": [43, 38, 55, 56]}, "cat": "sng", "c6": null, "pagos": null, "antes": 88}, {"cod": "P8", "tipo": "Cash 1-2c", "mesa": "6 jug.", "res": "mesa de dinero", "fecha": "21 ago 11:45", "n": 28, "score": 73, "c": [8.4, 10, 6.4, 1.7, 10], "vpip": 36, "pfr": 29, "limps": 2, "conf": "alta", "vband": {"6": [39, 20, 32, 18], "5": [25, 24, 38, 8], "4": [50, 30, 45, 2]}, "cat": "cash", "c6": null, "pagos": null, "antes": 73}, {"cod": "P9", "tipo": "Cash 1-2c", "mesa": "6 jug.", "res": "67 manos", "fecha": "21 ago 11:52", "n": 67, "score": 78, "c": [9.2, 9.9, 5.5, 7.2, 10], "vpip": 34, "pfr": 24, "limps": 6, "conf": "alta", "vband": {"6": [34, 20, 32, 64], "5": [33, 24, 38, 3]}, "cat": "cash", "c6": 5.7, "pagos": "8/14", "antes": 85}, {"cod": "P10", "tipo": "Cash 1-2c", "mesa": "6 jug.", "res": "4 manos", "fecha": "21 ago 17:46", "n": 4, "score": 70, "c": [4.0, 10, 10.0, 5.0, 10], "vpip": 50, "pfr": 50, "limps": 0, "conf": "nula", "vband": {"6": [50, 20, 32, 4]}, "cat": "cash", "c6": null, "pagos": "1/1", "antes": 72}, {"cod": "P11", "tipo": "Torneo", "mesa": "4 jug.", "res": "3º de 4", "fecha": "21 ago 18:20", "n": 8, "score": 76, "c": [4.2, 10, 10.0, null, 10], "vpip": 12, "pfr": 12, "limps": 0, "conf": "nula", "vband": {"4": [12, 30, 45, 8]}, "cat": "sng", "c6": null, "pagos": "0/0", "antes": 78}, {"cod": "P12", "tipo": "Torneo", "mesa": "4→2 jug.", "res": "2º de 4", "fecha": "21 ago 18:26", "n": 29, "score": 53, "c": [1.7, 8.2, 6.6, null, 8.6], "vpip": 24, "pfr": 14, "limps": 2, "conf": "alta", "vband": {"4": [0, 30, 45, 7], "2": [32, 55, 80, 22]}, "cat": "sng", "c6": null, "pagos": "0/0", "antes": 55}, {"cod": "P13", "tipo": "Torneo €0,50", "mesa": "3 jug.", "res": "2º · +0,21 €", "fecha": "21 ago 18:37", "n": 28, "score": 76, "c": [7.4, 10, 8.2, 3.8, 10.0], "vpip": 39, "pfr": 29, "limps": 1, "conf": "alta", "vband": {"6": [0, 20, 32, 1], "5": [0, 24, 38, 3], "4": [0, 30, 45, 2], "3": [50, 38, 55, 8], "2": [50, 55, 80, 14]}, "cat": "sng", "c6": 7.5, "pagos": "3/4", "antes": 77}, {"cod": "P14", "tipo": "Torneo €0,50", "mesa": "4 jug.", "res": "4º · −0,39 €", "fecha": "21 ago 18:49", "n": 14, "score": 77, "c": [8.1, 8.2, 6.4, 10.0, 0], "vpip": 50, "pfr": 29, "limps": 1, "conf": "baja", "vband": {"6": [100, 20, 32, 1], "5": [33, 24, 38, 3], "4": [50, 30, 45, 10]}, "cat": "sng", "c6": null, "pagos": "2/2", "antes": 74}, {"cod": "P15", "tipo": "Torneo €1", "mesa": "multimesa", "res": "18º · −1,00 €", "fecha": "22 ago 10:39", "n": 37, "score": 70, "c": [7.5, 5.1, 5.9, 10.0, 5.0], "vpip": 38, "pfr": 14, "limps": 3, "conf": "alta", "vband": {"7": [37, 20, 30, 19], "6": [31, 20, 32, 13], "8": [60, 18, 28, 5]}, "cat": "mtt", "c6": 7.1, "pagos": "5/7", "antes": 69}, {"cod": "P16", "tipo": "Torneo €5 bounty", "mesa": "multimesa", "res": "47º · +8,51 €", "fecha": "22 ago 13:08", "n": 121, "score": 69, "c": [7.8, 6.6, 5.5, 5.2, 8.6], "vpip": 34, "pfr": 16, "limps": 11, "conf": "alta", "vband": {"8": [36, 18, 28, 59], "7": [34, 20, 30, 58], "6": [0, 20, 32, 4]}, "cat": "mtt", "c6": 7.3, "pagos": "24/33", "antes": 67}, {"cod": "P17", "tipo": "Torneo €0,50 bounty", "mesa": "multimesa", "res": "eliminado · −0,50 €", "fecha": "22 ago 15:30", "n": 42, "score": 80, "c": [7.2, 10, 5.2, 6.7, 10], "vpip": 45, "pfr": 33, "limps": 4, "conf": "alta", "vband": {"4": [33, 30, 45, 3], "5": [46, 24, 38, 26], "6": [42, 20, 32, 12], "3": [100, 38, 55, 1]}, "cat": "mtt", "c6": 8.8, "pagos": "7/8", "antes": 78}, {"cod": "P18", "tipo": "Torneo €0,50 bounty", "mesa": "multimesa", "res": "9.º · €1,27 en recompensas", "fecha": "22 ago 19:38", "n": 108, "score": 80, "c": [10.0, 10, 8.1, 5.2, 10], "vpip": 35, "pfr": 30, "limps": 4, "conf": "alta", "vband": {"6": [32, 20, 32, 50], "5": [36, 24, 38, 47], "4": [45, 30, 45, 11]}, "cat": "mtt", "c6": 5.7, "pagos": "12/21", "antes": 88}, {"cod": "P19", "tipo": "Cash Zoom €0,05/€0,10", "mesa": "6 jug.", "res": "−19,64 € en 196 manos · perdió la entrada dos veces", "fecha": "23 ago 00:24", "n": 196, "score": 66, "c": [7.2, 7.1, 3.6, 3.9, 10], "vpip": 40, "pfr": 20, "limps": 25, "conf": "alta", "vband": {"6": [40, 20, 32, 196]}, "cat": "cash", "c6": 7.6, "pagos": "29/38", "antes": 62}, {"cod": "P20", "tipo": "Cash Zoom €0,10/€0,25", "mesa": "6 jug.", "res": "+4,59 € en 15 manos", "fecha": "22 ago 20:46", "n": 15, "score": 79, "c": [5.1, 10, 6.7, 10.0, 10], "vpip": 47, "pfr": 33, "limps": 1, "conf": "baja", "vband": {"6": [47, 20, 32, 15]}, "cat": "cash", "c6": null, "pagos": "1/1", "antes": 80}, {"cod": "P21", "tipo": "Cash Zoom €0,10/€0,25", "mesa": "6 jug.", "res": "−12,00 € en 19 manos · pila perdida", "fecha": "22 ago 22:14", "n": 19, "score": 89, "c": [10.0, 5.7, 7.4, 10.0, 10], "vpip": 26, "pfr": 11, "limps": 1, "conf": "alta", "vband": {"6": [26, 20, 32, 19]}, "cat": "cash", "c6": 10.0, "pagos": "4/4", "antes": 85}, {"cod": "P22", "tipo": "Torneo €2", "mesa": "multimesa", "res": "eliminado · 14 manos", "fecha": "22 ago 23:13", "n": 14, "score": 71, "c": [9.0, 9.5, 6.4, 0.0, 8.0], "vpip": 21, "pfr": 14, "limps": 1, "conf": "baja", "vband": {"6": [14, 20, 32, 7], "5": [29, 24, 38, 7]}, "cat": "mtt", "c6": 7.5, "pagos": "3/4", "antes": 69}, {"cod": "P23", "tipo": "Torneo €0,50", "mesa": "multimesa", "res": "31.º de 72 · −0,50 €", "fecha": "23 ago 11:03", "n": 10, "score": 82, "c": [8.8, 7.1, 5.0, 10.0, 10], "vpip": 20, "pfr": 10, "limps": 1, "conf": "baja", "vband": {"6": [0, 20, 32, 1], "5": [22, 24, 38, 9]}, "cat": "mtt", "c6": null, "pagos": "—", "antes": null}, {"cod": "P24", "tipo": "Cash €0,02/€0,05", "mesa": "6 jug.", "res": "−0,33 € en 37 manos", "fecha": "23 ago 12:59", "n": 37, "score": 52, "c": [6.9, 6.2, 0.5, 2.2, 10], "vpip": 43, "pfr": 19, "limps": 7, "conf": "media", "vband": {"5": [58, 24, 38, 12], "6": [36, 20, 32, 25]}, "cat": "cash", "c6": 10.0, "pagos": "4/4", "antes": null}, {"cod": "P25", "tipo": "Cash €0,02/€0,05", "mesa": "6 jug.", "res": "−0,67 € en 14 manos", "fecha": "23 ago 15:33", "n": 14, "score": 56, "c": [8.3, 0.0, 6.4, null, 10], "vpip": 21, "pfr": 0, "limps": 1, "conf": "baja", "vband": {"6": [27, 20, 32, 11], "5": [0, 24, 38, 3]}, "cat": "cash", "c6": 8.3, "pagos": "5/6", "antes": null}, {"cod": "P26", "tipo": "Cash €0,02/€0,05", "mesa": "6 jug.", "res": "−1,30 € en 11 manos", "fecha": "23 ago 16:50", "n": 11, "score": 44, "c": [2.5, 4.8, 0.9, 6.7, 10], "vpip": 55, "pfr": 18, "limps": 2, "conf": "baja", "vband": {"6": [55, 20, 32, 11]}, "cat": "cash", "c6": 8.3, "pagos": "5/6", "antes": null}], "bets": [{"s": "1", "pct": 12, "bet": 20, "pot": 170, "calle": "flop"}, {"s": "1", "pct": 50, "bet": 106, "pot": 210, "calle": "turn"}, {"s": "1", "pct": 36, "bet": 40, "pot": 112, "calle": "flop"}, {"s": "1", "pct": 12, "bet": 20, "pot": 172, "calle": "river"}, {"s": "1", "pct": 12, "bet": 30, "pot": 255, "calle": "flop"}, {"s": "1", "pct": 59, "bet": 360, "pot": 615, "calle": "river"}, {"s": "1", "pct": 50, "bet": 87, "pot": 174, "calle": "turn"}, {"s": "1", "pct": 30, "bet": 100, "pot": 330, "calle": "flop"}, {"s": "1", "pct": 30, "bet": 100, "pot": 330, "calle": "flop"}, {"s": "1", "pct": 36, "bet": 120, "pot": 336, "calle": "turn"}, {"s": "1", "pct": 24, "bet": 150, "pot": 615, "calle": "flop"}, {"s": "1", "pct": 16, "bet": 150, "pot": 915, "calle": "turn"}, {"s": "1", "pct": 38, "bet": 360, "pot": 936, "calle": "river"}, {"s": "1", "pct": 45, "bet": 210, "pot": 462, "calle": "flop"}, {"s": "1", "pct": 45, "bet": 210, "pot": 462, "calle": "flop"}, {"s": "1", "pct": 45, "bet": 210, "pot": 462, "calle": "flop"}, {"s": "1", "pct": 50, "bet": 441, "pot": 882, "calle": "turn"}, {"s": "1", "pct": 45, "bet": 250, "pot": 550, "calle": "turn"}, {"s": "2", "pct": 50, "bet": 20, "pot": 40, "calle": "flop"}, {"s": "2", "pct": 50, "bet": 40, "pot": 80, "calle": "turn"}, {"s": "2", "pct": 50, "bet": 80, "pot": 160, "calle": "river"}, {"s": "2", "pct": 25, "bet": 30, "pot": 120, "calle": "flop"}, {"s": "2", "pct": 22, "bet": 60, "pot": 270, "calle": "flop"}, {"s": "2", "pct": 33, "bet": 60, "pot": 180, "calle": "flop"}, {"s": "2", "pct": 20, "bet": 60, "pot": 300, "calle": "turn"}, {"s": "3", "pct": 50, "bet": 125, "pot": 250, "calle": "flop"}, {"s": "5", "pct": 50, "bet": 83, "pot": 165, "calle": "flop"}, {"s": "P6", "pct": 51, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 40, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 52, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 52, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 40, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 40, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 27, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 18, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 13, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P6", "pct": 18, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 100, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 120, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 100, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 256, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 42, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 100, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 100, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 100, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 11, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 5, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 100, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P7", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P8", "pct": 162, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P8", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P8", "pct": 240, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P8", "pct": 83, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P8", "pct": 125, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P8", "pct": 160, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 92, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 65, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 48, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 46, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 48, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 142, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 88, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 47, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 48, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 47, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 160, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 44, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 44, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 95, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 45, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 95, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 93, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P9", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P10", "pct": 47, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P10", "pct": 37, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 50, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 134, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 51, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 101, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 101, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 340, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 51, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P13", "pct": 182, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P14", "pct": 51, "bet": 0, "pot": 0, "calle": "post"}, {"s": "P14", "pct": 68, "bet": 0, "pot": 0, "calle": "post"}, {"bet": 1480.0, "pot": 2960.0, "pct": 50, "calle": "river"}, {"bet": 1400.0, "pot": 5270.0, "pct": 27, "calle": "river"}, {"bet": 33200.0, "pot": 26600.0, "pct": 125, "calle": "flop"}, {"bet": 9600.0, "pot": 31400.0, "pct": 31, "calle": "flop"}, {"bet": 2550.0, "pot": 5000.0, "pct": 51, "calle": "flop"}, {"bet": 1000.0, "pot": 5375.0, "pct": 19, "calle": "river"}, {"bet": 4800.0, "pot": 15150.0, "pct": 32, "calle": "flop"}, {"bet": 13725.0, "pot": 27150.0, "pct": 51, "calle": "turn"}, {"bet": 27450.0, "pot": 54600.0, "pct": 50, "calle": "river"}, {"bet": 2000.0, "pot": 8750.0, "pct": 23, "calle": "flop"}, {"bet": 11375.0, "pot": 22750.0, "pct": 50, "calle": "turn"}, {"bet": 8800.0, "pot": 17275.0, "pct": 51, "calle": "flop"}, {"bet": 7500.0, "pot": 24125.0, "pct": 31, "calle": "turn"}, {"bet": 14625.0, "pot": 14625.0, "pct": 100, "calle": "turn"}, {"bet": 3000.0, "pot": 13125.0, "pct": 23, "calle": "turn"}, {"bet": 9563.0, "pot": 19125.0, "pct": 50, "calle": "river"}, {"bet": 9450.0, "pot": 18450.0, "pct": 51, "calle": "flop"}, {"bet": 18900.0, "pot": 37350.0, "pct": 51, "calle": "turn"}, {"bet": 44276.0, "pot": 71875.0, "pct": 62, "calle": "flop"}, {"bet": 97637.0, "pot": 43500.0, "pct": 224, "calle": "flop"}, {"bet": 19375.0, "pot": 38750.0, "pct": 50, "calle": "flop"}, {"bet": 29375.0, "pot": 57500.0, "pct": 51, "calle": "flop"}, {"bet": 190.0, "pot": 375.0, "pct": 51, "calle": "flop"}, {"bet": 380.0, "pot": 755.0, "pct": 50, "calle": "turn"}, {"bet": 205.0, "pot": 400.0, "pct": 51, "calle": "flop"}, {"bet": 410.0, "pot": 810.0, "pct": 51, "calle": "turn"}, {"bet": 80.0, "pot": 220.0, "pct": 36, "calle": "turn"}, {"bet": 1019.0, "pot": 11901.0, "pct": 9, "calle": "turn"}, {"bet": 2908.0, "pot": 686.0, "pct": 424, "calle": "river"}, {"bet": 170.0, "pot": 340.0, "pct": 50, "calle": "flop"}, {"bet": 238.0, "pot": 475.0, "pct": 50, "calle": "river"}, {"bet": 375.0, "pot": 375.0, "pct": 100, "calle": "river"}, {"bet": 363.0, "pot": 710.0, "pct": 51, "calle": "turn"}, {"bet": 726.0, "pot": 1436.0, "pct": 51, "calle": "river"}, {"bet": 792.0, "pot": 1560.0, "pct": 51, "calle": "flop"}, {"bet": 1395.0, "pot": 1341.0, "pct": 104, "calle": "flop"}, {"bet": 3054.0, "pot": 4131.0, "pct": 74, "calle": "turn"}, {"bet": 4960.0, "pot": 4900.0, "pct": 101, "calle": "flop"}, {"bet": 5500.0, "pot": 5440.0, "pct": 101, "calle": "river"}, {"bet": 826.0, "pot": 1614.0, "pct": 51, "calle": "flop"}, {"bet": 3304.0, "pot": 3266.0, "pct": 101, "calle": "turn"}, {"bet": 9912.0, "pot": 9874.0, "pct": 100, "calle": "river"}, {"bet": 1100.0, "pot": 2150.0, "pct": 51, "calle": "flop"}, {"bet": 5480.0, "pot": 5400.0, "pct": 101, "calle": "flop"}, {"bet": 2940.0, "pot": 2940.0, "pct": 100, "calle": "flop"}, {"bet": 8820.0, "pot": 8820.0, "pct": 100, "calle": "turn"}, {"bet": 600.0, "pot": 6390.0, "pct": 9, "calle": "flop"}, {"bet": 4185.0, "pot": 8190.0, "pct": 51, "calle": "turn"}, {"bet": 4400.0, "pot": 6490.0, "pct": 68, "calle": "river"}, {"bet": 8400.0, "pot": 6250.0, "pct": 134, "calle": "flop"}, {"bet": 3600.0, "pot": 6900.0, "pct": 52, "calle": "flop"}, {"bet": 5320.0, "pot": 10430.0, "pct": 51, "calle": "flop"}, {"bet": 13440.0, "pot": 13230.0, "pct": 102, "calle": "flop"}, {"bet": 8734.0, "pot": 13680.0, "pct": 64, "calle": "flop"}, {"bet": 7650.0, "pot": 7650.0, "pct": 100, "calle": "flop"}, {"bet": 6750.0, "pot": 13200.0, "pct": 51, "calle": "flop"}, {"bet": 5250.0, "pot": 10200.0, "pct": 51, "calle": "flop"}, {"bet": 14500.0, "pot": 22700.0, "pct": 64, "calle": "turn"}, {"bet": 25000.0, "pot": 62200.0, "pct": 40, "calle": "turn"}, {"bet": 0.1, "pot": 0.2, "pct": 50, "calle": "turn"}, {"bet": 0.1, "pot": 0.9500000000000002, "pct": 11, "calle": "flop"}, {"bet": 0.2, "pot": 1.4500000000000002, "pct": 14, "calle": "turn"}, {"bet": 1.66, "pot": 1.7500000000000002, "pct": 95, "calle": "river"}, {"bet": 0.19, "pot": 0.4, "pct": 48, "calle": "flop"}, {"bet": 0.19, "pot": 0.4, "pct": 48, "calle": "flop"}, {"bet": 0.1, "pot": 0.65, "pct": 15, "calle": "flop"}, {"bet": 1.6, "pot": 0.8500000000000001, "pct": 188, "calle": "turn"}, {"bet": 2.0, "pot": 4.380000000000001, "pct": 46, "calle": "flop"}, {"bet": 4.24, "pot": 8.38, "pct": 51, "calle": "turn"}, {"bet": 0.71, "pot": 1.5, "pct": 47, "calle": "flop"}, {"bet": 0.64, "pot": 1.3399999999999999, "pct": 48, "calle": "flop"}, {"bet": 1.25, "pot": 2.62, "pct": 48, "calle": "turn"}, {"bet": 0.25, "pot": 0.6, "pct": 42, "calle": "turn"}, {"bet": 0.86, "pot": 0.9, "pct": 96, "calle": "flop"}, {"bet": 0.1, "pot": 0.25, "pct": 40, "calle": "flop"}, {"bet": 1.0, "pot": 0.45, "pct": 222, "calle": "river"}, {"bet": 0.36, "pot": 0.75, "pct": 48, "calle": "flop"}, {"bet": 0.14, "pot": 0.30000000000000004, "pct": 47, "calle": "flop"}, {"bet": 0.55, "pot": 0.5800000000000001, "pct": 95, "calle": "turn"}, {"bet": 0.66, "pot": 0.75, "pct": 88, "calle": "flop"}, {"bet": 0.5, "pot": 1.05, "pct": 48, "calle": "flop"}, {"bet": 1.21, "pot": 2.55, "pct": 47, "calle": "turn"}, {"bet": 0.2, "pot": 0.5, "pct": 40, "calle": "flop"}, {"bet": 0.86, "pot": 0.88, "pct": 98, "calle": "flop"}, {"bet": 0.1, "pot": 0.2, "pct": 50, "calle": "flop"}, {"bet": 0.38, "pot": 0.4, "pct": 95, "calle": "turn"}, {"bet": 1.1, "pot": 1.1600000000000001, "pct": 95, "calle": "river"}, {"bet": 0.1, "pot": 0.35, "pct": 29, "calle": "flop"}, {"bet": 1.14, "pot": 1.2000000000000002, "pct": 95, "calle": "flop"}, {"bet": 3.31, "pot": 3.48, "pct": 95, "calle": "turn"}, {"bet": 1.28, "pot": 1.35, "pct": 95, "calle": "flop"}, {"bet": 0.62, "pot": 0.65, "pct": 95, "calle": "flop"}, {"bet": 1.8, "pot": 1.8900000000000001, "pct": 95, "calle": "turn"}, {"bet": 5.22, "pot": 5.49, "pct": 95, "calle": "river"}, {"bet": 0.22, "pot": 0.45, "pct": 49, "calle": "flop"}, {"bet": 0.85, "pot": 0.89, "pct": 96, "calle": "turn"}, {"bet": 2.46, "pot": 2.59, "pct": 95, "calle": "river"}, {"bet": 0.28, "pot": 0.44000000000000006, "pct": 64, "calle": "turn"}, {"bet": 4.3, "pot": 0.8600000000000001, "pct": 500, "calle": "river"}, {"bet": 700.0, "pot": 4540.0, "pct": 15, "calle": "flop"}, {"bet": 1.36, "pot": 1.43, "pct": 95, "calle": "river"}, {"bet": 0.1, "pot": 0.6, "pct": 17, "calle": "flop"}, {"bet": 0.31, "pot": 0.65, "pct": 48, "calle": "flop"}, {"bet": 0.1, "pot": 0.45, "pct": 22, "calle": "flop"}, {"bet": 0.26, "pot": 0.55, "pct": 47, "calle": "flop"}, {"bet": 0.51, "pot": 1.07, "pct": 48, "calle": "turn"}, {"bet": 3.66, "pot": 7.68, "pct": 48, "calle": "flop"}], "res": {"nap": 210, "med": 50, "bajas": 27, "buenas": 112, "altas": 26}, "tot": {"n": 1012, "media": 71, "mejor": 89, "fiables": 914}, "crit": [["Selección de manos", 25], ["Iniciativa", 20], ["Evitar entradas pasivas", 10], ["Tamaño de apuesta", 15], ["Fichas cortas", 5], ["Pagos tras el flop", 25]], "vband": [{"t": 8, "pct": 38, "lo": 18, "hi": 28, "n": 64, "e": "de más"}, {"t": 7, "pct": 35, "lo": 20, "hi": 30, "n": 77, "e": "de más"}, {"t": 6, "pct": 37, "lo": 20, "hi": 32, "n": 397, "e": "de más"}, {"t": 5, "pct": 33, "lo": 24, "hi": 38, "n": 125, "e": "ok"}, {"t": 4, "pct": 34, "lo": 30, "hi": 45, "n": 62, "e": "ok"}, {"t": 3, "pct": 41, "lo": 38, "hi": 55, "n": 94, "e": "ok"}, {"t": 2, "pct": 38, "lo": 55, "hi": 80, "n": 58, "e": "corto"}], "defi": [{"nm": "Pagos tras el flop", "w": 25, "m": 7.5, "d": 6.2}, {"nm": "Tamaño de apuesta", "w": 15, "m": 6.0, "d": 6.0}, {"nm": "Selección de manos", "w": 25, "m": 7.8, "d": 5.4}, {"nm": "Evitar entradas pasivas", "w": 10, "m": 6.2, "d": 3.8}, {"nm": "Iniciativa", "w": 20, "m": 8.4, "d": 3.2}, {"nm": "Fichas cortas", "w": 5, "m": 8.3, "d": 0.8}], "cats": [{"k": "sng", "nm": "Sit & Go", "p": 10, "n": 231, "media": 70, "fiables": 6}, {"k": "mtt", "nm": "Torneos multimesa", "p": 7, "n": 390, "media": 76, "fiables": 5}, {"k": "cash", "nm": "Cash", "p": 9, "n": 391, "media": 68, "fiables": 5}], "excl": [{"id": "4022758604", "tipo": "Torneo €3", "n": 41, "fecha": "22 ago 20:17", "motivo": "Jugado con prisa y a la vez que otras cosas, con la intención de acabar cuanto antes. Diego pidió no contabilizarlo porque no representa su juego. No lo he puntuado."}], "pagos": {"ok": 125, "n": 177, "pct": 71}, "calles": [{"c": "flop", "ok": 58, "n": 76}, {"c": "turn", "ok": 48, "n": 69}, {"c": "river", "ok": 19, "n": 32}]};
+window.__mgPinta=function(){
+var M=(window.__mgDatos && window.__mgDatos()) || M_DEMO;
+window.__mgDemo = !(window.__mgDatos && window.__mgDatos());
 var TIPS={"Selección de manos":'<b>Selección de manos.</b> Con cuántas manos decides jugar, comparado con el margen razonable para ese número de jugadores. Jugar de más pierde fichas; jugar de menos las pierde en ciegas.',"Iniciativa":'<b>Iniciativa.</b> De las manos que juegas, cuántas <b>subes</b> en vez de limitarte a pagar. Subir gana de dos formas: por tener la mejor mano y porque el rival se retire.',"Evitar entradas pasivas":'<b>Entradas pasivas.</b> Veces que entras al bote pagando lo mínimo sin subir, cuando nadie ha subido antes. Es débil: no puedes ganar el bote ahí mismo y dejas que los demás vean cartas baratas.',"Tamaño de apuesta":'<b>Tamaño de apuesta.</b> Qué parte de tus apuestas cae entre el 40 y el 75 % del bote. Apostar poco anuncia debilidad y da precio de regalo al rival para seguir.',"Fichas cortas":'<b>Fichas cortas.</b> Con menos de 6 ciegas grandes no hay término medio: o vas con todo o te retiras. Una subida a medias te compromete igual y le regala al rival la opción de atacarte barato.',"Pagos tras el flop":'<b>Pagos tras el flop.</b> Cada vez que te apuestan después del flop, comparo el porcentaje que pedía el bote con el que tenías de verdad. Pagar por debajo de ese precio es la forma más silenciosa de perder fichas: no duele en la mano suelta, duele en el mes.'};
 var TODAS=M.s, T=M.tot, S=TODAS, FIL="all";
 var CATC={mtt:"#ff5ecb",sng:"#c68cff",cash:"#45d38a"};
@@ -1360,6 +1388,18 @@ lista("mgBad",[
 
 /* ---------- 4b. pagos despues del flop ---------- */
 (function(){
+  /* Este criterio necesita simular tu equidad contra un rango, y eso hoy solo lo
+     calculo yo fuera del navegador. Con un historial cargado por ti, se dice. */
+  if(!M.calles || !M.calles.length){
+    document.getElementById("mgPagN").textContent="—";
+    document.getElementById("mgPagP").textContent="—";
+    document.getElementById("mgCalles").innerHTML="";
+    document.getElementById("mgPagTxt").innerHTML=
+      'Con un historial cargado por ti <b>este criterio no se calcula</b>. Necesita simular tu equidad '+
+      'contra el rango del rival mano a mano, y eso todavía lo hago fuera de la app. '+
+      'Las notas de tus partidas cargadas salen por eso de <b>5 criterios</b>, no de 6, y llevan un asterisco en la tabla.';
+    return;
+  }
   document.getElementById("mgPagN").textContent=M.pagos.n;
   document.getElementById("mgPagP").textContent=M.pagos.pct+"%";
   document.getElementById("mgCalles").innerHTML=M.calles.map(function(c){
@@ -1407,7 +1447,7 @@ S.forEach(function(o){
   t+='<tr><td><b>'+o.cod+'</b> <span class="mgb" style="--c:'+CATC[o.cat]+'">'+CATN[o.cat]+'</span>'+
      '<span class="sub">'+o.tipo+' · '+o.mesa+' · '+o.res+'<br>'+o.fecha+'</span></td>'+
      '<td class="num">'+o.n+'</td>'+
-     '<td class="num '+(o.conf!=="alta"?"":(o.score>=70?"g":o.score>=50?"y":"rd"))+'"><b>'+o.score+'</b>'+
+     '<td class="num '+(o.conf!=="alta"?"":(o.score>=70?"g":o.score>=50?"y":"rd"))+'"><b>'+o.score+(o.parcial?'<span data-tip="Nota sobre 5 criterios: el sexto (pagos después del flop) no se calcula para historiales cargados en el navegador.">*</span>':'')+'</b>'+
        (o.conf!=="alta"?'<span class="sub">sin valor</span>':'')+'</td>'+
      '<td class="num">'+o.vpip+'%</td><td class="num">'+o.pfr+'%</td><td class="num">'+o.limps+'</td>'+
      '<td class="num" style="color:var(--dim2)">'+(o.antes!=null?o.antes:'—')+'</td>'+
@@ -1445,7 +1485,8 @@ document.getElementById("mgRub").innerHTML=
     M.excl.map(function(x){return x.tipo+' del '+x.fecha+' ('+x.n+' manos, torneo #'+x.id+') — '+x.motivo;}).join(" ")+
     ' Lo dejo escrito aquí a propósito: quitar partidas del recuento sin decirlo falsearía la media.</p>':'')+
   '<p class="sub"><b>Sobre el tipo de partida:</b> lo deduzco del archivo, no del nombre. Si hay más de una mesa, o alguien acaba en un puesto mayor que el número de asientos, es <b>multimesa</b>; si solo hay una mesa y nadie acaba más allá de ella, es <b>sit &amp; go</b>; si las ciegas vienen en euros y la mesa tiene nombre propio, es <b>cash</b>.</p>';
-})();
+};
+window.__mgPinta();
 </script>
 <script>
 (function(){
@@ -3397,8 +3438,14 @@ function slug(t){
   return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
           .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 }
+// La direccion de cada pestana va en data-slug y NO se deriva del nombre visible:
+// asi se puede renombrar una pestana sin romper los enlaces ya repartidos.
+// #asesor y #mi-mano siguen siendo validos aunque ahora se lean "Antes del flop"
+// y "Con la mesa".
 var porSlug={}, porId={};
-btns.forEach(function(b){ var sg=slug(b.textContent); porSlug[sg]=b; porId[b.dataset.t]=sg; });
+btns.forEach(function(b){ var sg=b.dataset.slug||slug(b.textContent); porSlug[sg]=b; porId[b.dataset.t]=sg; });
+// direcciones viejas que ya no tienen pestana propia
+var ALIAS={"pila-corta":{a:"mi-mano",modo:"corto"}};
 var aplicando=false;
 function activa(b, scroll){
   if(!b) return;
@@ -3413,6 +3460,11 @@ function desdeHash(scroll){
   var h=(location.hash||'').replace(/^#/,'');
   if(!h) return false;
   var b=porSlug[h];
+  if(!b && ALIAS[h]){
+    var al=ALIAS[h];
+    b=porSlug[al.a];
+    if(b && al.modo==="corto" && window.__modoCorto) setTimeout(window.__modoCorto,0);
+  }
   if(b){ activa(b, scroll); return true; }
   // Tambien valen los enlaces a un sitio concreto dentro de una pestana
   // (#pot-odds, #chen...): se abre la pestana que lo contiene y se baja hasta el.
@@ -3481,6 +3533,320 @@ normaliza(false);
     if(!on && document.querySelector('nav button[data-t="s8"]').classList.contains("on"))
       document.querySelector("nav button").click();
   };
+})();
+</script>
+<script>
+(function(){
+  var sec=document.getElementById("s4"), bt=document.getElementById("fkCortoBtn");
+  if(!sec||!bt) return;
+  function pon(on){
+    sec.classList.toggle("corto", on);
+    bt.classList.toggle("on", on);
+    bt.textContent = on ? "\u2190 Volver al an\u00e1lisis normal" : "\u26a1 Estoy en pila corta (15 ciegas o menos)";
+  }
+  bt.onclick=function(){ pon(!sec.classList.contains("corto")); };
+  // lo usa la navegacion cuando alguien llega con el enlace viejo #pila-corta
+  window.__modoCorto=function(){ pon(true); };
+})();
+</script>
+<script>
+(function(){
+/* ============================================================================
+   Lector de historiales de PokerStars, en el propio navegador.
+   Reproduce la misma rúbrica que usé en Python para las partidas de ejemplo,
+   con una diferencia declarada: NO calcula el criterio 6 (pagos después del
+   flop), que necesita simular la equidad contra un rango. Las partidas que
+   cargues llevan por eso una nota sobre 5 criterios, no 6, y van marcadas.
+   ========================================================================= */
+var DB=null, LLAVE="pt.historial";
+var BAND={9:[18,28],8:[18,28],7:[20,30],6:[20,32],5:[24,38],4:[30,45],3:[38,55],2:[55,80]};
+
+/* ---------- almacenamiento ---------- */
+function abre(){
+  return new Promise(function(res,rej){
+    if(DB) return res(DB);
+    if(!window.indexedDB) return rej(new Error("Este navegador no tiene IndexedDB"));
+    var r=indexedDB.open("pokertutor",1);
+    r.onupgradeneeded=function(e){
+      var d=e.target.result;
+      if(!d.objectStoreNames.contains("sesiones")) d.createObjectStore("sesiones",{keyPath:"hash"});
+    };
+    r.onsuccess=function(){ DB=r.result; res(DB); };
+    r.onerror=function(){ rej(r.error); };
+  });
+}
+function tx(modo){ return abre().then(function(d){ return d.transaction("sesiones",modo).objectStore("sesiones"); }); }
+function guardaSesion(o){
+  return tx("readwrite").then(function(st){ return new Promise(function(res,rej){
+    var r=st.put(o); r.onsuccess=function(){res()}; r.onerror=function(){rej(r.error)}; }); });
+}
+function todas(){
+  return tx("readonly").then(function(st){ return new Promise(function(res,rej){
+    var r=st.getAll(); r.onsuccess=function(){res(r.result||[])}; r.onerror=function(){rej(r.error)}; }); });
+}
+function borraTodo(){
+  return tx("readwrite").then(function(st){ return new Promise(function(res,rej){
+    var r=st.clear(); r.onsuccess=function(){res()}; r.onerror=function(){rej(r.error)}; }); });
+}
+function hash(t){                     /* para no procesar dos veces el mismo archivo */
+  var h=5381;
+  for(var i=0;i<t.length;i++){ h=((h<<5)+h+t.charCodeAt(i))|0; }
+  return (h>>>0).toString(36)+"-"+t.length;
+}
+
+/* ---------- lectura de una mano ---------- */
+function num(x){ return parseFloat(String(x).replace(/[€$£]/g,"").replace(/,/g,"")); }
+/* los alias pueden llevar puntos, arrobas o parentesis: hay que escaparlos */
+function esc(t){ return String(t).replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
+function posNombre(off,n){
+  if(n===2) return off===0?"SB":"BB";
+  if(off===0) return "BTN"; if(off===1) return "SB"; if(off===2) return "BB";
+  var seq=["UTG","UTG1","MP","HJ","CO"].slice(-(n-3));
+  return seq[off-3]||"?";
+}
+function heroDe(txt){
+  var m=txt.match(/Dealt to ([^\[]+) \[/);
+  return m?m[1].trim():null;
+}
+function bbDe(b){
+  var m=b.match(/Level [IVXLC]+ \((\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)/);
+  if(m) return num(m[2]);
+  m=b.match(/\((?:[€$£])?([\d.]+)\/(?:[€$£])?([\d.]+)/);
+  return m?num(m[2]):null;
+}
+
+function analiza(txt, HERO){
+  var manos=txt.split(/\n\s*\n\s*\n+/).filter(function(b){
+    return b.trim().indexOf("PokerStars")===0 && b.indexOf(HERO)>=0; });
+  if(!manos.length) return null;
+  var D=[], bets=[], mesas={}, torneo=null, seats=0, puestos=[];
+  manos.forEach(function(b){
+    var bb=bbDe(b), asientos=[], l, i;
+    var lineas=b.split("\n");
+    for(i=0;i<lineas.length;i++){
+      l=lineas[i].replace(/\s+$/,"");
+      var sm=l.match(/^Seat (\d+): (.+?) \((?:[€$£])?([\d.]+) in chips/);
+      if(sm) asientos.push([+sm[1],sm[2],num(sm[3])]);
+      else if(l.indexOf("*** HOLE")===0) break;
+    }
+    if(!asientos.some(function(a){return a[1]===HERO;})) return;
+    var btnM=b.match(/Seat #(\d+) is the button/); if(!btnM) return;
+    var btn=+btnM[1], orden=asientos.map(function(a){return a[0];}), n=orden.length;
+    var bi=orden.indexOf(btn); if(bi<0) return;
+    var nom={}; asientos.forEach(function(a){ nom[a[0]]=a[1]; });
+    var posmap={}; for(i=0;i<n;i++) posmap[nom[orden[(bi+i)%n]]]=posNombre(i,n);
+    var st=0; asientos.forEach(function(a){ if(a[1]===HERO) st=a[2]; });
+    var forz = new RegExp(esc(HERO)+": posts the ante [\\d.]+ and is all-in").test(b);
+    if(bb && st<bb) forz=true;
+
+    var tm=b.match(/Table '([^']+)' (\d+)-max/);
+    if(tm){ mesas[tm[1]]=1; seats=Math.max(seats,+tm[2]); }
+    var tt=b.match(/Tournament #(\d+)/); if(tt) torneo=tt[1];
+    var fin=b.match(/finished the tournament in (\d+)/); if(fin) puestos.push(+fin[1]);
+
+    var pre=b.split("*** HOLE CARDS ***").pop().split("*** FLOP")[0];
+    var acts=pre.split("\n").filter(function(x){ return x.indexOf(": ")>=0 && x.indexOf("Dealt")!==0; });
+    var hp="fold", visto=false;
+    for(i=0;i<acts.length;i++){
+      var quien=acts[i].split(":")[0].trim(), a=acts[i].split(": ").slice(1).join(": ");
+      if(quien===HERO){
+        if(a.indexOf("raises")===0) hp = visto?"3bet":"raise";
+        else if(a.indexOf("calls")===0) hp="call";
+        else if(a.indexOf("checks")===0) hp="check";
+        else hp="fold";
+        break;
+      }
+      if(a.indexOf("raises")===0) visto=true;
+    }
+    D.push({n:n,pos:posmap[HERO],pre:hp,faced:visto,bb:bb,st:st,forz:forz});
+
+    /* tamaños de apuesta después del flop */
+    var pot=0, calle="pre", contrib={};
+    lineas.forEach(function(L){
+      L=L.trim();
+      if(L.indexOf("*** FLOP")===0){ calle="flop"; pot+=suma(contrib); contrib={}; return; }
+      if(L.indexOf("*** TURN")===0){ calle="turn"; pot+=suma(contrib); contrib={}; return; }
+      if(L.indexOf("*** RIVER")===0){ calle="river"; pot+=suma(contrib); contrib={}; return; }
+      if(L.indexOf("*** SHOW")===0||L.indexOf("*** SUMMARY")===0){ calle="fin"; return; }
+      if(calle==="fin" || L.indexOf(": ")<0) return;
+      var q=L.split(": ")[0], act=L.split(": ").slice(1).join(": "), m;
+      if((m=act.match(/^posts (?:the ante|small blind|big blind|small & big blinds) (?:[€$£])?([\d.]+)/))){
+        contrib[q]=(contrib[q]||0)+num(m[1]); return; }
+      if((m=act.match(/^bets (?:[€$£])?([\d.]+)/))){
+        var amt=num(m[1]), pn=pot+suma(contrib);
+        if(q===HERO && calle!=="pre" && pn>0) bets.push({pct:Math.round(amt/pn*100)});
+        contrib[q]=(contrib[q]||0)+amt; return; }
+      if((m=act.match(/^raises (?:[€$£])?[\d.]+ to (?:[€$£])?([\d.]+)/))){
+        var tot=num(m[1]), add=tot-(contrib[q]||0), pn2=pot+suma(contrib);
+        if(q===HERO && calle!=="pre" && pn2>0) bets.push({pct:Math.round(add/pn2*100)});
+        contrib[q]=tot; return; }
+      if((m=act.match(/^calls (?:[€$£])?([\d.]+)/))) contrib[q]=(contrib[q]||0)+num(m[1]);
+    });
+  });
+  function suma(o){ var t=0; for(var k in o) t+=o[k]; return t; }
+
+  var G=D.filter(function(h){return !h.forz;}), n=G.length;
+  if(!n) return null;
+  var v=G.filter(function(h){return h.pre==="call"||h.pre==="raise"||h.pre==="3bet";});
+  var r=G.filter(function(h){return h.pre==="raise"||h.pre==="3bet";});
+  var lp=G.filter(function(h){return h.pre==="call" && !h.faced && h.pos!=="BB";});
+  var byn={}; G.forEach(function(h){ (byn[h.n]=byn[h.n]||[]).push(h); });
+  var num_=0, den=0, vband={};
+  Object.keys(byn).forEach(function(tn){
+    var g=byn[tn], pct=g.filter(function(h){return h.pre==="call"||h.pre==="raise"||h.pre==="3bet";}).length/g.length*100;
+    var B=BAND[tn]||[20,32], dist=(pct>=B[0]&&pct<=B[1])?0:Math.min(Math.abs(pct-B[0]),Math.abs(pct-B[1]));
+    num_+=g.length*Math.max(0,10-dist/3); den+=g.length;
+    vband[tn]=[Math.round(pct),B[0],B[1],g.length];
+  });
+  var s1=num_/den;
+  var s2=Math.min(10,(v.length?r.length/v.length:0)/0.70*10);
+  var s3=Math.max(0,10-(lp.length/n*100)/2);
+  var s4=bets.length ? bets.filter(function(x){return x.pct>=40&&x.pct<=75;}).length/bets.length*10 : null;
+  var cortas=G.filter(function(h){return h.bb && h.st/h.bb<6;}).length;
+  var mal=0;
+  manos.forEach(function(b){
+    var bb=bbDe(b), m=b.match(new RegExp("Seat \\d+: "+esc(HERO)+" \\((?:[€$£])?([\\d.]+) in chips"));
+    if(!m||!bb) return;
+    var st=num(m[1]); if(st/bb>=6) return;
+    var pre=b.split("*** HOLE CARDS ***").pop().split("*** FLOP")[0];
+    var rr=pre.match(new RegExp("^"+esc(HERO)+": raises (?:[€$£])?[\\d.]+ to (?:[€$£])?([\\d.]+)","m"));
+    if(rr && num(rr[1])<st) mal++;
+  });
+  var s5 = cortas===0 ? 10 : Math.max(0,10-mal/cortas*10);
+
+  var W=[[s1,25],[s2,20],[s3,10],[s4,15],[s5,5]].filter(function(x){return x[0]!==null;});
+  var score=Math.round(W.reduce(function(a,x){return a+x[0]*x[1];},0)/W.reduce(function(a,x){return a+x[1];},0)*10);
+
+  var nMesas=Object.keys(mesas).length;
+  /* Un torneo es multimesa si has estado en varias mesas, si el nombre de la mesa
+     lleva un numero mayor que 1 (PokerStars las numera: "4026058782 4"), o si
+     alguien acabo en un puesto mayor que el aforo de una mesa. */
+  var maxNum=1;
+  Object.keys(mesas).forEach(function(t){
+    var mm=t.match(/\s(\d+)$/); if(mm) maxNum=Math.max(maxNum,+mm[1]); });
+  var cat = !torneo ? "cash"
+          : ((nMesas>1 || maxNum>1 || Math.max.apply(null,puestos.concat([0]))>seats) ? "mtt" : "sng");
+  var f=manos[0].match(/- (\d{4})\/(\d\d)\/(\d\d) (\d\d:\d\d)/);
+  var MES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+  var fecha = f ? (+f[3])+" "+MES[+f[2]-1]+" "+f[4] : "sin fecha";
+  var ciegas = (manos[0].match(/\((?:[€$£])?[\d.]+\/(?:[€$£])?[\d.]+[^)]*\)/)||[""])[0].replace(/[()]/g,"");
+
+  return {n:n, score:score, c:[red(s1),red(s2),red(s3),s4===null?null:red(s4),red(s5)],
+          vpip:Math.round(v.length/n*100), pfr:Math.round(r.length/n*100), limps:lp.length,
+          conf:(n<19?"baja":(n<60?"media":"alta")), vband:vband, cat:cat,
+          c6:null, pagos:"—", antes:null, parcial:true,
+          betsPct:bets.map(function(x){return x.pct;}),
+          tipo:(torneo?("Torneo #"+torneo):("Cash "+ciegas)),
+          mesa:(nMesas>1?(nMesas+" mesas"):(seats?seats+" jug.":"—")),
+          res:n+" manos leídas", fecha:fecha, orden:(f?f[1]+f[2]+f[3]+f[4]:"")};
+}
+function red(x){ return Math.round(x*10)/10; }
+
+/* ---------- agregado ---------- */
+function agrega(ses){
+  ses=ses.slice().sort(function(a,b){ return a.orden<b.orden?-1:1; });
+  ses.forEach(function(s,i){ s.cod="C"+(i+1); });
+  var n=ses.reduce(function(a,s){return a+s.n;},0);
+  var media=Math.round(ses.reduce(function(a,s){return a+s.score*s.n;},0)/n);
+  var fi=ses.filter(function(s){return s.conf==="alta";});
+  var NM={mtt:"Torneos multimesa",sng:"Sit & Go",cash:"Cash"}, byc={};
+  ses.forEach(function(s){ var c=byc[s.cat]=byc[s.cat]||{p:0,n:0,num:0,f:0};
+    c.p++; c.n+=s.n; c.num+=s.score*s.n; if(s.conf==="alta") c.f++; });
+  /* mismos bloques derivados que trae el ejemplo, para que la vista no se rompa */
+  var NOMC=[["Selección de manos",25],["Iniciativa",20],["Evitar entradas pasivas",10],
+            ["Tamaño de apuesta",15],["Fichas cortas",5]];
+  var defi=NOMC.map(function(c,i){
+    var vals=ses.filter(function(s){return s.c[i]!=null;});
+    var pn=vals.reduce(function(a,s){return a+s.c[i]*s.n;},0), pd=vals.reduce(function(a,s){return a+s.n;},0);
+    var m=pd?pn/pd:0;
+    return {nm:c[0], w:c[1], m:Math.round(m*10)/10, d:Math.round((10-m)*c[1]/10*10)/10};
+  }).sort(function(a,b){return b.d-a.d;});
+  var vb={};
+  ses.forEach(function(s){ Object.keys(s.vband).forEach(function(t){
+    var r=s.vband[t]; vb[t]=vb[t]||{t:+t,lo:r[1],hi:r[2],num:0,n:0};
+    vb[t].num+=r[0]*r[3]; vb[t].n+=r[3]; }); });
+  var vband=Object.keys(vb).map(function(t){ var r=vb[t], pct=Math.round(r.num/r.n);
+    return {t:r.t,pct:pct,lo:r.lo,hi:r.hi,n:r.n,e:(pct>r.hi?"de más":(pct<r.lo?"corto":"ok"))}; })
+    .sort(function(a,b){return b.t-a.t;});
+  var todosBets=[]; ses.forEach(function(s){ (s.betsPct||[]).forEach(function(x){ todosBets.push({s:s.cod,pct:x,bet:0,pot:0,calle:""}); }); });
+  var ordb=todosBets.map(function(x){return x.pct;}).sort(function(a,b){return a-b;});
+  var res={nap:todosBets.length, med:(ordb.length?ordb[Math.floor(ordb.length/2)]:0),
+           bajas:todosBets.filter(function(x){return x.pct<30;}).length,
+           buenas:todosBets.filter(function(x){return x.pct>=40&&x.pct<=75;}).length,
+           altas:todosBets.filter(function(x){return x.pct>100;}).length};
+  return {
+    defi:defi, vband:vband, bets:todosBets, res:res,
+    s:ses, tot:{n:n, media:media,
+      mejor:(fi.length?Math.max.apply(null,fi.map(function(s){return s.score;})):Math.max.apply(null,ses.map(function(s){return s.score;}))),
+      fiables:fi.reduce(function(a,s){return a+s.n;},0)},
+    cats:Object.keys(byc).map(function(k){ var c=byc[k];
+      return {k:k,nm:NM[k],p:c.p,n:c.n,media:Math.round(c.num/c.n),fiables:c.f}; }),
+    crit:[["Selección de manos",25],["Iniciativa",20],["Evitar entradas pasivas",10],
+          ["Tamaño de apuesta",15],["Fichas cortas",5],["Pagos tras el flop","no calculado"]],
+    excl:[],
+    pagos:{ok:0,n:0,pct:null}, calles:[],
+    cargado:true
+  };
+}
+
+/* ---------- interfaz ---------- */
+var CACHE=null;
+window.__mgDatos=function(){ return CACHE; };
+function estado(){
+  var txt=document.getElementById("mgCargaTxt");
+  var hay=CACHE && CACHE.s.length;
+  txt.innerHTML = hay
+    ? "Viendo <b>tu historial</b>: "+CACHE.s.length+" partidas, "+CACHE.tot.n+" manos."
+    : "Ahora mismo ves <b>datos de ejemplo</b>. Carga tus archivos de historial de PokerStars y verás los tuyos.";
+  document.getElementById("mgDemoBtn").style.display = hay?"":"none";
+  document.getElementById("mgBorrarBtn").style.display = hay?"":"none";
+}
+function repinta(){ if(window.__mgPinta) window.__mgPinta(); estado(); }
+
+document.getElementById("mgCargaBtn").onclick=function(){ document.getElementById("mgFile").click(); };
+document.getElementById("mgFile").onchange=function(e){
+  var fs=[].slice.call(e.target.files), out=document.getElementById("mgCargaOut");
+  if(!fs.length) return;
+  out.innerHTML='<p class="sub">Leyendo '+fs.length+' archivo'+(fs.length>1?"s":"")+'…</p>';
+  var lineas=[], hechos=0;
+  fs.forEach(function(f){
+    var rd=new FileReader();
+    rd.onload=function(){
+      var t=String(rd.result||""), h=hash(t), HERO=heroDe(t), r=null;
+      if(!HERO) lineas.push('<div class="sub" style="color:var(--ylw)">'+f.name+' — no encuentro la línea «Dealt to»: ¿es un historial de PokerStars?</div>');
+      else {
+        try{ r=analiza(t,HERO); }
+        catch(err){ lineas.push('<div class="sub" style="color:var(--red)">'+f.name+' — no he podido leerlo: '+err.message+'</div>'); r=null; }
+        if(!r) lineas.push('<div class="sub" style="color:var(--ylw)">'+f.name+' — sin manos tuyas con decisión</div>');
+        else {
+          r.hash=h; r.archivo=f.name;
+          guardaSesion(r);
+          lineas.push('<div class="sub"><b style="color:var(--tx)">'+f.name+'</b> — '+r.n+' manos · nota '+r.score+' <span style="color:var(--dim2)">('+r.tipo+')</span></div>');
+        }
+      }
+      if(++hechos===fs.length){
+        out.innerHTML=lineas.join("");
+        todas().then(function(ss){ CACHE = ss.length?agrega(ss):null; repinta(); })
+               .catch(function(err){ out.innerHTML+='<div class="sub" style="color:var(--red)">No he podido guardarlo: '+err.message+'</div>'; });
+      }
+    };
+    rd.onerror=function(){ lineas.push('<div class="sub" style="color:var(--red)">'+f.name+' — no se pudo leer</div>');
+      if(++hechos===fs.length) out.innerHTML=lineas.join(""); };
+    rd.readAsText(f);
+  });
+  e.target.value="";
+};
+document.getElementById("mgDemoBtn").onclick=function(){
+  CACHE=null; repinta();
+  document.getElementById("mgCargaOut").innerHTML='<p class="sub">Volviendo a los datos de ejemplo. Tus archivos siguen guardados: pulsa «Cargar mis manos» y vuelve a elegirlos, o recarga la página.</p>';
+};
+document.getElementById("mgBorrarBtn").onclick=function(){
+  borraTodo().then(function(){ CACHE=null; repinta();
+    document.getElementById("mgCargaOut").innerHTML='<p class="sub">Borrado. En este dispositivo ya no queda nada de tu historial.</p>'; });
+};
+/* al abrir: si ya hay historial guardado, se usa */
+abre().then(todas).then(function(ss){ if(ss.length){ CACHE=agrega(ss); repinta(); } else estado(); })
+      .catch(function(){ estado(); });
 })();
 </script>
 <script>
