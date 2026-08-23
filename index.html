@@ -15,7 +15,7 @@
 <style>
 :root{
   --bg:#16121e; --bg2:#221b2e; --bg3:#2b2239; --line:#3d3350;
-  --tx:#f4ecf8; --dim:#a89ab6; --dim2:#80718f;
+  --tx:#f4ecf8; --dim:#a89ab6; --dim2:#a08db2;
   --grn:#45d38a; --ylw:#e8b13c; --org:#f08a44; --red:#ff6a45; --blu:#ff5ecb; --vio:#c68cff;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -95,7 +95,7 @@ nav button{padding:6px 11px!important;font-size:12px!important}
   max-width:400px;touch-action:manipulation}
 #grid div{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:3px;
   font:700 clamp(7px,2.1vw,10px)/1 ui-monospace,Menlo,monospace;cursor:pointer;
-  background:#221b2e;color:#4a5765;border:1px solid transparent;user-select:none}
+  background:#221b2e;color:#968aa3;border:1px solid transparent;user-select:none}
 #grid div.rai{background:rgba(69,211,138,.30);color:#9ff0ab}
 #grid div.cal{background:rgba(255,94,203,.28);color:#a9d1ff}
 #grid div.sel{border-color:#fff;box-shadow:0 0 0 1px #fff}
@@ -131,6 +131,13 @@ nav button{padding:6px 11px!important;font-size:12px!important}
 
 /* ---- explicaciones al pasar el raton ---- */
 [data-tip]{border-bottom:1px dotted rgba(168,154,182,.55);cursor:help}
+/* en tactil el subrayado de puntos no dice nada: se marca con un simbolo */
+@media (hover:none),(pointer:coarse){
+  [data-tip]::after{content:" ⓘ";font-size:.85em;opacity:.75;letter-spacing:0}
+  .stat .k[data-tip]::after{content:none}
+  .stat .k[data-tip] span::after{content:" ⓘ";font-size:.85em;opacity:.75}
+  #tipbox{max-width:min(320px,92vw);font-size:13.5px;padding:11px 13px}
+}
 .stat .k[data-tip]{border-bottom:none}
 .stat .k[data-tip] span{border-bottom:1px dotted rgba(168,154,182,.55)}
 #tipbox{position:fixed;z-index:200;max-width:min(280px,88vw);background:#2b2239;color:#d7e0ea;
@@ -330,6 +337,12 @@ details.ref>summary::before{content:'\25B8';display:inline-block;margin-right:8p
 details.ref[open]>summary::before{transform:rotate(90deg)}
 details.ref>.in{padding:0 13px 12px}
 details.ref h2{display:none}
+
+/* ---- seccion personal ---- */
+html.sinPersonal nav button[data-t="s8"]{display:none}
+.swPers{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.swPers button{background:var(--bg3);color:var(--dim);border:1px solid var(--line);
+  border-radius:7px;padding:5px 10px;font:600 11.5px inherit;cursor:pointer;font-family:inherit;margin-left:8px}
 
 /* ============ piel: magenta metalico ============ */
 :root{
@@ -734,9 +747,9 @@ h2::before{content:"♠";
 <!-- ============ 9. ENTRENADOR ============ -->
 <section id="s9">
   <h2>Entrenador</h2>
-  <div class="pick" id="trMode" style="margin-bottom:9px"><button data-m="pre" class="on">Manos iniciales</button><button data-m="bet">Tamaño de apuesta</button></div>
+  <div class="pick" id="trMode" style="margin-bottom:10px"><button data-m="pre" class="on">Manos iniciales</button><button data-m="bet">Tamaño de apuesta</button></div>
   <div id="trPre">
-  <p>Te planteo una situación real y decides. Luego te digo si coincide con la chuleta y por qué.</p>
+  <p>Te planteo una situación real y decides. Luego te digo si coincide con la chuleta de rangos y por qué.</p>
 
   <div class="card">
     <div class="lbl">Qué quieres practicar</div>
@@ -744,9 +757,10 @@ h2::before{content:"♠";
       <button data-v="mix" class="on">Mezcla</button>
       <button data-v="9">Mesa de 9</button>
       <button data-v="6">Mesa de 6</button>
-      <button data-v="4">Mesa de 4</button>
-      <button data-v="3">Mesa de 3</button>
       <button data-v="2">Heads-up</button>
+    </div>
+    <div class="pick" id="tMode2">
+      <button data-v="fallos" id="tFallosBtn">Practicar mis fallos</button>
     </div>
 
     <div id="tQ" style="margin-top:12px"></div>
@@ -754,6 +768,7 @@ h2::before{content:"♠";
     <div class="pick" id="tAns" style="margin-top:11px">
       <button data-a="rai">SUBIR</button>
       <button data-a="cal">IGUALAR</button>
+      <button data-a="chk" style="display:none">PASAR</button>
       <button data-a="fld">RETIRAR</button>
     </div>
     <div id="tFb"></div>
@@ -761,18 +776,18 @@ h2::before{content:"♠";
 
   </div>
 
-  <div id="trBet" style="display:none">
-  <p>Una situación después del flop. Decide <b>cuánto apostar</b>, en proporción al bote.</p>
+<div id="trBet" style="display:none">
+  <p>Ahí va una situación después del flop. Decide <b>cuánto apostar</b>, en proporción al bote.</p>
   <div class="card">
     <div id="bQ"></div>
     <div class="lbl">Cuánto apuestas</div>
-    <div class="pick" id="bAns"><button data-v="25">25 %</button><button data-v="33">33 %</button><button data-v="50">50 %</button><button data-v="66">66 %</button><button data-v="75">75 %</button><button data-v="100">100 %</button><button data-v="150">150 %</button></div>
+    <div class="pick" id="bAns"><button data-v="25">25 %</button><button data-v="33">33 %</button><button data-v="50">50 %</button><button data-v="66">66 %</button><button data-v="75">75 %</button><button data-v="100">100 %</button><button data-v="150">150 %</button></div>
     <div id="bFb"></div>
   </div>
   <div class="stats"><div class="stat"><div class="n" id="bOK">0</div><div class="k">aciertos</div></div><div class="stat"><div class="n" id="bPct">–</div><div class="k">porcentaje</div></div><div class="stat"><div class="n" id="bTot">0</div><div class="k">situaciones</div></div></div>
-  <div class="warn"><b>Los márgenes son convención, no matemáticas.</b> No hay un único número correcto: depende del rival y de la mesa. Lo que sí es un error medible es apostar el 16 % del bote con mano fuerte o el 240 % con cualquier cosa — y las dos te han pasado.</div>
-  </div>
-
+  <div class="warn"><b>Los márgenes son convención, no matemáticas.</b> No existe un único número correcto: depende del rival y de la mesa. Lo que sí es un error medible es apostar el 15 % del bote con una mano fuerte, o el 240 % con cualquier cosa — y las dos te han pasado.</div>
+</div>
+<div id="trPre2">
   <div class="stats">
     <div class="stat"><div class="n" id="tOK">0</div><div class="k">aciertos</div></div>
     <div class="stat"><div class="n" id="tPct">–</div><div class="k">porcentaje</div></div>
@@ -781,8 +796,10 @@ h2::before{content:"♠";
   <div class="pick"><button id="tReset" style="flex:0 0 auto">Reiniciar marcador</button></div>
 
   <div id="tFallos"></div>
+  <div id="tEjes"></div>
 
-  <div class="note"><b>Qué mide esto.</b> Si coincides con la chuleta, no con «la jugada perfecta». La chuleta es una convención razonable de partida, no una verdad matemática — está avisado en la pestaña Manos. Sirve para automatizar un criterio decente, que es justo lo que falta al principio.</div>
+  <div class="note"><b>Qué mide esto.</b> Si coincides con la chuleta de rangos, no con «la jugada perfecta». Esa chuleta es una convención razonable de partida, no una verdad matemática — está avisado en la pestaña Asesor. Sirve para automatizar un criterio decente, que es justo lo que falta al principio.</div>
+  <p class="sub" id="tGuardado"></p>
 
 <h2>Rutina de 4 preguntas, cada mano</h2>
   <div class="card">
@@ -796,7 +813,7 @@ h2::before{content:"♠";
 <!-- ============ 7. GLOSARIO ============ -->
 <section id="s7">
   <h2>Diccionario</h2>
-  <p>Todo el vocabulario que aparece en esta chuleta, en cristiano. Escribe para filtrar.</p>
+  <p>Todo el vocabulario que aparece en Poker Tutor, en cristiano. Escribe para filtrar.</p>
   <input id="gq" placeholder="Buscar palabra…" autocomplete="off"
     style="width:100%;background:var(--bg2);border:1px solid var(--line);color:var(--tx);
     border-radius:9px;padding:9px 11px;font:14px inherit;font-family:inherit;margin:4px 0 10px">
@@ -969,6 +986,7 @@ h2::before{content:"♠";
   Los <b>duelos all-in</b> son enumeración exacta de los <code>C(48,5) = 1.712.304</code> boards de cada duelo, evaluados con la librería <code>phevaluator</code>. Los empates se reparten a partes iguales.<br><br>
   La tabla de <b>jugada final con 7 cartas</b> es la única cifra <b>simulada</b>: 2.000.000 de manos aleatorias, margen de error &lt; ±0,07 puntos al 95 %.<br><br>
   Los <b>puntos Chen</b> aplican la fórmula de Bill Chen publicada en thepokerbank.com; verificada contra sus 5 ejemplos (AKs=12, TT=10, 75s=6, 72o=−1, AA=20).<br><br>  Las <b>equities por número de jugadores</b> son simulación propia: 20.000 repartos por mano, con 8 rivales de cartas aleatorias y las 5 comunitarias; de cada reparto se leen a la vez todos los tamaños de mesa. Margen ≈ ±0,4 puntos. Los botes repartidos se dividen entre los ganadores. Son <b>rivales al azar</b>: en la práctica quien sigue en el bote tiene mejores cartas que la media, así que la equity real es algo menor.<br><br>  Los <b>% de apertura por posición</b> son exactos: cuentan las combinaciones del rango definido sobre 1.326. El rango en sí es convención. Los rangos de <b>mesa de 4 y de 3</b> se añadieron el 21/08/2026 siguiendo el mismo criterio: cuanto menos gente, más manos se abren.<br><br>  Las <b>tablas de manos iniciales y de posición</b> no son cálculos: son convenciones estratégicas de uso común y admiten discusión.
+<div class="swPers">Sección personal (<b>Mi juego</b>): son las partidas reales de una persona concreta, no ejemplos. Está oculta por defecto.<button id="swPers">Mostrar</button></div>
 </footer>
 
 <script>
@@ -1224,7 +1242,7 @@ function pintaLinea(){
   var s='<svg viewBox="0 0 '+VW+' '+VH+'" width="100%" style="max-width:400px;display:block" role="img" aria-label="Nota de cada partida sobre 100">';
   [0,25,50,75,100].forEach(function(v){
     s+='<line x1="'+L+'" y1="'+y(v)+'" x2="'+R+'" y2="'+y(v)+'" stroke="#222c38" stroke-width=".3"/>';
-    s+='<text x="'+(L-2)+'" y="'+(y(v)+1.4)+'" fill="#80718f" font-size="3.4" text-anchor="end">'+v+'</text>';
+    s+='<text x="'+(L-2)+'" y="'+(y(v)+1.4)+'" fill="#a08db2" font-size="3.4" text-anchor="end">'+v+'</text>';
   });
   var d=S.map(function(o,i){return (i?"L":"M")+x(i).toFixed(1)+" "+y(o.score).toFixed(1);}).join(" ");
   s+='<path d="'+d+'" fill="none" stroke="#ff5ecb" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>';
@@ -1235,7 +1253,7 @@ function pintaLinea(){
     var fs=S.length>9?3.1:3.8;
     s+='<text x="'+x(i).toFixed(1)+'" y="'+(y(o.score)-3.4).toFixed(1)+'" fill="#f4ecf8" font-size="'+fs+'" font-weight="700" text-anchor="middle">'+o.score+'</text>';
     s+='<text x="'+x(i).toFixed(1)+'" y="'+(BASE+5)+'" fill="#a89ab6" font-size="'+(S.length>9?2.9:3.6)+'" text-anchor="middle">'+o.cod+'</text>';
-    s+='<text x="'+x(i).toFixed(1)+'" y="'+(BASE+9)+'" fill="#80718f" font-size="'+(S.length>9?2.4:3)+'" text-anchor="middle">'+o.n+'</text>';
+    s+='<text x="'+x(i).toFixed(1)+'" y="'+(BASE+9)+'" fill="#a08db2" font-size="'+(S.length>9?2.4:3)+'" text-anchor="middle">'+o.n+'</text>';
   });
   s+='</svg>';
   document.getElementById("mgLine").innerHTML=s;
@@ -1306,7 +1324,7 @@ lista("mgBad",[
     s+='<text x="'+(R+3)+'" y="'+(cy+1.2)+'" fill="'+col+'" font-size="3.2" font-weight="600">'+et+'</text>';
   });
   [0,25,50,75,100].forEach(function(v){
-    s+='<text x="'+x(v)+'" y="'+(VH-2)+'" fill="#80718f" font-size="3.2" text-anchor="middle">'+v+'%</text>';});
+    s+='<text x="'+x(v)+'" y="'+(VH-2)+'" fill="#a08db2" font-size="3.2" text-anchor="middle">'+v+'%</text>';});
   s+='</svg>';
   document.getElementById("mgBand").innerHTML=s;
   var mal=rows.filter(function(r){return r.e!=="ok";});
@@ -1342,8 +1360,8 @@ lista("mgBad",[
   s+='<line x1="'+L+'" y1="'+BASE+'" x2="'+R+'" y2="'+BASE+'" stroke="#3d3350" stroke-width=".4"/>';
   [0,25,50,75,100,120].forEach(function(v){
     s+='<line x1="'+x(v)+'" y1="'+BASE+'" x2="'+x(v)+'" y2="'+(BASE+1.6)+'" stroke="#3d3350" stroke-width=".4"/>';
-    s+='<text x="'+x(v)+'" y="'+(BASE+6)+'" fill="#80718f" font-size="3.6" text-anchor="middle">'+(v===120?'+':v)+'%</text>';});
-  s+='<text x="'+((L+R)/2)+'" y="'+(VH-1)+'" fill="#80718f" font-size="3.6" text-anchor="middle">porcentaje del bote que apostaste</text>';
+    s+='<text x="'+x(v)+'" y="'+(BASE+6)+'" fill="#a08db2" font-size="3.6" text-anchor="middle">'+(v===120?'+':v)+'%</text>';});
+  s+='<text x="'+((L+R)/2)+'" y="'+(VH-1)+'" fill="#a08db2" font-size="3.6" text-anchor="middle">porcentaje del bote que apostaste</text>';
   var bucket={};
   M.bets.slice().sort(function(a,b){return a.pct-b.pct}).forEach(function(a){
     var k=Math.round(Math.min(a.pct,120)/6); bucket[k]=(bucket[k]||0)+1;
@@ -1401,10 +1419,32 @@ document.getElementById("mgRub").innerHTML=
 </script>
 <script>
 (function(){
-var mode="mix", cur=null, ok=0, tot=0, racha=0, fallos={};
-var TBLS={mix:["9","6","4","3","2"],"9":["9"],"6":["6"],"4":["4"],"3":["3"],"2":["2"]};
+var mode="mix", cur=null, ok=0, tot=0, racha=0, fallos={}, ejes={};
+var TBLS={mix:["9","6","2"],"9":["9"],"6":["6"],"2":["2"]};
+var LLAVE="pt.entrenador.v1";
 
-// elegir mano respetando la frecuencia real (1326 combinaciones)
+/* ---------- memoria ---------- */
+function guarda(){
+  try{ localStorage.setItem(LLAVE, JSON.stringify({ok:ok,tot:tot,racha:racha,fallos:fallos,ejes:ejes})); }
+  catch(e){ /* modo incógnito o almacenamiento lleno: se sigue jugando sin guardar */ }
+}
+function carga(){
+  try{
+    var s=localStorage.getItem(LLAVE); if(!s) return false;
+    var d=JSON.parse(s);
+    ok=d.ok||0; tot=d.tot||0; racha=d.racha||0; fallos=d.fallos||{}; ejes=d.ejes||{};
+    return tot>0;
+  }catch(e){ return false; }
+}
+function nota(){
+  var el=document.getElementById("tGuardado");
+  var hay=false; try{ hay=!!localStorage.getItem(LLAVE); }catch(e){}
+  el.textContent = hay
+    ? "Tu progreso se guarda en este navegador. No sale de tu dispositivo ni lo ve nadie más."
+    : "Este navegador no me deja guardar (modo incógnito o permisos): el marcador se perderá al recargar.";
+}
+
+/* ---------- elegir la pregunta ---------- */
 function randHand(){
   var pool=[];
   for(var i=0;i<13;i++)for(var j=0;j<13;j++){
@@ -1415,22 +1455,45 @@ function randHand(){
   }
   return pool[Math.floor(Math.random()*pool.length)];
 }
-function ask(){
+// Un "spot" es mano + mesa + posición + situación. Se guarda entero para poder repetirlo.
+function spotId(c){ return c.k+"|"+c.t+"|"+c.p+"|"+c.s; }
+function spotDe(id){ var a=id.split("|"); return {k:a[0],t:a[1],p:a[2],s:a[3]}; }
+
+function nuevoSpot(){
   var t=TBLS[mode][Math.floor(Math.random()*TBLS[mode].length)];
   var ps=POSN[t], p, s;
+  var SITS=["rfi","limp","vs"];
   do{ p=ps[Math.floor(Math.random()*ps.length)];
-      s=Math.random()<0.5?"rfi":"vs";
-  }while(p==="BB"&&s==="rfi");            // esa no es una decision real
-  cur={t:t,p:p,s:s,k:randHand()};
-  var ppl=t==="2"?"2 (heads-up)":t;
-  var posl=(t==="2"&&p==="SB")?"SB / botón":p;
+      s=SITS[Math.floor(Math.random()*SITS.length)];
+  }while(p==="BB"&&s==="rfi");   // en BB sin subidas no hay decisión: la acción no llega a ti
+  return {t:t,p:p,s:s,k:randHand()};
+}
+function spotFallado(){
+  var ids=Object.keys(fallos); if(!ids.length) return null;
+  var bolsa=[];
+  ids.forEach(function(id){ var n=Math.min(fallos[id],5); for(var i=0;i<n;i++) bolsa.push(id); });
+  return spotDe(bolsa[Math.floor(Math.random()*bolsa.length)]);
+}
+
+function ask(){
+  cur = (mode==="fallos" ? spotFallado() : null) || nuevoSpot();
+  var ppl=cur.t==="2"?"2 (heads-up)":cur.t;
+  var posl=(cur.t==="2"&&cur.p==="SB")?"SB / botón":cur.p;
+  var sitTxt = cur.s==="rfi" ? 'nadie ha subido todavía'
+             : cur.s==="limp" ? '<b style="color:var(--vio)">alguien ha entrado pagando, sin subir</b>'
+             : '<b style="color:var(--ylw)">alguien ha subido antes que tú</b>';
   document.getElementById("tQ").innerHTML=
-    '<div class="sub">Mesa de '+ppl+' jugadores · estás en <b style="color:var(--tx)">'+posl+'</b> · '+
-      (s==="rfi"?'nadie ha subido todavía':'<b style="color:var(--ylw)">alguien ha subido antes que tú</b>')+'</div>'+
-    '<div class="hname" style="margin-top:7px">'+cur.k+'</div>'+
-    '<div class="sub" style="margin-top:2px">'+(cur.k.length===2 ? 'pareja de '+cur.k.charAt(0)+'s' : cur.k.charAt(0)+'-'+cur.k.charAt(1)+(cur.k.charAt(2)==="s" ? ' <b style="color:#ffb454">del mismo palo</b>' : ' de palos distintos'))+'</div>';
+    '<div class="sub">Mesa de '+ppl+' jugadores · estás en <b style="color:var(--tx)">'+posl+'</b> · '+sitTxt+'</div>'+
+    (mode==="fallos"?'<div class="sub" style="color:var(--vio)">repaso: esta ya la has fallado antes</div>':'')+
+    '<div class="hname" style="margin-top:7px">'+cur.k+'</div>';
   document.getElementById("tFb").innerHTML="";
-  document.querySelectorAll("#tAns button").forEach(function(b){b.classList.remove("on");b.disabled=false;});
+  // Desde la ciega grande ante un limpeador no se "iguala": se pasa gratis.
+  var esBBlimp = (cur.p==="BB" && cur.s==="limp");
+  document.querySelectorAll("#tAns button").forEach(function(b){
+    b.classList.remove("on"); b.disabled=false;
+    if(b.dataset.a==="chk") b.style.display = esBBlimp ? "" : "none";
+    if(b.dataset.a==="cal") b.style.display = esBBlimp ? "none" : "";
+  });
 }
 function answer(a){
   if(!cur) return;
@@ -1438,43 +1501,89 @@ function answer(a){
   tbl=cur.t; pos=cur.p; sit=cur.s;
   var r=act(cur.k), correct=r[2];
   tbl=sv[0]; pos=sv[1]; sit=sv[2];
+  if(a==="chk") a="cal";              // PASAR y la respuesta "cal" son el mismo código
   var good=(a===correct);
-  tot++; if(good){ok++;racha++;} else {racha=0; fallos[cur.k]=(fallos[cur.k]||0)+1;}
-  document.getElementById("tOK").textContent=ok;
-  document.getElementById("tPct").textContent=Math.round(ok/tot*100)+"%";
-  document.getElementById("tRacha").textContent=racha;
+  var id=spotId(cur);
+  tot++;
+  if(good){ ok++; racha++; if(fallos[id]){ fallos[id]--; if(fallos[id]<=0) delete fallos[id]; } }
+  else { racha=0; fallos[id]=(fallos[id]||0)+1; }
+  // desglose por eje: posición y tamaño de mesa
+  ["p:"+cur.p, "t:"+cur.t, "s:"+cur.s].forEach(function(e){
+    ejes[e]=ejes[e]||[0,0]; ejes[e][1]++; if(good) ejes[e][0]++;
+  });
+  guarda(); pintaMarcador();
   var h=D.h[cur.k];
   document.getElementById("tFb").innerHTML=
     '<div class="verdict v-'+(good?"rai":"fld")+'" style="margin-top:10px">'+
       '<p class="act">'+(good?"✔ Correcto":"✘ La chuleta dice: "+r[0])+'</p>'+
       '<p class="why">'+r[1]+'</p></div>'+
-    '<div class="stats"><div class="stat"><div class="n">'+h.c+'</div><div class="k">puntos Chen</div></div>'+
-      '<div class="stat"><div class="n">'+h.e[parseInt(cur.t,10)-2]+'%</div><div class="k">tu equity<br>en esa mesa</div></div>'+
+    '<div class="stats"><div class="stat"><div class="n">'+h.c+'</div><div class="k" data-tip="Puntuación de la fórmula de Bill Chen, que resume el valor de una mano inicial en un número. 20 es lo máximo (AA); por debajo de 5 es basura. Lo tienes explicado en el Diccionario."><span>puntos Chen</span></div></div>'+
+      '<div class="stat"><div class="n">'+h.e[cur.t==="2"?0:(cur.t==="6"?4:7)]+'%</div><div class="k">tu equity<br>en esa mesa</div></div>'+
       '<div class="stat"><div class="n">'+tot+'</div><div class="k">manos<br>practicadas</div></div></div>'+
-    '<div class="pick"><button id="tNext" style="flex:1;background:var(--blu);color:#2a0620;border-color:var(--blu)">Siguiente mano →</button></div>';
+    '<div class="pick"><button id="tNext" style="flex:1">Siguiente mano →</button></div>';
+  document.getElementById("tNext").classList.add("on");
   document.querySelectorAll("#tAns button").forEach(function(b){b.disabled=true;});
   document.getElementById("tNext").onclick=ask;
-  pintaFallos();
+  pintaFallos(); pintaEjes();
+}
+function pintaMarcador(){
+  document.getElementById("tOK").textContent=ok;
+  document.getElementById("tPct").textContent=tot?Math.round(ok/tot*100)+"%":"–";
+  document.getElementById("tRacha").textContent=racha;
+  var b=document.getElementById("tFallosBtn"), n=Object.keys(fallos).length;
+  b.disabled = n===0;
+  b.textContent = n ? "Practicar mis fallos ("+n+")" : "Practicar mis fallos";
 }
 function pintaFallos(){
-  var ks=Object.keys(fallos).sort(function(a,b){return fallos[b]-fallos[a]}).slice(0,8);
+  var porMano={};
+  Object.keys(fallos).forEach(function(id){ var k=id.split("|")[0]; porMano[k]=(porMano[k]||0)+fallos[id]; });
+  var ks=Object.keys(porMano).sort(function(a,b){return porMano[b]-porMano[a]}).slice(0,10);
   document.getElementById("tFallos").innerHTML = ks.length
     ? '<h3>Manos que más fallas</h3><div class="card"><p class="sub" style="margin:0">'+
-      ks.map(function(k){return '<b style="color:var(--tx)">'+k+'</b> ×'+fallos[k];}).join(" &nbsp;·&nbsp; ")+
-      '</p></div>' : "";
+      ks.map(function(k){return '<b style="color:var(--tx)">'+k+'</b> ×'+porMano[k];}).join(" &nbsp;·&nbsp; ")+
+      '</p><p class="sub" style="margin:7px 0 0">Con «Practicar mis fallos» vuelven a salir estas, y dejan la lista cuando las aciertas.</p></div>' : "";
+}
+function pintaEjes(){
+  var pos_=[], tab=[], sits=[];
+  Object.keys(ejes).forEach(function(e){
+    var v=ejes[e], fila={n:e.slice(2), ok:v[0], tot:v[1]};
+    if(e.charAt(0)==="p") pos_.push(fila); else if(e.charAt(0)==="t") tab.push(fila); else sits.push(fila);
+  });
+  if(!pos_.length && !tab.length) { document.getElementById("tEjes").innerHTML=""; return; }
+  function tabla(tit,filas,fmt){
+    filas=filas.filter(function(f){return f.tot>=3;});
+    if(!filas.length) return "";
+    filas.sort(function(a,b){return a.ok/a.tot-b.ok/b.tot;});
+    return '<div class="lbl">'+tit+'</div><table><tbody>'+filas.map(function(f){
+      var p=Math.round(f.ok/f.tot*100);
+      var col=p>=75?"var(--grn)":(p>=55?"var(--ylw)":"var(--red)");
+      return '<tr><td>'+fmt(f.n)+'</td><td class="num" style="color:'+col+'"><b>'+p+' %</b></td>'+
+             '<td class="num sub">'+f.ok+'/'+f.tot+'</td></tr>';
+    }).join("")+'</tbody></table>';
+  }
+  document.getElementById("tEjes").innerHTML=
+    '<h3>Dónde fallas</h3><div class="card">'+
+    tabla("Por posición", pos_, function(n){return n;})+
+    tabla("Por tamaño de mesa", tab, function(n){return n==="2"?"heads-up":"mesa de "+n;})+
+    tabla("Por situación", sits, function(n){
+      return n==="rfi"?"nadie ha subido":(n==="limp"?"alguien ha igualado":"alguien ha subido");})+
+    '<p class="sub" style="margin-top:8px">Solo aparecen las casillas con 3 manos o más. Un 70 % global puede esconder que aciertas el botón y fallas siempre la ciega grande.</p></div>';
 }
 document.querySelectorAll("#tMode button").forEach(function(b){b.onclick=function(){
-  document.querySelectorAll("#tMode button").forEach(function(x){x.classList.remove("on")});
+  document.querySelectorAll("#tMode button, #tMode2 button").forEach(function(x){x.classList.remove("on")});
   b.classList.add("on"); mode=b.dataset.v; ask();};});
+document.getElementById("tFallosBtn").onclick=function(){
+  if(this.disabled) return;
+  document.querySelectorAll("#tMode button, #tMode2 button").forEach(function(x){x.classList.remove("on")});
+  this.classList.add("on"); mode="fallos"; ask();};
 document.querySelectorAll("#tAns button").forEach(function(b){b.onclick=function(){
   b.classList.add("on"); answer(b.dataset.a);};});
 document.getElementById("tReset").onclick=function(){
-  ok=0;tot=0;racha=0;fallos={};
-  document.getElementById("tOK").textContent="0";
-  document.getElementById("tPct").textContent="–";
-  document.getElementById("tRacha").textContent="0";
-  pintaFallos(); ask();};
-ask();
+  ok=0;tot=0;racha=0;fallos={};ejes={};
+  try{ localStorage.removeItem(LLAVE); }catch(e){}
+  pintaMarcador(); pintaFallos(); pintaEjes(); nota(); ask();};
+
+carga(); pintaMarcador(); pintaFallos(); pintaEjes(); nota(); ask();
 })();
 </script>
 <script>
@@ -1491,23 +1600,35 @@ ask();
     b.style.left=x+"px"; b.style.top=y+"px";
   }
   function hide(){ if(box)box.classList.remove("on"); cur=null; clearTimeout(timer); }
-  document.addEventListener("mouseover",function(e){
-    var el=e.target.closest("[data-tip]");
-    if(!el){ if(cur)hide(); return; }
-    if(el===cur) return;
-    clearTimeout(timer); timer=setTimeout(function(){show(el);},DELAY);
-  });
-  document.addEventListener("mouseout",function(e){
-    var el=e.target.closest("[data-tip]");
-    if(el){ clearTimeout(timer); if(cur===el) hide(); }
-  });
-  // tactil / clic: inmediato, y se cierra tocando fuera
+  // En un movil no hay "pasar el raton": el patron es tocar para abrir y tocar
+  // otra vez (o fuera) para cerrar. Se detecta el tipo de puntero y se usa uno
+  // u otro, nunca los dos mezclados, que era lo que fallaba a medias.
+  var TACTIL=false;
+  try{ TACTIL=window.matchMedia("(hover: none), (pointer: coarse)").matches; }catch(e){}
+  var abierto=0;
+  if(!TACTIL){
+    document.addEventListener("mouseover",function(e){
+      var el=e.target.closest("[data-tip]");
+      if(!el){ if(cur)hide(); return; }
+      if(el===cur) return;
+      clearTimeout(timer); timer=setTimeout(function(){show(el);},DELAY);
+    });
+    document.addEventListener("mouseout",function(e){
+      var el=e.target.closest("[data-tip]");
+      if(el){ clearTimeout(timer); if(cur===el) hide(); }
+    });
+  }
   document.addEventListener("click",function(e){
     var el=e.target.closest("[data-tip]");
-    if(el){ clearTimeout(timer); if(cur===el){hide();} else {show(el);} }
+    if(el){ clearTimeout(timer); if(cur===el){hide();} else {show(el); abierto=+new Date();} }
     else hide();
   });
-  window.addEventListener("scroll",hide,{passive:true});
+  // Al tocar, el dedo mueve la pagina unos pixeles y eso disparaba el cierre por
+  // scroll antes de que diera tiempo a leer nada. Se ignora ese temblor inicial.
+  window.addEventListener("scroll",function(){
+    if(TACTIL && cur && (+new Date()-abierto)<450) return;
+    hide();
+  },{passive:true});
   window.addEventListener("resize",hide);
 })();
 </script>
@@ -1534,8 +1655,8 @@ function draw(){
     var k = i===j ? a+a : (i<j ? a+b2+"s" : b2+a+"o");
     var idx=P.k.indexOf(k), on=mask.charAt(idx)==="1";
     h+='<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:3px;'+
-       'font:700 clamp(7px,2.1vw,10px)/1 ui-monospace,Menlo,monospace;'+
-       'background:'+(on?"rgba(69,211,138,.30)":"#221b2e")+';color:'+(on?"#9ff0ab":"#4a5765")+'">'+k+'</div>';
+       'font:700 clamp(9px,2.4vw,11px)/1 ui-monospace,Menlo,monospace;'+
+       'background:'+(on?"rgba(69,211,138,.30)":"#221b2e")+';color:'+(on?"#9ff0ab":"#968aa3")+'">'+k+'</div>';
   }
   h+='</div>';
   g.innerHTML=h;
@@ -1557,37 +1678,101 @@ draw();
 </script>
 <script>
 (function(){
+var PALOS=["&spades;","&hearts;","&diams;","&clubs;"];
+// Los palos se barajan en cada pregunta: {0}..{3} son "palos distintos entre si".
+// Asi la textura (que cartas comparten palo) se mantiene, pero el dibujo cambia
+// y no se puede memorizar la respuesta por el aspecto de la mano.
+function barajaPalos(){
+  var a=PALOS.slice();
+  for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}
+  return a;
+}
+function conPalos(txt,pal){ return txt.replace(/\{(\d)\}/g,function(_,d){return pal[+d];}); }
 var SC=[
- {b:"A&spades; 7&clubs; 2&diams;",h:"A&hearts; K&spades;",d:"pareja máxima con buen acompañante, mesa seca",lo:50,hi:70,
+ /* --- 1-10: los originales, ahora con palos variables --- */
+ {b:"A{0} 7{1} 2{2}",h:"A{3} K{0}",d:"pareja máxima con buen acompañante, mesa seca",lo:50,hi:70,
   w:"Vas ganando y hay poco que te pueda alcanzar. Apuesta media-alta: quieres que paguen los ases peores y las parejas."},
- {b:"K&hearts; 9&hearts; 4&spades;",h:"K&clubs; Q&diams;",d:"pareja máxima, pero hay dos corazones",lo:65,hi:85,
+ {b:"K{0} 9{0} 4{1}",h:"K{2} Q{3}",d:"pareja máxima, pero hay dos cartas del mismo palo",lo:65,hi:85,
   w:"Aquí no basta con cobrar: hay que <b>cobrar caro</b>. Si le das precio barato a un proyecto de color, lo va a pagar y a veces te alcanza."},
- {b:"9&diams; 8&clubs; 5&spades;",h:"5&hearts; 5&clubs;",d:"trío, pero la mesa permite escaleras",lo:65,hi:85,
+ {b:"9{0} 8{1} 5{2}",h:"5{0} 5{1}",d:"trío, pero la mesa permite escaleras",lo:65,hi:85,
   w:"Tienes una mano enorme en una mesa peligrosa. Apuesta grande: cobras a las parejas y cobras a los proyectos."},
- {b:"Q&hearts; 7&hearts; 2&spades;",h:"A&hearts; 5&hearts;",d:"no tienes nada hecho, pero te faltan cartas para color",lo:50,hi:75,
-  w:"Semi-farol: ganas de dos formas, porque se retiren o porque llegue tu corazón. Por eso puedes apostar como si tuvieras la mano hecha."},
- {b:"J&spades; 8&diams; 3&clubs;",h:"9&clubs; 9&hearts;",d:"pareja media: le ganas a poco y pierdes contra bastante",lo:25,hi:45,
+ {b:"Q{0} 7{0} 2{1}",h:"A{0} 5{0}",d:"no tienes nada hecho, pero te falta una carta para el color máximo",lo:50,hi:75,
+  w:"Semi-farol: ganas de dos formas, porque se retiren o porque llegue tu palo. Por eso puedes apostar como si tuvieras la mano hecha."},
+ {b:"J{0} 8{1} 3{2}",h:"9{2} 9{3}",d:"pareja media: le ganas a poco y pierdes contra bastante",lo:25,hi:45,
   w:"Valor fino. Quieres que paguen las manos peores, no que se vayan. Con una apuesta grande solo te paga quien te gana."},
- {b:"A&clubs; T&diams; 6&hearts; 3&spades; 2&clubs;",h:"K&hearts; Q&hearts;",d:"river, no ligaste nada y el rival ha pasado siempre",lo:50,hi:75,
+ {b:"A{0} T{1} 6{2} 3{3} 2{0}",h:"K{2} Q{2}",d:"river, no ligaste nada y el rival ha pasado siempre",lo:50,hi:75,
   w:"Farol. Para que funcione tiene que doler: una apuesta pequeña se paga por curiosidad."},
- {b:"7&clubs; 7&diams; 2&hearts;",h:"A&spades; K&clubs;",d:"nada ligado, pero la mesa es horrible para todos",lo:25,hi:40,
+ {b:"7{0} 7{1} 2{2}",h:"A{3} K{0}",d:"nada ligado, pero la mesa es horrible para todos",lo:25,hi:40,
   w:"Casi nadie liga esta mesa. Con apostar poco basta para llevártelo; no hace falta arriesgar mucho para que se retiren."},
- {b:"J&hearts; T&hearts; 4&clubs; 9&spades;",h:"Q&hearts; 9&hearts;",d:"turn: pareja de nueves + proyecto de color al as + proyecto de escalera abierta (a 8 o a K)",lo:65,hi:90,
+ {b:"J{0} T{0} 4{1} 9{2}",h:"Q{0} 9{0}",d:"turn: pareja de nueves + proyecto de color al as + proyecto de escalera abierta (a 8 o a K)",lo:65,hi:90,
   w:"Como proyecto es casi perfecto: 9 outs de color, 6 outs más de escalera limpia y encima ya tienes pareja. Construye el bote ya: te quedan dos calles y quieres que el dinero entre antes de que la mesa asuste."},
- {b:"K&spades; 7&diams; 2&clubs;",h:"A&diams; K&hearts;",d:"pareja máxima, mesa seca, un solo rival",lo:40,hi:65,
+ {b:"K{0} 7{1} 2{2}",h:"A{1} K{3}",d:"pareja máxima, mesa seca, un solo rival",lo:40,hi:65,
   w:"Vas muy por delante y hay poco peligro. No hace falta la apuesta máxima: con una media le sacas dinero a más manos."},
- {b:"Q&spades; J&diams; 9&hearts; 8&clubs; 3&spades;",h:"K&clubs; T&spades;",d:"river: has ligado la escalera máxima",lo:65,hi:90,
-  w:"Tienes lo mejor posible. Este es el momento de pedir mucho: es la última oportunidad de cobrar."}
+ {b:"Q{0} J{1} 9{2} 8{3} 3{0}",h:"K{3} T{0}",d:"river: has ligado la escalera máxima",lo:65,hi:90,
+  w:"Tienes lo mejor posible. Este es el momento de pedir mucho: es la última oportunidad de cobrar."},
+
+ /* --- 11-22: flop --- */
+ {b:"2{0} 7{1} K{2}",h:"7{2} 7{3}",d:"trío de sietes en una mesa seca y con carta alta",lo:25,hi:45,
+  w:"Tu mano no va a ninguna parte y casi nada te alcanza. Apuesta poco: quieres que el rey siga pagando calle tras calle. Una apuesta grande aquí solo espanta lo que te paga."},
+ {b:"Q{0} J{0} 9{1}",h:"Q{2} Q{3}",d:"trío máximo, pero la mesa está conectada y con dos del mismo palo",lo:65,hi:90,
+  w:"Mano enorme en la peor mesa posible para ella. Aquí cobrar barato es regalar: hay escaleras y colores esperando una carta. Cárgalo todo ahora."},
+ {b:"8{0} 5{1} 2{2}",h:"A{3} A{0}",d:"la mejor pareja servida, mesa baja y desconectada",lo:40,hi:65,
+  w:"Vas por delante de casi todo y hay poco peligro. Media apuesta construye el bote sin espantar a las parejas pequeñas, que son quienes te van a pagar."},
+ {b:"9{0} 8{0} 6{1}",h:"K{2} K{3}",d:"pareja servida alta, pero la mesa es un campo de minas",lo:65,hi:90,
+  w:"Tu mano es fuerte <b>ahora</b> y frágil en dos calles. Hay escaleras, colores y parejas por delante. Cobra caro mientras mandas."},
+ {b:"6{0} 4{0} 2{1}",h:"A{0} K{0}",d:"no tienes nada hecho, pero sí proyecto de color máximo y dos cartas altas",lo:50,hi:75,
+  w:"Semi-farol de manual: si se retiran ganas ya, y si pagan te quedan nueve cartas de color más seis de pareja alta. Apuesta como si la mano estuviera hecha."},
+ {b:"9{0} 8{1} 3{2}",h:"T{3} J{0}",d:"escalera abierta por los dos lados, sin pareja",lo:45,hi:70,
+  w:"Ocho cartas te hacen la mano. Con eso puedes apostar sin haber ligado nada: la mitad del valor viene de que se retiren, la otra mitad de que llegue tu carta."},
+ {b:"A{0} 9{1} 4{2}",h:"9{3} 8{0}",d:"pareja media en una mesa con as",lo:25,hi:40,
+  w:"El as domina la mesa y tú no lo tienes. Si apuestas fuerte, solo te paga lo que te gana. Apuesta poco o pasa: esta mano quiere llegar al showdown barata."},
+ {b:"A{0} 8{1} 3{2}",h:"Q{3} J{0}",d:"no has ligado nada, pero la mesa lleva un as",lo:25,hi:45,
+  w:"Casi nadie tiene un as, y quien no lo tiene se retira ante cualquier señal. Una apuesta pequeña cuenta la misma historia que una grande y te cuesta la mitad cuando falla."},
+ {b:"K{0} 9{0} 4{0}",h:"A{0} 5{0}",d:"color máximo servido, pero los tres de la mesa son del mismo palo y se ve venir",lo:40,hi:70,
+  w:"Tienes lo mejor y todo el mundo ve el color en la mesa, así que cobrar es difícil. Una apuesta media deja seguir a quien lleva un solo naipe del palo; una enorme se queda sin clientes."},
+ {b:"J{0} 6{0} 3{1}",h:"A{2} J{3}",d:"pareja máxima con el mejor acompañante, dos cartas del mismo palo en la mesa",lo:55,hi:80,
+  w:"Vas ganando pero hay nueve cartas que te dan la vuelta. Cóbrale caro al proyecto: si le das precio barato, pagará encantado."},
+ {b:"6{0} 7{1} 8{2}",h:"9{3} T{0}",d:"escalera servida, la mejor posible ahora mismo",lo:65,hi:90,
+  w:"Tienes la mano hecha en una mesa que asusta a cualquiera. Cobra ya: si viene una cuarta carta conectada o del mismo palo, tu escalera deja de ser la mejor y nadie te pagará."},
+ {b:"7{0} 5{1} 2{2}",h:"8{3} 8{0}",d:"pareja servida por encima de toda la mesa, mesa baja y seca",lo:30,hi:50,
+  w:"Mandas, pero tu mano no soporta un bote gigante: cualquier carta alta la deja en nada. Apuesta modesto y llévate un bote mediano sin complicarte."},
+
+ /* --- 23-28: turn --- */
+ {b:"K{0} 7{1} 4{2} Q{0}",h:"K{3} Q{1}",d:"turn: doble pareja máxima",lo:65,hi:85,
+  w:"Ganas a todas las parejas y solo pierdes contra tríos. Quedan dos cartas del mismo palo asomando: no le des barato al proyecto."},
+ {b:"5{0} 6{1} J{2} 9{0}",h:"A{0} 7{0}",d:"turn: se te ha abierto el proyecto de color máximo y tienes escalera por dentro",lo:50,hi:80,
+  w:"Nueve cartas te dan el color máximo y cuatro más la escalera. Con tantas salidas, apostar fuerte gana de las dos maneras: por retirada y por carta."},
+ {b:"T{0} 6{1} 3{2} 2{3}",h:"T{1} 8{0}",d:"turn: pareja máxima con acompañante flojo, la carta del turn no cambia nada",lo:25,hi:45,
+  w:"Valor fino otra vez. Le ganas a los proyectos fallados y a las parejas peores. Con una apuesta grande, esas manos se van y solo te paga T con mejor acompañante."},
+ {b:"4{0} 9{1} Q{0} 2{0}",h:"9{2} 9{3}",d:"turn: trío de nueves, pero acaban de aparecer tres cartas del mismo palo",lo:55,hi:80,
+  w:"Tu trío sigue siendo fuerte, pero el color ya está posible. Apuesta lo bastante para que pagar con un solo naipe del palo sea un error, sin comprometer toda tu pila contra un color hecho."},
+ {b:"A{0} A{1} 6{2} T{3}",h:"T{0} T{1}",d:"turn: full de dieces con ases",lo:60,hi:85,
+  w:"Casi imbatible: solo te ganan los dos ases que quedan. Y la mesa emparejada asusta poco, así que puedes pedir mucho y aun así te pagarán con cualquier as."},
+ {b:"3{0} 8{1} J{2} 4{0}",h:"K{1} Q{2}",d:"turn: no tienes nada y el rival ha pasado dos veces",lo:45,hi:70,
+  w:"Farol con dos calles por delante. Tiene que ser lo bastante grande para que retirarse sea lo razonable, pero no tanto como para regalar tu pila si te pagan."},
+
+ /* --- 29-32: river --- */
+ {b:"A{0} K{1} 7{2} 3{3} 2{0}",h:"A{1} K{2}",d:"river: doble pareja máxima, ases y reyes",lo:50,hi:75,
+  w:"Última calle y casi nadie te gana. Pide bastante: te pagará cualquier as, y esa es la mano que más va a tener enfrente."},
+ {b:"8{0} 9{0} 2{1} J{2} A{3}",h:"6{0} 5{0}",d:"river: se te falló el color y no ligaste nada",lo:60,hi:90,
+  w:"Solo ganas si se retira, así que la apuesta tiene que ser creíble y cara. El as del river ayuda: cuenta una historia que el rival se cree."},
+ {b:"Q{0} J{1} 8{2} 4{3} 2{0}",h:"Q{2} 9{1}",d:"river: pareja máxima con acompañante mediocre",lo:20,hi:35,
+  w:"Quieres cobrar algo sin que te suban. Una apuesta pequeña la paga cualquier jota o cualquier pareja; una grande solo la paga lo que ya te ganaba."},
+ {b:"2{0} 7{1} T{2} 4{3} K{0}",h:"5{1} 6{2}",d:"river: no ligaste nada y ha caído un rey en la última",lo:60,hi:90,
+  w:"El rey es tu mejor aliado: es exactamente la carta que el rival teme. Pero un farol solo funciona si duele — pequeño se paga por curiosidad."}
 ];
 var cur=null, ok=0, tot=0;
 function pot(){ var p=[120,180,240,270,330,420,560,700]; return p[Math.floor(Math.random()*p.length)]; }
+var ultimo=-1;
 function ask(){
-  var s=SC[Math.floor(Math.random()*SC.length)], P=pot();
-  cur={s:s,P:P};
+  var i; do{ i=Math.floor(Math.random()*SC.length); }while(SC.length>1 && i===ultimo);
+  ultimo=i;
+  var s=SC[i], P=pot(), pal=barajaPalos();
+  cur={s:s,P:P,pal:pal};
   document.getElementById("bQ").innerHTML=
     '<div class="sub">En el bote hay</div><div class="hname" style="margin:2px 0 8px">'+P+' fichas</div>'+
-    '<div class="sub">En la mesa</div><div class="cards" style="font-size:17px;margin:2px 0 7px">'+s.b+'</div>'+
-    '<div class="sub">Tus cartas</div><div class="cards" style="font-size:17px;margin:2px 0 6px">'+s.h+'</div>'+
+    '<div class="sub">En la mesa</div><div class="cards" style="font-size:17px;margin:2px 0 7px">'+conPalos(s.b,pal)+'</div>'+
+    '<div class="sub">Tus cartas</div><div class="cards" style="font-size:17px;margin:2px 0 6px">'+conPalos(s.h,pal)+'</div>'+
     '<div class="sub" style="color:#cbbedb">'+s.d+'</div>';
   document.getElementById("bFb").innerHTML="";
   document.querySelectorAll("#bAns button").forEach(function(b){b.classList.remove("on");b.disabled=false;});
@@ -1620,6 +1805,8 @@ document.querySelectorAll("#trMode button").forEach(function(b){b.onclick=functi
   var pre=[document.getElementById("tOK").closest(".stats"),
            document.getElementById("tReset").closest(".pick"),
            document.getElementById("tFallos"),
+           document.getElementById("tEjes"),
+           document.getElementById("tGuardado"),
            document.querySelector("#s9 > .note")];
   pre.forEach(function(e){ if(e) e.style.display=bet?"none":""; });
   if(bet && !cur) ask();
@@ -2877,10 +3064,18 @@ pinta(); pintaVozBtn();
     document.querySelectorAll("#modeSw button").forEach(function(b){
       b.classList.toggle("on", b.dataset.v===m);
     });
-    try{ localStorage.setItem("chuletaModo",m); }catch(e){}
+    try{ localStorage.setItem("pt.modo",m); }catch(e){}
   }
   var saved=null;
-  try{ saved=localStorage.getItem("chuletaModo"); }catch(e){}
+  try{
+    saved=localStorage.getItem("pt.modo");
+    if(saved===null){
+      // el nombre viejo, de cuando la app se llamaba Chuleta: se hereda una vez
+      // y se deja de usar, sin perder la preferencia de quien ya la tenia puesta
+      var viejo=localStorage.getItem("chuletaModo");
+      if(viejo!==null){ saved=viejo; localStorage.setItem("pt.modo",viejo); localStorage.removeItem("chuletaModo"); }
+    }
+  }catch(e){}
   apply(saved || (window.innerWidth>=900 ? "wide" : "compact"));
   document.querySelectorAll("#modeSw button").forEach(function(b){
     b.onclick=function(){ apply(b.dataset.v); };
@@ -2888,16 +3083,84 @@ pinta(); pintaVozBtn();
 })();
 </script>
 <script>
-var btns=document.querySelectorAll('nav button');
+(function(){
+var btns=[].slice.call(document.querySelectorAll('nav button'));
+// Cada pestana tiene una direccion propia (#entrenador, #mi-mano...). Asi el boton
+// "atras" funciona, al recargar sigues donde estabas, y se puede compartir el enlace
+// de una seccion concreta -- util para ensenarla en clase.
+function slug(t){
+  return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+          .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+var porSlug={}, porId={};
+btns.forEach(function(b){ var sg=slug(b.textContent); porSlug[sg]=b; porId[b.dataset.t]=sg; });
+var aplicando=false;
+function activa(b, scroll){
+  if(!b) return;
+  btns.forEach(function(x){x.classList.remove('on')});
+  document.querySelectorAll('section').forEach(function(s){s.classList.remove('on')});
+  b.classList.add('on');
+  var sec=document.getElementById(b.dataset.t);
+  if(sec) sec.classList.add('on');
+  if(scroll) window.scrollTo({top:0,behavior:'instant'});
+}
+function desdeHash(scroll){
+  var h=(location.hash||'').replace(/^#/,'');
+  var b=porSlug[h];
+  if(b){ activa(b, scroll); return true; }
+  return false;
+}
 btns.forEach(function(b){
   b.addEventListener('click',function(){
-    btns.forEach(function(x){x.classList.remove('on')});
-    document.querySelectorAll('section').forEach(function(s){s.classList.remove('on')});
-    b.classList.add('on');
-    document.getElementById(b.dataset.t).classList.add('on');
-    window.scrollTo({top:0,behavior:'instant'});
+    activa(b, true);
+    var sg=porId[b.dataset.t];
+    if(sg && (location.hash||'').replace(/^#/,'')!==sg){
+      aplicando=true; location.hash=sg;
+      setTimeout(function(){aplicando=false;},0);
+    }
   });
 });
+function normaliza(scroll){
+  if(desdeHash(scroll)) return;
+  // direccion desconocida (enlace viejo o mal escrito): primera pestana, y se limpia
+  activa(btns[0], scroll);
+  var sg=porId[btns[0].dataset.t];
+  try{ history.replaceState(null,'','#'+sg); }catch(e){ location.hash=sg; }
+}
+window.addEventListener('hashchange',function(){
+  if(aplicando) return;
+  normaliza(true);
+});
+// al abrir: si la direccion trae seccion, esa; si no, la primera
+normaliza(false);
+})();
+</script>
+<script>
+(function(){
+  var H=document.documentElement, LL="pt.personal";
+  function leer(){ try{ return localStorage.getItem(LL)==="1"; }catch(e){ return false; } }
+  function pinta(on){
+    H.classList.toggle("sinPersonal", !on);
+    var b=document.getElementById("swPers");
+    if(b) b.textContent = on ? "Ocultar" : "Mostrar";
+  }
+  var on=leer();
+  // Si alguien llega con el enlace directo a la seccion, se muestra: ha venido a eso.
+  if((location.hash||"")==="#mi-juego") on=true;
+  pinta(on);
+  // tambien si el hash cambia sin recargar (un enlace dentro de la propia app)
+  window.addEventListener("hashchange",function(){
+    if((location.hash||"")==="#mi-juego" && !on){ on=true; pinta(true); }
+  });
+  var b=document.getElementById("swPers");
+  if(b) b.onclick=function(){
+    on=!on;
+    try{ localStorage.setItem(LL, on?"1":"0"); }catch(e){}
+    pinta(on);
+    if(!on && document.querySelector('nav button[data-t="s8"]').classList.contains("on"))
+      document.querySelector("nav button").click();
+  };
+})();
 </script>
 <script>
 (function(){
