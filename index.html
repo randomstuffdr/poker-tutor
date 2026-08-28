@@ -419,6 +419,13 @@ input[type=range]{accent-color:var(--mag)}
    invisible sobre el fondo oscuro */
 a{color:var(--mag2);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
 a:hover{color:#fff}
+/* HUD del entrenador de apuestas */
+.hud{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}
+.hud>div{background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:6px 5px;text-align:center}
+.hud span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--dim2)}
+.hud b{display:block;font:800 14px/1.2 ui-monospace,Menlo,monospace;color:var(--tx);margin:2px 0 1px}
+.hud i{display:block;font-style:normal;font-size:9.5px;color:var(--dim)}
+@media(max-width:380px){.hud{grid-template-columns:repeat(2,1fr)}}
 /* la marca de la app, junto al titulo */
 .mark{display:inline-block;margin-right:10px;line-height:1;vertical-align:-3px;white-space:nowrap}
 .mark .sp{font-size:24px;font-weight:400;
@@ -1997,17 +2004,17 @@ var SC=[
  {b:"2{0} 7{1} T{2} 4{3} K{0}",h:"5{1} 6{2}",d:"river: no ligaste nada y ha caído un rey en la última",lo:60,hi:90,
   w:"El rey es tu mejor aliado: es exactamente la carta que el rival teme. Pero un farol solo funciona si duele — pequeño se paga por curiosidad."},
  /* --- 33-38: te han apostado a ti; decides que haces --- */
- {nRiv:1,accion:"apuesta",resp:"pagar",b:"Q{0} 8{1} 3{2}",h:"Q{3} T{0}",d:"pareja máxima, acompañante mediano; te apuesta media mesa el rival",lo:0,hi:0,
+ {nRiv:1,accion:"apuesta",resp:"pagar",b:"Q{0} 8{1} 3{2}",h:"Q{3} T{0}",apu:0.5,d:"pareja máxima, acompañante mediano; te apuesta media mesa el rival",lo:0,hi:0,
   w:"Le ganas a todos los faroles y a las parejas peores, y pierdes contra pocas manos. Subir solo te haría cobrar de lo que te gana y espantar lo que te paga: paga y llévalo al river."},
- {nRiv:1,accion:"apuesta",resp:"subir",b:"7{0} 8{0} 2{1}",h:"9{0} T{0}",d:"proyecto de color máximo + escalera abierta; el rival ha apostado",lo:55,hi:90,
+ {nRiv:1,accion:"apuesta",resp:"subir",b:"7{0} 8{0} 2{1}",h:"9{0} T{0}",apu:0.6,d:"proyecto de color máximo + escalera abierta; el rival ha apostado",lo:55,hi:90,
   w:"Con quince cartas que te hacen la mano, no eres tú quien va por detrás. Sube: ganas si se retira ahora y sigues ganando si paga."},
- {nRiv:2,accion:"apuesta",resp:"retirar",b:"A{0} K{1} 7{2}",h:"5{3} 5{0}",d:"pareja pequeña en una mesa con as y rey; te apuestan y aún queda un rival por hablar",lo:0,hi:0,
+ {nRiv:2,accion:"apuesta",resp:"retirar",b:"A{0} K{1} 7{2}",h:"5{3} 5{0}",apu:0.66,d:"pareja pequeña en una mesa con as y rey; te apuestan y aún queda un rival por hablar",lo:0,hi:0,
   w:"Tu pareja de cincos le gana a muy poco de lo que apuesta en esta mesa, y encima queda alguien detrás que puede subir. No hay bote que compense: fuera."},
- {nRiv:1,accion:"check-raise",resp:"subir",b:"J{0} J{1} 4{2}",h:"4{0} 4{1}",d:"habías pasado con full de cuatros; el rival ha apostado",lo:60,hi:95,
+ {nRiv:1,accion:"check-raise",resp:"subir",b:"J{0} J{1} 4{2}",h:"4{0} 4{1}",apu:0.45,d:"habías pasado con full de cuatros; el rival ha apostado",lo:60,hi:95,
   w:"Tienes casi lo mejor posible y el rival acaba de decir que tiene algo. Este es el momento de subirle: si pasas otra vez, el dinero no entra."},
- {nRiv:1,accion:"apuesta",resp:"retirar",b:"K{0} Q{1} 9{2} 2{3}",h:"7{0} 6{0}",d:"turn: no ligaste nada, ni proyecto; el rival apuesta grande",lo:0,hi:0,
+ {nRiv:1,accion:"apuesta",resp:"retirar",b:"K{0} Q{1} 9{2} 2{3}",h:"7{0} 6{0}",apu:0.85,d:"turn: no ligaste nada, ni proyecto; el rival apuesta grande",lo:0,hi:0,
   w:"No tienes mano ni salida. Pagar por curiosidad en el turn es la forma más cara de perder poco a poco."},
- {nRiv:3,accion:"apuesta",resp:"retirar",b:"T{0} 9{0} 8{1}",h:"A{2} T{3}",d:"pareja máxima con buen acompañante, pero la mesa está conectada, hay color posible y sois cuatro",lo:0,hi:0,
+ {nRiv:3,accion:"apuesta",resp:"retirar",b:"T{0} 9{0} 8{1}",h:"A{2} T{3}",apu:0.75,d:"pareja máxima con buen acompañante, pero la mesa está conectada, hay color posible y sois cuatro",lo:0,hi:0,
   w:"Con tres rivales y una mesa así, alguien tiene escalera o proyecto grande casi siempre. Tu pareja máxima es una mano decente en heads-up y una trampa a cuatro bandas."}
 ];
 var cur=null, ok=0, tot=0;
@@ -2035,8 +2042,17 @@ function pintaBotones(){
     w.innerHTML='<button data-r="pagar">PAGAR</button><button data-r="subir">SUBIR</button><button data-r="retirar">RETIRARSE</button>';
     w.querySelectorAll("button").forEach(function(b){ b.onclick=function(){ b.classList.add("on"); resp(b.dataset.r); }; });
   } else {
-    w.innerHTML=TAM;
-    w.querySelectorAll("button").forEach(function(b){ b.onclick=function(){ b.classList.add("on"); ans(parseInt(b.dataset.v,10)); }; });
+    /* No se ofrece un tamano que no puedas pagar: si tu pila es el 60 % del bote,
+       el boton del 100 % seria mentira. En su lugar aparece IR CON TODO. */
+    var pilaPct = cur.R.miPila/cur.R.bote*100;
+    var html="";
+    [25,33,50,66,75,100,150].forEach(function(v){
+      if(v<=pilaPct-3) html+='<button data-v="'+v+'">'+v+'\u00a0%</button>';
+    });
+    html+='<button data-v="ai" style="flex:0 0 auto">IR CON TODO ('+Math.round(pilaPct)+'\u00a0%)</button>';
+    w.innerHTML=html;
+    w.querySelectorAll("button").forEach(function(b){ b.onclick=function(){
+      b.classList.add("on"); ans(b.dataset.v==="ai"?"ai":parseInt(b.dataset.v,10)); }; });
   }
 }
 function resp(r){
@@ -2064,32 +2080,162 @@ function marcador(){
   document.getElementById("bTot").textContent=tot;
   document.getElementById("bPct").textContent=Math.round(ok/tot*100)+"%";
 }
+
+/* ============================================================================
+   La mesa dibujada. Sin saber tu pila, quien ha puesto que y a cuanto sale el
+   bote, el tamano correcto no esta definido: 700 fichas con 10.000 detras no
+   es la misma decision que 700 con 900. Todo esto se dibuja en SVG, no es una
+   imagen: escala, cambia con el tema y no engorda el archivo.
+   ========================================================================= */
+var CIEGAS=[[10,20],[25,50],[50,100]];
+var PERFIL=[{nm:"profunda",bb:120},{nm:"media",bb:60},{nm:"corta",bb:35},{nm:"muy corta",bb:18}];
+var ALIAS=["Marta","Kepa","Nuria","Iván","Sonia","Rubén","Aitor","Lidia"];
+
+function elige(a){ return a[Math.floor(Math.random()*a.length)]; }
+function fmt(n){ return Math.round(n).toLocaleString("es-ES"); }
+
+/* Reparto coherente: ciegas, tu pila, el bote de esta calle y las pilas rivales. */
+function reparto(s){
+  var cg=elige(CIEGAS), bb=cg[1];
+  var per=elige(PERFIL), miPila=Math.round(per.bb*bb);
+  var calle=calleDe(s), n=nRivDe(s);
+  /* bote tipico en ciegas segun la calle y cuanta gente sigue dentro */
+  var base = calle==="Flop" ? 5+Math.random()*7 : (calle==="Turn" ? 12+Math.random()*14 : 24+Math.random()*30);
+  var bote = Math.round(base*(1+0.35*(n-1))*bb);
+  /* que no pida mas de lo que hay detras: el bote nunca supera tu pila */
+  if(bote > miPila*0.9) bote = Math.round(miPila*(0.25+Math.random()*0.5));
+  bote = Math.max(bote, bb*3);
+  /* Una de cada cuatro veces la pila se queda corta frente al bote. Es el caso
+     que mas cambia la decision: si todo lo que te queda es media apuesta, la
+     pregunta ya no es "cuanto" sino "voy o no voy". */
+  if(Math.random()<0.25) miPila = Math.max(bb, Math.round(bote*(0.35+Math.random()*0.85)));
+  var rivales=[], usados={};
+  for(var i=0;i<n;i++){
+    var nm; do{ nm=elige(ALIAS); }while(usados[nm]); usados[nm]=1;
+    /* unos te cubren y otros no: eso decide cuanto puedes ganar de verdad */
+    var f=[0.45,0.8,1.0,1.6,2.2][Math.floor(Math.random()*5)];
+    rivales.push({nm:nm, pila:Math.max(bb, Math.round(miPila*f)), puesto:0, accion:""});
+  }
+  var acc=accionDe(s), apuesta=0;
+  if(acc==="apuesta"||acc==="check-raise"){
+    apuesta=Math.round(bote*(s.apu||0.5)/bb)*bb;
+    apuesta=Math.min(apuesta, rivales[0].pila);
+    rivales[0].puesto=apuesta; rivales[0].accion="apuesta";
+    for(var j=1;j<rivales.length;j++) rivales[j].accion="por hablar";
+  } else if(acc==="pasan"){
+    rivales.forEach(function(r){ r.accion="pasa"; });
+  } else {
+    rivales.forEach(function(r){ r.accion="por hablar"; });
+  }
+  var cubre=Math.min.apply(null,rivales.map(function(r){return r.pila;}).concat([miPila]));
+  return {bb:bb, sb:cg[0], miPila:miPila, bote:bote, rivales:rivales, apuesta:apuesta,
+          efectiva:cubre, calle:calle, perfil:per.nm};
+}
+
+/* ---- dibujo de la mesa ---- */
+function dibujaMesa(R,s,pal){
+  var W=300,H=190, cx=W/2, cy=H/2-6, rx=112, ry=62;
+  var g='<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="max-width:420px;display:block;margin:2px auto 0" '+
+        'role="img" aria-label="Mesa de póquer con la situación de la mano">';
+  g+='<defs><radialGradient id="fieltro" cx="50%" cy="38%"><stop offset="0%" stop-color="#3b2a4d"/>'+
+     '<stop offset="100%" stop-color="#241a31"/></radialGradient></defs>';
+  g+='<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+(rx+7)+'" ry="'+(ry+7)+'" fill="none" stroke="#5b4a70" stroke-width="3"/>';
+  g+='<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" fill="url(#fieltro)"/>';
+  /* cartas comunitarias sobre el fieltro */
+  var cartas=conPalos(s.b,pal).split(" ");
+  var cw=19, tot=cartas.length*(cw+3)-3, x0=cx-tot/2;
+  cartas.forEach(function(c,i){
+    var rojo=/hearts|diams/.test(c);
+    g+='<g><rect x="'+(x0+i*(cw+3))+'" y="'+(cy-30)+'" width="'+cw+'" height="26" rx="3" fill="#f4ecf8"/>'+
+       '<text x="'+(x0+i*(cw+3)+cw/2)+'" y="'+(cy-12)+'" text-anchor="middle" font-size="11" font-weight="700" '+
+       'fill="'+(rojo?"#c62348":"#1a1424")+'">'+c+'</text></g>';
+  });
+  g+='<text x="'+cx+'" y="'+(cy+14)+'" text-anchor="middle" font-size="9" fill="#c9b8d8">BOTE</text>';
+  g+='<text x="'+cx+'" y="'+(cy+27)+'" text-anchor="middle" font-size="14" font-weight="800" fill="#ffc2ea">'+fmt(R.bote)+'</text>';
+
+  /* asientos: tu abajo, los rivales repartidos por el arco de arriba */
+  var n=R.rivales.length, asientos=[];
+  for(var i=0;i<n;i++){
+    var t = Math.PI*(1.15 + 0.7*(n===1?0.5:i/(n-1)));
+    asientos.push({x:cx+Math.cos(t)*(rx+6), y:cy+Math.sin(t)*(ry+16), r:R.rivales[i]});
+  }
+  asientos.forEach(function(a){
+    var col = a.r.accion==="apuesta" ? "#ff5ecb" : (a.r.accion==="pasa" ? "#6f5f80" : "#a08db2");
+    g+='<g><rect x="'+(a.x-30)+'" y="'+(a.y-15)+'" width="60" height="30" rx="7" fill="#221b2e" stroke="'+col+'" stroke-width="1.2"/>'+
+       '<text x="'+a.x+'" y="'+(a.y-4)+'" text-anchor="middle" font-size="8.5" fill="#cbbedb">'+a.r.nm+'</text>'+
+       '<text x="'+a.x+'" y="'+(a.y+8)+'" text-anchor="middle" font-size="10" font-weight="700" fill="#f4ecf8">'+fmt(a.r.pila)+'</text></g>';
+    var et = a.r.accion==="apuesta" ? ("apuesta "+fmt(a.r.puesto)) : (a.r.accion==="pasa"?"pasa":"por hablar");
+    g+='<text x="'+a.x+'" y="'+(a.y+24)+'" text-anchor="middle" font-size="7.5" fill="'+col+'">'+et+'</text>';
+    if(a.r.puesto>0){
+      var mx=cx+(a.x-cx)*0.45, my=cy+(a.y-cy)*0.45;
+      g+='<circle cx="'+mx+'" cy="'+my+'" r="5" fill="#ff5ecb" stroke="#ffd6f0" stroke-width="1"/>';
+    }
+  });
+  /* tu sitio */
+  var hy=H-14;
+  g+='<rect x="'+(cx-46)+'" y="'+(hy-16)+'" width="92" height="30" rx="8" fill="#2b2239" stroke="#ff9fd6" stroke-width="1.4"/>';
+  var mias=conPalos(s.h,pal).split(" ");
+  mias.forEach(function(c,i){
+    var rojo=/hearts|diams/.test(c);
+    g+='<rect x="'+(cx-42+i*20)+'" y="'+(hy-13)+'" width="17" height="24" rx="3" fill="#f4ecf8"/>'+
+       '<text x="'+(cx-33.5+i*20)+'" y="'+(hy+3)+'" text-anchor="middle" font-size="10" font-weight="700" '+
+       'fill="'+(rojo?"#c62348":"#1a1424")+'">'+c+'</text>';
+  });
+  g+='<text x="'+(cx+22)+'" y="'+(hy-3)+'" text-anchor="middle" font-size="8" fill="#cbbedb">TÚ</text>';
+  g+='<text x="'+(cx+22)+'" y="'+(hy+8)+'" text-anchor="middle" font-size="10.5" font-weight="800" fill="#ffc2ea">'+fmt(R.miPila)+'</text>';
+  return g+'</svg>';
+}
+
+/* ---- el HUD de abajo ---- */
+function hud(R,s){
+  var enBB=function(x){ return (x/R.bb).toFixed(x/R.bb<10?1:0)+" bb"; };
+  var h='<div class="hud">';
+  h+='<div><span>tu pila</span><b>'+fmt(R.miPila)+'</b><i>'+enBB(R.miPila)+' · '+R.perfil+'</i></div>';
+  h+='<div><span>bote</span><b>'+fmt(R.bote)+'</b><i>'+enBB(R.bote)+'</i></div>';
+  h+='<div><span>pila efectiva</span><b>'+fmt(R.efectiva)+'</b><i>lo máximo en juego</i></div>';
+  h+='<div><span>ciegas</span><b>'+R.sb+"/"+R.bb+'</b><i>'+R.calle.toLowerCase()+'</i></div>';
+  h+='</div>';
+  if(R.apuesta>0){
+    var pide=R.apuesta/(R.bote+R.apuesta*2)*100;
+    h+='<p class="sub" style="margin:6px 0 0">Te piden <b>'+fmt(R.apuesta)+'</b> ('+
+       Math.round(R.apuesta/R.bote*100)+' % del bote). Si pagas y ganas te llevas <b>'+fmt(R.bote+R.apuesta*2)+'</b>: '+
+       'tu <a href="#pot-odds">equity mínima</a> es del <b>'+Math.round(pide)+' %</b>.</p>';
+  }
+  return h;
+}
 var ultimo=-1;
 function ask(){
   var i; do{ i=Math.floor(Math.random()*SC.length); }while(SC.length>1 && i===ultimo);
   ultimo=i;
-  var s=SC[i], P=pot(), pal=barajaPalos();
-  cur={s:s,P:P,pal:pal,paso:(accionDe(s)==="apuesta"||accionDe(s)==="check-raise")?"que":"cuanto"};
+  var s=SC[i], pal=barajaPalos(), R=reparto(s);
+  cur={s:s,P:R.bote,R:R,pal:pal,paso:(accionDe(s)==="apuesta"||accionDe(s)==="check-raise")?"que":"cuanto"};
   document.getElementById("bQ").innerHTML=
-    '<div class="cards" style="font-size:13.5px;letter-spacing:.3px;margin-bottom:7px;color:var(--mag2)">'+contexto(s)+'</div>'+
-    '<div class="sub">En el bote hay</div><div class="hname" style="margin:2px 0 8px">'+P+' fichas</div>'+
-    '<div class="sub">En la mesa</div><div class="cards" style="font-size:17px;margin:2px 0 7px">'+conPalos(s.b,pal)+'</div>'+
-    '<div class="sub">Tus cartas</div><div class="cards" style="font-size:17px;margin:2px 0 6px">'+conPalos(s.h,pal)+'</div>'+
-    '<div class="sub" style="color:#cbbedb">'+s.d+'</div>';
+    '<div class="cards" style="font-size:13px;letter-spacing:.3px;margin-bottom:4px;color:var(--mag2)">'+contexto(s)+'</div>'+
+    dibujaMesa(R,s,pal)+ hud(R,s)+
+    '<p class="sub" style="color:#cbbedb;margin-top:7px">'+s.d+'</p>';
   document.getElementById("bFb").innerHTML="";
   pintaBotones();
 }
 function ans(v){
   if(!cur) return;
-  var s=cur.s, good=(v>=s.lo && v<=s.hi);
+  var s=cur.s, R=cur.R, pilaPct=R.miPila/R.bote*100, ai=(v==="ai");
+  /* Ir con todo esta bien cuando tu pila entera no pasa del techo del margen:
+     si lo maximo que puedes poner ya es una apuesta razonable, ponerlo entero
+     no es pasarse. Si tu pila es mucho mayor que el margen, si lo es. */
+  var good = ai ? (pilaPct<=s.hi) : (v>=s.lo && v<=s.hi);
+  if(ai) v=Math.round(pilaPct);
   tot++; if(good)ok++;
   marcador();
   var f=Math.round(cur.P*v/100), loF=Math.round(cur.P*s.lo/100), hiF=Math.round(cur.P*s.hi/100);
   document.getElementById("bFb").innerHTML=
     '<div class="verdict v-'+(good?"rai":"fld")+'" style="margin-top:10px">'+
     '<p class="act">'+(good?"✔ Buen tamaño":"✘ Fuera de margen")+'</p>'+
-    '<p class="why">Apostaste <b>'+f+' fichas</b> ('+v+' % del bote). El margen razonable aquí es '+
-    '<b>'+s.lo+'-'+s.hi+' %</b>, o sea entre '+loF+' y '+hiF+' fichas.<br><br>'+s.w+'</p></div>'+
+    '<p class="why">Apostaste <b>'+fmt(f)+' fichas</b> ('+v+' % del bote). El margen razonable aquí es '+
+    '<b>'+s.lo+'-'+s.hi+' %</b>, o sea entre '+fmt(loF)+' y '+fmt(hiF)+' fichas.'+
+    (pilaPct<=s.hi ? ' Con tu pila ('+Math.round(pilaPct)+' % del bote) <b>ir con todo también entra</b>: '+
+      'no te queda margen para apostar menos y seguir teniendo algo detrás.' :
+      (pilaPct<s.hi*2 ? ' Ojo a tu pila: te quedarían '+fmt(R.miPila-f)+' fichas detrás.' : ''))+
+    '<br><br>'+s.w+'</p></div>'+
     '<div class="pick"><button id="bNext" style="flex:1;background:var(--blu);color:#2a0620;border-color:var(--blu)">Siguiente situación →</button></div>';
   document.querySelectorAll("#bAns button").forEach(function(b){b.disabled=true;});
   document.getElementById("bNext").onclick=ask;
