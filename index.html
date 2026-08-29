@@ -387,6 +387,13 @@ html.sinPersonal nav button[data-t="s8"]{display:none}
 .anc>div:nth-child(-n+2){border-top:none}
 .anc .v{font:800 13px ui-monospace,Menlo,monospace;color:var(--mag2);text-align:right}
 
+.ncar{display:inline-block;min-width:30px;text-align:center;background:#f3ecf7;color:#17111f;
+  border-radius:6px;padding:5px 5px;font:800 16px/1 ui-monospace,Menlo,monospace;margin:0 2px 0 0}
+.ncar.roj{color:#c00f5b}
+.nzona{margin:8px 0 0}
+.nzona .k{display:block;font-size:11px;color:var(--dim);margin:0 0 4px}
+.mopts button.txt{font-size:14px}
+
 /* ============ piel: magenta metalico ============ */
 :root{
   --mag:#ff5ecb; --mag2:#ff9fd6; --mag3:#e23fae;
@@ -772,7 +779,7 @@ h2::before{content:"♠";
 <!-- ============ 9. ENTRENADOR ============ -->
 <section id="s9">
   <h2>Entrenador</h2>
-  <div class="pick" id="trMode" style="margin-bottom:10px"><button data-m="pre" class="on">Manos iniciales</button><button data-m="bet">Tamaño de apuesta</button><button data-m="mat">Las cuentas</button></div>
+  <div class="pick" id="trMode" style="margin-bottom:10px"><button data-m="pre" class="on">Manos iniciales</button><button data-m="bet">Tamaño de apuesta</button><button data-m="mat">Las cuentas</button><button data-m="num">Matemática básica</button></div>
   <div id="trPre">
   <p>Te planteo una situación real y decides. Luego te digo si coincide con la chuleta de rangos y por qué.</p>
 
@@ -829,7 +836,8 @@ h2::before{content:"♠";
 </div>
 
 <div id="trMat" style="display:none">
-  <p>Las cuentas que de verdad se hacen en la mesa. Con reloj, porque acertar en quince segundos no sirve de nada.</p>
+  <p>Las cuentas que de verdad se hacen en la mesa. Con reloj — no para meter prisa, sino porque una
+  cuenta que llega tarde no sirve: en la mesa hay que tenerla antes de que te toque hablar.</p>
   <div class="card">
     <div class="lbl">Qué practicas</div>
     <div class="pick" id="mMode">
@@ -902,6 +910,85 @@ h2::before{content:"♠";
   </div>
   <p class="sub" id="mFuera" style="margin-bottom:4px"></p>
   <p class="sub" id="mGuardado"></p>
+</div>
+
+<div id="trNum" style="display:none">
+  <p>La aritmética que hay debajo de todo lo demás. Sin cartas de por medio cuando no hacen falta:
+  porcentajes, multiplicar y dividir de cabeza, y de ahí a los outs. El reloj es generoso
+  y no contesta por ti — solo apunta cuánto has tardado.</p>
+  <div class="card">
+    <div class="lbl">Qué practicas</div>
+    <div class="pick" id="nMode">
+      <button data-v="pct" class="on">Porcentajes</button>
+      <button data-v="ari">Multiplicar y dividir</button>
+      <button data-v="out">De outs a %</button>
+      <button data-v="cuo">Cuotas y %</button>
+      <button data-v="cnt">Contar outs</button>
+    </div>
+    <div id="nQ" style="margin-top:10px"></div>
+    <div class="mreloj"><i id="nBar"></i></div>
+    <p class="sub" id="nTime" style="text-align:center;margin:3px 0 0"></p>
+    <div id="nOpts" class="mopts"></div>
+    <div id="nFb"></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n" id="nPct">–</div><div class="k">aciertos</div></div>
+    <div class="stat"><div class="n" id="nSeg">–</div><div class="k">tiempo medio</div></div>
+    <div class="stat"><div class="n" id="nTot">0</div><div class="k">cuentas hechas</div></div>
+  </div>
+  <div class="pick">
+    <button id="nReloj" style="flex:0 0 auto">Quitar el reloj</button>
+    <button id="nReset" style="flex:0 0 auto">Reiniciar marcador</button>
+  </div>
+  <div id="nEjes"></div>
+
+  <div class="card">
+    <div class="lbl">Los métodos · cómo se hacen estas cuentas sin papel</div>
+    <div class="abc">
+      <div>
+        <h5>Sacar un porcentaje: el 10 % y el 1 %</h5>
+        <p>El <b>10 %</b> es mover la coma un sitio a la izquierda; el <b>1 %</b>, dos sitios.
+        Con esos dos se construye cualquier porcentaje sumando.
+        El 27 % de 480: el 10 % es 48, así que el 20 % son 96; el 1 % es 4,8, así que el 7 % es 33,6;
+        96 + 33,6 = <b>129,6</b>.</p>
+        <p><span class="cuenta">10 % = coma un sitio</span><span class="cuenta">1 % = coma dos sitios</span></p>
+      </div>
+      <div>
+        <h5>Multiplicar doblando</h5>
+        <p>Multiplicar por <b>4 es doblar dos veces</b> y por <b>8, tres veces</b>: 125 → 250 → 500 → 1.000.
+        Por <b>5</b> es más fácil por el otro lado: por 10 y luego la mitad. Por <b>3</b> es doblar y sumar el original.
+        Es la misma operación que la regla del 2 y el 4, por eso conviene tenerla automatizada.</p>
+      </div>
+      <div>
+        <h5>Dividir preguntando al revés</h5>
+        <p>Dividir 480 entre 3 cuesta; preguntar «<b>¿qué número por 3 da 480?</b>» no tanto.
+        100 × 3 = 300, faltan 180; 60 × 3 = 180 → <b>160</b>. Se va por escalones de 100, de 10 y de 1.
+        En la mesa casi nunca hace falta el resultado exacto: hace falta saber si pasa o no pasa de un umbral.</p>
+      </div>
+      <div>
+        <h5>Qué % es una cifra de otra</h5>
+        <p>Mira <b>cuántas veces cabe</b> la pequeña en la grande y divide 100 entre eso.
+        120 en 480 cabe 4 veces → 100 ÷ 4 = <b>25 %</b>. Cabe 3 veces → 33 %. Cabe 5 → 20 %.
+        Con caber «entre 3 y 4 veces» ya sabes que estás entre el 25 y el 33 %, y eso suele bastar.</p>
+      </div>
+      <div>
+        <h5>Cuotas: qué quiere decir «3:1»</h5>
+        <p>Que pones <b>1</b> para poder ganar <b>3</b>. En total se reparten 4 partes y una es tuya:
+        necesitas ganar <b>1 de cada 4</b> = 25 %. La cuenta es <b>b ÷ (a+b)</b> para una cuota a:b.
+        Y al revés: de un bote de 300 al que te apuestan 100 te llevas 400 por poner 100 → 4:1 → 20 %.</p>
+      </div>
+      <div>
+        <h5>Contar outs: cuidado con la palabra «out»</h5>
+        <p>Aquí se cuentan las cartas que <b>completan una jugada concreta</b> —el color, la escalera,
+        el trío—, no las que te hacen ganar la mano. No es lo mismo: una carta puede darte color
+        y dársela mejor a otro. Los recuentos de esta pestaña son exactos como recuento;
+        cuánto valen de verdad depende del rival.</p>
+      </div>
+    </div>
+  </div>
+  <p class="sub" id="nFuera" style="margin-bottom:4px"></p>
+  <p class="sub">Tu marcador de matemática se guarda aparte del de «Las cuentas», en este mismo navegador.</p>
 </div>
 <div id="trPre2">
   <div class="stats">
@@ -2324,6 +2411,8 @@ document.querySelectorAll("#trMode button").forEach(function(b){b.onclick=functi
   document.getElementById("trBet").style.display = m==="bet"?"":"none";
   var mat=document.getElementById("trMat");
   if(mat) mat.style.display = m==="mat"?"":"none";
+  var num=document.getElementById("trNum");
+  if(num) num.style.display = m==="num"?"":"none";
   /* estos bloques viven fuera de trPre y hay que esconderlos a mano */
   var pre=[document.getElementById("tOK").closest(".stats"),
            document.getElementById("tReset").closest(".pick"),
@@ -2335,6 +2424,8 @@ document.querySelectorAll("#trMode button").forEach(function(b){b.onclick=functi
   /* el reloj de las cuentas no debe correr en una pestana que no se ve */
   if(m==="mat"){ if(window.__matSigue) window.__matSigue(); }
   else if(window.__matPausa) window.__matPausa();
+  if(m==="num"){ if(window.__mbSigue) window.__mbSigue(); }
+  else if(window.__mbPausa) window.__mbPausa();
   if(m==="bet" && !cur) ask();
 };});
 ask();
@@ -4081,10 +4172,12 @@ abre().then(todas).then(function(ss){ if(ss.length){ CACHE=agrega(ss); repinta()
 /* ============================================================================
    Las cuentas. No entrena aritmetica: entrena RECONOCER. En la mesa nadie
    divide 120 entre 480; se ve "media apuesta" y se sabe que son 25 %. Por eso
-   las respuestas admiten margen y por eso hay reloj: acertar en quince
-   segundos no sirve, en la mesa ya te habrias pasado de tiempo.
+   las respuestas admiten margen y por eso hay reloj: la cuenta que llega tarde
+   no sirve. El limite se doblo a 24 s el 29/08/2026 porque 12 s median mas la
+   prisa que el criterio.
    ========================================================================= */
-var LL="pt.cuentas.v1", LIMITE=12000;   /* 12 s por pregunta */
+var LL="pt.cuentas.v1", LIMITE=24000;   /* 24 s por pregunta (doblado el 29/08/2026:
+                                             12 s daban demasiada prisa para el nivel real) */
 var modo="dec", cur=null, t0=0, tmr=null, conReloj=true;
 var est={n:0, ok:0, ms:0, tarde:0, por:{}};
 
@@ -4295,7 +4388,7 @@ function marcador(){
       return '<tr><td>'+x.k+'</td><td class="num" style="color:'+c+'"><b>'+p+' %</b></td>'+
              '<td class="num sub">'+x.ok+'/'+x.n+'</td><td class="num sub">'+x.s.toFixed(1).replace(".",",")+' s</td></tr>';
     }).join("")+'</tbody></table><p class="sub" style="margin-top:7px">Con 3 cuentas o más. El tiempo importa: '+
-    'en la mesa no tienes doce segundos.</p></div>';
+    'en la mesa no tienes veinticuatro segundos.</p></div>';
 }
 
 /* ---------- arranque ---------- */
@@ -4320,6 +4413,446 @@ el("mGuardado").textContent = hay||true
 marcador(); pregunta();
 window.__matPausa=function(){ paraReloj(); };
 window.__matSigue=function(){ if(cur&&!el("mFb").innerHTML) arrancaReloj(); };
+})();
+</script>
+<script>
+(function(){
+/* ============================================================================
+   Matematica basica. Aqui NO se entrena criterio de poker: se entrena la
+   aritmetica que hace falta para poder aplicarlo. Por eso el reloj es largo
+   (no queremos prisa mientras se aprende) y por eso los distractores no son
+   numeros al azar: cada uno es un error tipico concreto, y el comentario de
+   despues lo nombra.
+
+   Ninguna cifra esta escrita a mano. Los porcentajes salen de la operacion,
+   las probabilidades exactas de 1-(47-o)/47*(46-o)/46, y los recuentos de
+   outs de recorrer una por una las 47 cartas que no se ven.
+   ========================================================================= */
+var NL="pt.entrenador.matematica";
+/* Reloj generoso, distinto por tipo: contar outs sobre una mesa lleva mas que
+   multiplicar 125 por 4. Nunca contesta por ti; al pasarse solo apunta el exceso. */
+var LIM={pct:45000, ari:40000, out:35000, cuo:40000, cnt:75000};
+var nModo="pct", nCur=null, nT0=0, nTmr=null, nReloj=true;
+var nEst={n:0, ok:0, ms:0, tarde:0, por:{}};
+
+function el(i){ return document.getElementById(i); }
+function elige(a){ return a[Math.floor(Math.random()*a.length)]; }
+function entero(a,b){ return a+Math.floor(Math.random()*(b-a+1)); }
+function fmt(n){ return Math.round(n).toLocaleString("es-ES"); }
+function dec(n){ return (Math.round(n*10)/10).toLocaleString("es-ES",{maximumFractionDigits:1}); }
+function baraja(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1));
+  var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+
+/* ---------- memoria ---------- */
+function guarda(){ try{ localStorage.setItem(NL,JSON.stringify({est:nEst,reloj:nReloj})); }catch(e){} }
+function carga(){ try{ var s=localStorage.getItem(NL); if(!s) return;
+  var d=JSON.parse(s); if(d.est) nEst=d.est; if(d.reloj===false) nReloj=false; }catch(e){} }
+
+/* ---------- opciones: la respuesta y tres errores tipicos ---------- */
+function mezcla(ok, malas, paso){
+  paso=Math.max(1,Math.round(paso||1));
+  var o=[Math.round(ok)];
+  (malas||[]).forEach(function(m){ m=Math.round(m);
+    if(m>0 && o.indexOf(m)<0 && o.length<4) o.push(m); });
+  var i=1;
+  while(o.length<4 && i<200){
+    var v=Math.round(ok)+(i%2?1:-1)*paso*Math.ceil(i/2);
+    if(v>0 && o.indexOf(v)<0) o.push(v);
+    i++;
+  }
+  while(o.length<4) o.push(Math.round(ok)+o.length*paso);
+  return baraja(o.slice(0,4));
+}
+
+/* ============================ 1. PORCENTAJES ============================ */
+var POTES=[120,150,180,200,240,300,320,360,420,480,540,600,720,900];
+function pote(){ return elige(POTES); }
+function comoSacarlo(N,P){
+  var d=Math.floor(P/10), u=P%10, c10=N/10, c1=N/100, s="";
+  s="El <b>10 %</b> de "+fmt(N)+" es "+dec(c10)+" y el <b>1 %</b> es "+dec(c1)+". ";
+  if(d) s+=d+" × "+dec(c10)+" = "+dec(d*c10);
+  if(d&&u) s+=", y "+u+" × "+dec(c1)+" = "+dec(u*c1)+", que suman <b>"+dec(d*c10+u*c1)+"</b>";
+  else if(u) s+=u+" × "+dec(c1)+" = <b>"+dec(u*c1)+"</b>";
+  else s+=" → <b>"+dec(d*c10)+"</b>";
+  return s;
+}
+function qPct(){
+  var t=Math.floor(Math.random()*3);
+  if(t===0){
+    var N=pote(), P=elige([10,15,20,25,27,30,33,40,45,50,60,66,75]);
+    var ok=Math.round(N*P/100);
+    return {txt:"En el bote hay <b>"+fmt(N)+"</b> fichas",
+      big:"¿cuánto es el <em>"+P+" %</em> de "+fmt(N)+"?", ok:ok, suf:"",
+      opts:mezcla(ok,[N*P/1000, N*(100-P)/100, N*P/100*2], Math.max(4,Math.round(N*0.06))),
+      truco:"<b>Por partes:</b> "+comoSacarlo(N,P)+". El error clásico es contestar el "+(100-P)+" %"+
+        " ("+fmt(N*(100-P)/100)+"), que es lo que <i>queda</i>, no lo que se pide.",
+      eje:"% de una cifra"};
+  }
+  if(t===1){
+    /* la division tiene que ser exacta o el comentario de despues mentiria */
+    var veces=elige([2,3,4,5,6,8]);
+    var M=elige(POTES.filter(function(x){ return x%veces===0; })), A=M/veces;
+    var ok=Math.round(100/veces);
+    return {txt:"El bote es <b>"+fmt(M)+"</b> y tú has puesto <b>"+fmt(A)+"</b>",
+      big:"¿qué <em>%</em> del bote es tuyo?", ok:ok, suf:" %",
+      opts:mezcla(ok,[100-ok, ok*2, Math.round(ok/2)], 6),
+      truco:"<b>Cuántas veces cabe:</b> "+fmt(A)+" cabe <b>"+veces+" veces</b> en "+fmt(M)+
+        ", y 100 ÷ "+veces+" = "+(100/veces===ok ? "<b>"+ok+" %</b>"
+          : dec(100/veces)+" %, o sea <b>"+ok+" %</b> redondeando")+
+        ". No hace falta dividir "+fmt(A)+" entre "+fmt(M)+".",
+      eje:"qué % es de qué"};
+  }
+  /* n y p elegidos para que el resultado sea entero: si la cuenta no es
+     redonda, el comentario y la respuesta marcada dirian cosas distintas */
+  var p=elige([15,20,25,30,35,40,45,55,60]);
+  var n=elige([20,25,30,40,50,60,80,100].filter(function(x){ return (x*p)%100===0; }));
+  var ok3=n*p/100;
+  return {txt:"Ganas el <b>"+p+" %</b> de las veces en ese punto",
+    big:"de <em>"+n+" manos</em>, ¿cuántas ganas?", ok:ok3, suf:"",
+    opts:mezcla(ok3,[n-ok3, p, Math.round(n*p/1000)], Math.max(2,Math.round(n*0.08))),
+    truco:"<b>Un porcentaje es una proporción, no una cantidad.</b> "+comoSacarlo(n,p)+
+      ". Y las otras "+(n-ok3)+" las pierdes: por eso ir «bien» no impide perder muchas manos seguidas.",
+    eje:"interpretar un %"};
+}
+
+/* ======================= 2. MULTIPLICAR Y DIVIDIR ======================= */
+function qAri(){
+  var t=Math.floor(Math.random()*3);
+  if(t===0){
+    var A=elige([12,14,15,18,24,25,32,35,45,48,60,75,90,110,125,140,160,180,240]);
+    var B=elige([2,3,4,5,6,8]);
+    var ok=A*B, m={2:"doblar",3:"doblar y sumar otra vez el número",4:"doblar dos veces",
+                   5:"por 10 y luego la mitad",6:"por 3 y doblar",8:"doblar tres veces"}[B];
+    return {txt:"Cuenta rápida", big:"<em>"+fmt(A)+" × "+B+"</em> = ?", ok:ok, suf:"",
+      opts:mezcla(ok,[A*(B+1), A*(B-1), ok/10], Math.max(5,Math.round(ok*0.06))),
+      truco:"<b>×"+B+" es "+m+":</b> "+
+        (B===4?fmt(A)+" → "+fmt(A*2)+" → <b>"+fmt(ok)+"</b>":
+         B===8?fmt(A)+" → "+fmt(A*2)+" → "+fmt(A*4)+" → <b>"+fmt(ok)+"</b>":
+         B===5?fmt(A)+" × 10 = "+fmt(A*10)+", la mitad es <b>"+fmt(ok)+"</b>":
+         B===3?fmt(A*2)+" + "+fmt(A)+" = <b>"+fmt(ok)+"</b>":
+         B===6?fmt(A)+" × 3 = "+fmt(A*3)+", doblado <b>"+fmt(ok)+"</b>":
+               "<b>"+fmt(ok)+"</b>")+".",
+      eje:"multiplicar"};
+  }
+  if(t===1){
+    var Bd=elige([2,3,4,5,6,8]), q=elige([15,20,25,30,35,40,45,50,60,70,80,90,110,120,150]);
+    var Ad=Bd*q;
+    return {txt:"Cuenta rápida", big:"<em>"+fmt(Ad)+" ÷ "+Bd+"</em> = ?", ok:q, suf:"",
+      opts:mezcla(q,[Ad/(Bd+1), Ad/Math.max(1,Bd-1), q*10], Math.max(3,Math.round(q*0.12))),
+      truco:"<b>Pregúntalo al revés:</b> ¿qué número por "+Bd+" da "+fmt(Ad)+"? "+
+        "100 × "+Bd+" = "+fmt(100*Bd)+(q>100?", y todavía faltan "+fmt(Ad-100*Bd)+"":", ya te pasas")+
+        " → <b>"+fmt(q)+"</b>. Comprobación: "+fmt(q)+" × "+Bd+" = "+fmt(Ad)+".",
+      eje:"dividir"};
+  }
+  var OPS=[["la mitad",2,"÷2"],["el doble",0.5,"×2"],["cuatro veces",0.25,"×4"],
+           ["la cuarta parte",4,"÷4"],["diez veces",0.1,"×10"]];
+  var op=elige(OPS), base=elige([24,36,48,60,80,120,160,200,240,320,400,480]);
+  var ok2=Math.round(base/op[1]);
+  return {txt:"Tienes <b>"+fmt(base)+"</b> fichas", big:"¿cuánto es <em>"+op[0]+"</em>?", ok:ok2, suf:"",
+    opts:mezcla(ok2,[base, ok2*2, Math.round(ok2/2)], Math.max(4,Math.round(ok2*0.1))),
+    truco:"<b>"+op[2]+":</b> "+fmt(base)+" "+op[2]+" = <b>"+fmt(ok2)+"</b>. "+
+      "Doblar y partir por la mitad son las dos operaciones que más vas a usar en la mesa.",
+    eje:"doblar y partir"};
+}
+
+/* ========================= 3. DE OUTS A PORCENTAJE ====================== */
+function exactaDos(o){ return (1-(47-o)/47*(46-o)/46)*100; }   /* dos cartas por venir */
+function exactaUna(o){ return o/47*100; }                       /* solo el turn */
+function qOut(){
+  var o=entero(2,15), dos=Math.random()<0.5;
+  var ok = dos ? o*4 : o*2;
+  var ex = dos ? exactaDos(o) : exactaUna(o);
+  return {txt:"Tienes <b>"+o+" outs</b> y "+(dos?"quedan <b>dos cartas</b>":"queda <b>una carta</b>")+" por salir",
+    big:"¿qué <em>%</em> te da la regla del 2 y el 4?", ok:ok, suf:" %",
+    opts:mezcla(ok,[o*(dos?2:4), o*3, o], 5),
+    truco:"<b>"+o+" × "+(dos?4:2)+" = "+ok+" %.</b> El ×4 es cuando quedan dos cartas y el ×2 cuando queda una. "+
+      "El valor exacto, contando las 47 cartas que no ves y suponiendo todas igual de probables, es "+
+      (dos? "1 − (47−"+o+")/47 × (46−"+o+")/46 = <b>"+dec(ex)+" %</b>"
+          : o+"/47 = <b>"+dec(ex)+" %</b>")+
+      (dos&&o>8 ? ". Con muchos outs la regla se pasa de optimista: sobra "+dec(ok-ex)+" punto"+(ok-ex>=2?"s":"")+"."
+                : "."),
+    eje:"regla del 2 y el 4"};
+}
+
+/* ============================ 4. CUOTAS Y % ============================= */
+var RAT=[[1,1],[3,2],[2,1],[5,2],[3,1],[7,2],[4,1],[5,1],[9,1]];
+function txtRat(r){ return r[0]+":"+r[1]; }
+function eqDe(r){ return r[1]/(r[0]+r[1])*100; }
+function qCuo(){
+  var t=Math.floor(Math.random()*3);
+  if(t===0){
+    var r=elige(RAT), ok=Math.round(eqDe(r));
+    return {txt:"El bote te da una cuota de <b>"+txtRat(r)+"</b>",
+      big:"¿qué <em>%</em> necesitas ganar para que pagar sea neutro?", ok:ok, suf:" %",
+      opts:mezcla(ok,[Math.round(r[0]/(r[0]+r[1])*100), Math.round(r[1]/r[0]*100), 100-ok], 5),
+      truco:"<b>Pones "+r[1]+" para ganar "+r[0]+".</b> En total se reparten "+(r[0]+r[1])+" partes y "+
+        r[1]+" "+(r[1]===1?"es tuya":"son tuyas")+": "+r[1]+" ÷ "+(r[0]+r[1])+" = <b>"+ok+" %</b>. "+
+        "El error habitual es dar la vuelta a la fracción y contestar "+
+        Math.round(r[0]/(r[0]+r[1])*100)+" %.",
+      eje:"cuota a %"};
+  }
+  if(t===1){
+    var r2=elige(RAT), pct=Math.round(eqDe(r2));
+    var otras=RAT.filter(function(x){ return Math.round(eqDe(x))!==pct; });
+    baraja(otras);
+    var op=[txtRat(r2), txtRat(otras[0]), txtRat(otras[1]), txtRat(otras[2])];
+    return {txt:"Necesitas ganar el <b>"+pct+" %</b> de las veces para que pagar sea neutro",
+      big:"¿qué <em>cuota</em> te está dando el bote?", ok:txtRat(r2), str:true, opts:baraja(op),
+      truco:"<b>Al revés que antes:</b> si necesitas "+pct+" %, tu parte es "+r2[1]+" de "+(r2[0]+r2[1])+
+        " → te dan <b>"+txtRat(r2)+"</b>. Comprobación: "+r2[1]+" ÷ "+(r2[0]+r2[1])+" = "+pct+" %.",
+      eje:"% a cuota"};
+  }
+  /* la cuota que sale de un bote y una apuesta concretos */
+  var mult=elige([1,2,3,4]), B=elige([50,60,80,100,120,150,200]);
+  var P=B*(mult*2-1);                      /* asi (P+B)/B = 2*mult, cuota limpia */
+  var a=(P+B)/B, ok3=txtRat([a,1]);
+  var otras3=[[a+1,1],[a-1,1],[Math.max(1,a-2),1]].filter(function(x){return x[0]>=1&&x[0]!==a;});
+  var op3=[ok3]; otras3.forEach(function(x){ if(op3.indexOf(txtRat(x))<0&&op3.length<4) op3.push(txtRat(x)); });
+  var k=1; while(op3.length<4){ if(op3.indexOf((a+k+1)+":1")<0) op3.push((a+k+1)+":1"); k++; }
+  return {txt:"En el bote hay <b>"+fmt(P)+"</b> y te apuestan <b>"+fmt(B)+"</b>",
+    big:"¿qué <em>cuota</em> te está dando el bote?", ok:ok3, str:true, opts:baraja(op3),
+    truco:"<b>Ganas lo que hay + lo que él pone, y arriesgas lo que pagas:</b> ("+fmt(P)+" + "+fmt(B)+
+      ") a "+fmt(B)+" = "+fmt(P+B)+":"+fmt(B)+" = <b>"+ok3+"</b>. "+
+      "Eso equivale a necesitar "+Math.round(100/(a+1))+" % de equity.",
+    eje:"bote a cuota"};
+}
+
+/* ============================ 5. CONTAR OUTS =========================== */
+var RG=["2","3","4","5","6","7","8","9","10","J","Q","K","A"];
+var PL=["♠","♥","♦","♣"];
+function carta(r,s){ return {r:r,s:s}; }
+function pintaC(c){ return '<span class="ncar'+((c.s===1||c.s===2)?" roj":"")+'">'+RG[c.r-2]+PL[c.s]+'</span>'; }
+function pintaMano(h,m){
+  return '<div class="nzona"><span class="k">tus cartas</span>'+h.map(pintaC).join("")+'</div>'+
+         '<div class="nzona"><span class="k">el flop</span>'+m.map(pintaC).join("")+'</div>';
+}
+function hayEscalera(cs){
+  var v={}; cs.forEach(function(c){ v[c.r]=1; if(c.r===14) v[1]=1; });
+  for(var b=1;b<=10;b++){ var t=true;
+    for(var i=0;i<5;i++) if(!v[b+i]) t=false;
+    if(t) return true; }
+  return false;
+}
+function maxPalo(cs){ var p=[0,0,0,0]; cs.forEach(function(c){ p[c.s]++; });
+  return Math.max(p[0],p[1],p[2],p[3]); }
+function noVistas(vis){
+  var r=[];
+  for(var s=0;s<4;s++) for(var v=2;v<=14;v++){
+    var hay=false;
+    for(var i=0;i<vis.length;i++) if(vis[i].r===v&&vis[i].s===s) hay=true;
+    if(!hay) r.push(carta(v,s));
+  }
+  return r;
+}
+/* El numero no se decide: se cuenta. Se recorren las 47 cartas que no se ven y
+   se mira en cuales la jugada aparece y antes no estaba. */
+function cuentaOuts(hero, mesa, pred){
+  var vis=hero.concat(mesa), n=0, res=noVistas(vis);
+  for(var i=0;i<res.length;i++) if(pred(vis.concat([res[i]]), res[i], vis)) n++;
+  return n;
+}
+var predColor = function(t,c,vis){ return maxPalo(t)>=5 && maxPalo(vis)<5; };
+var predEsc   = function(t,c,vis){ return hayEscalera(t) && !hayEscalera(vis); };
+
+function reparteColor(){
+  var s=entero(0,3), rs=baraja([2,3,4,5,6,7,8,9,10,11,12,13,14].slice());
+  var hero=[carta(rs[0],s), carta(rs[1],s)];
+  var otros=[0,1,2,3].filter(function(x){return x!==s;});
+  baraja(otros);
+  var mesa=[carta(rs[2],s), carta(rs[3],s), carta(rs[4],otros[0])];
+  return {hero:hero, mesa:mesa};
+}
+function reparteEscalera(abierta){
+  var b=entero(2,10), rr = abierta ? [b,b+1,b+2,b+3] : [b,b+1,b+3,b+4];
+  if(!abierta && b+4>14) return null;
+  baraja(rr);
+  var pl=[0,1,2,3];
+  var hero=[carta(rr[0],elige(pl)), carta(rr[1],elige(pl))];
+  var mesa=[carta(rr[2],elige(pl)), carta(rr[3],elige(pl))];
+  /* la quinta carta de la mesa: que no toque la escalera ni monte un 3-color */
+  var libres=[];
+  for(var s=0;s<4;s++) for(var v=2;v<=14;v++){
+    var choca=false;
+    hero.concat(mesa).forEach(function(c){ if(c.r===v&&c.s===s) choca=true; });
+    if(!choca && rr.indexOf(v)<0 && Math.abs(v-b)>5) libres.push(carta(v,s));
+  }
+  if(!libres.length) return null;
+  baraja(libres);
+  for(var i=0;i<libres.length;i++){
+    var m2=mesa.concat([libres[i]]);
+    if(maxPalo(hero.concat(m2))<3) return {hero:hero, mesa:m2};
+  }
+  return null;
+}
+function reparteSobre(){
+  var rs=baraja([2,3,4,5,6,7,8,9,10,11,12,13,14].slice());
+  var alt=[rs[0],rs[1]].sort(function(a,b){return b-a;});
+  var bajas=rs.slice(2,5);
+  if(Math.min(alt[0],alt[1])<=Math.max.apply(null,bajas)) return null;
+  var pl=baraja([0,1,2,3].slice());
+  var hero=[carta(alt[0],pl[0]), carta(alt[1],pl[1])];
+  var mesa=[carta(bajas[0],pl[2]), carta(bajas[1],pl[3]), carta(bajas[2],pl[0])];
+  if(maxPalo(hero.concat(mesa))>=4) return null;
+  if(hayEscalera(hero.concat(mesa))) return null;
+  return {hero:hero, mesa:mesa};
+}
+function repartePar(){
+  var rs=baraja([2,3,4,5,6,7,8,9,10,11,12,13,14].slice());
+  var r1=rs[0], r2=rs[1], pl=baraja([0,1,2,3].slice());
+  var hero=[carta(r1,pl[0]), carta(r2,pl[1])];
+  var mesa=[carta(r1,pl[2]), carta(rs[2],pl[3]), carta(rs[3],pl[1])];
+  if(maxPalo(hero.concat(mesa))>=4) return null;
+  return {hero:hero, mesa:mesa};
+}
+function qCnt(){
+  var tipos=["col","abi","gut","sob","par"], t=elige(tipos), d=null, ok=0, intentos=0;
+  while(intentos++<60){
+    if(t==="col"){ d=reparteColor();
+      if(d){ ok=cuentaOuts(d.hero,d.mesa,predColor); if(ok===9) break; } }
+    else if(t==="abi"||t==="gut"){ d=reparteEscalera(t==="abi");
+      if(d){ ok=cuentaOuts(d.hero,d.mesa,predEsc);
+             if(ok===(t==="abi"?8:4)) break; } }
+    else if(t==="sob"){ d=reparteSobre();
+      if(d){ var rr=[d.hero[0].r,d.hero[1].r];
+             ok=cuentaOuts(d.hero,d.mesa,function(x,c){ return rr.indexOf(c.r)>=0; });
+             if(ok===6) break; } }
+    else { d=repartePar();
+      if(d){ var a=d.hero[0].r, b=d.hero[1].r;
+             ok=cuentaOuts(d.hero,d.mesa,function(x,c){ return c.r===a||c.r===b; });
+             if(ok===5) break; } }
+    d=null;
+  }
+  if(!d){ return qOut(); }   /* si el reparto no cuaja, no se inventa: se cambia de pregunta */
+  var Q={col:{q:"¿cuántas cartas del mazo te dan <em>color</em>?", malas:[8,13,4],
+              w:"Tienes <b>4 cartas del mismo palo</b> y en la baraja hay 13 de cada palo: "+
+                "13 − 4 = <b>9</b>. Es el número más repetido del póquer y conviene sabérselo sin contar."},
+          abi:{q:"¿cuántas cartas del mazo te dan <em>escalera</em>?", malas:[4,6,10],
+              w:"Es una <b>escalera abierta</b>: te sirve por los dos extremos, y de cada rango hay 4 cartas. "+
+                "2 rangos × 4 = <b>8</b>."},
+          gut:{q:"¿cuántas cartas del mazo te dan <em>escalera</em>?", malas:[8,6,2],
+              w:"Es una <b>escalera por dentro</b>: te falta un rango concreto en medio, y de cada rango "+
+                "hay 4 cartas → <b>4</b>. La mitad que una abierta, por eso se paga la mitad de veces."},
+          sob:{q:"¿cuántas cartas <em>emparejan</em> una de tus cartas?", malas:[4,3,8],
+              w:"Dos cartas tuyas × 3 copias que quedan de cada una = <b>6</b>. "+
+                "Es el recuento de las dos sobrecartas, y es el más engañoso: emparejar no siempre gana."},
+          par:{q:"¿cuántas cartas te dan <em>trío o dobles parejas</em>?", malas:[2,3,6],
+              w:"Quedan <b>2</b> cartas de tu pareja (trío) y <b>3</b> de tu otra carta (dobles parejas): "+
+                "2 + 3 = <b>5</b>."}}[t];
+  return {txt:pintaMano(d.hero,d.mesa), big:Q.q, ok:ok, suf:"", opts:mezcla(ok,Q.malas,2),
+    truco:"<b>Son "+ok+".</b> "+Q.w+" <i>Contado carta por carta sobre las 47 que no ves.</i>",
+    eje:"contar outs", hero:d.hero, mesa:d.mesa, cat:t};
+}
+
+var NGEN={pct:qPct, ari:qAri, out:qOut, cuo:qCuo, cnt:qCnt};
+
+/* ---------- reloj ---------- */
+function nPara(){ if(nTmr){ clearInterval(nTmr); nTmr=null; } }
+function nArranca(){
+  nPara();
+  var bar=el("nBar"), caja=bar.parentNode, tope=LIM[nModo]||45000;
+  caja.classList.remove("mal","fuera");
+  if(!nReloj){ bar.style.width="100%"; el("nTime").textContent=""; el("nTime").className="sub"; return; }
+  nT0=Date.now();
+  nTmr=setInterval(function(){
+    var t=Date.now()-nT0, q=1-t/tope;
+    if(q>0){
+      bar.style.width=(q*100).toFixed(1)+"%";
+      caja.classList.toggle("mal", q<0.3);
+      el("nTime").textContent="te quedan "+Math.ceil(tope/1000*q)+" s";
+      el("nTime").className="sub";
+    } else {
+      bar.style.width="100%"; caja.classList.add("fuera");
+      el("nTime").textContent="se acabó el tiempo · +"+Math.floor(-q*tope/1000)+" s de más";
+      el("nTime").className="sub fueraTxt";
+    }
+  },100);
+}
+
+/* ---------- pintar ---------- */
+function nPregunta(){
+  nCur=NGEN[nModo]();
+  el("nQ").innerHTML='<div class="mq"><div class="txt">'+nCur.txt+'</div><div class="big">'+nCur.big+'</div></div>';
+  el("nFb").innerHTML="";
+  var w=el("nOpts");
+  w.className="mopts";
+  w.innerHTML=nCur.opts.map(function(v){
+    var et = nCur.str ? v : (fmt(v)+(nCur.suf||""));
+    return '<button class="'+(nCur.str?"txt":"")+'" data-v="'+v+'">'+et+'</button>';
+  }).join("");
+  w.querySelectorAll("button").forEach(function(b){ b.onclick=function(){ nResponde(b.dataset.v); }; });
+  nArranca();
+}
+function acierta(v){ return nCur.str ? v===nCur.ok : Math.abs(+v-nCur.ok)<0.5; }
+function nResponde(v){
+  if(!nCur) return;
+  nPara();
+  var tope=LIM[nModo]||45000;
+  var ms = nReloj ? (Date.now()-nT0) : 0;
+  var exceso = Math.max(0, ms-tope);
+  var bien = acierta(v);
+  nEst.n++; if(bien) nEst.ok++; nEst.ms+=ms;
+  if(exceso>0) nEst.tarde=(nEst.tarde||0)+1;
+  var e=nEst.por[nCur.eje]=nEst.por[nCur.eje]||[0,0,0];
+  e[1]++; if(bien) e[0]++; e[2]+=ms;
+  guarda();
+  el("nOpts").querySelectorAll("button").forEach(function(b){
+    b.disabled=true;
+    if(acierta(b.dataset.v)) b.classList.add("ok");
+    else if(b.dataset.v===String(v)) b.classList.add("no");
+  });
+  var tiempo="";
+  if(nReloj){
+    tiempo=" · "+(ms/1000).toFixed(1).replace(".",",")+" s";
+    if(exceso>0) tiempo+=' <span class="fueraTxt">(+'+(exceso/1000).toFixed(1).replace(".",",")+' s de más)</span>';
+  }
+  el("nFb").innerHTML=
+    '<div class="verdict v-'+(bien?"rai":"fld")+'" style="margin-top:10px">'+
+      '<p class="act">'+(bien?"✔ Correcto":"✘ No")+tiempo+'</p>'+
+      '<p class="why">La respuesta es <b>'+(nCur.str?nCur.ok:fmt(nCur.ok)+(nCur.suf||""))+'</b>.</p></div>'+
+    '<div class="truco">'+nCur.truco+'</div>'+
+    '<div class="pick"><button id="nNext" class="on" style="flex:1">Siguiente →</button></div>';
+  el("nNext").onclick=nPregunta;
+  nMarcador();
+}
+function nMarcador(){
+  el("nPct").textContent = nEst.n?Math.round(nEst.ok/nEst.n*100)+"%":"–";
+  el("nSeg").textContent = (nEst.n&&nEst.ms)?((nEst.ms/nEst.n/1000).toFixed(1).replace(".",",")+" s"):"–";
+  el("nTot").textContent = nEst.n;
+  var ft=el("nFuera");
+  if(ft) ft.innerHTML = nEst.tarde ? "De ellas, <b>"+nEst.tarde+"</b> te llevaron <b class=\"fueraTxt\">más tiempo del previsto</b>. "+
+    "Aquí no pasa nada: el reloj de esta pestaña es para medir, no para meter prisa." : "";
+  var f=Object.keys(nEst.por).map(function(k){ var v=nEst.por[k];
+    return {k:k, ok:v[0], n:v[1], s:v[2]/v[1]/1000}; }).filter(function(x){ return x.n>=3; });
+  if(!f.length){ el("nEjes").innerHTML=""; return; }
+  f.sort(function(a,b){ return a.ok/a.n-b.ok/b.n; });
+  el("nEjes").innerHTML='<h3>Dónde te cuesta</h3><div class="card"><table><tbody>'+
+    f.map(function(x){ var p=Math.round(x.ok/x.n*100);
+      var c=p>=80?"var(--grn)":(p>=60?"var(--ylw)":"var(--red)");
+      return '<tr><td>'+x.k+'</td><td class="num" style="color:'+c+'"><b>'+p+' %</b></td>'+
+             '<td class="num sub">'+x.ok+'/'+x.n+'</td><td class="num sub">'+x.s.toFixed(1).replace(".",",")+' s</td></tr>';
+    }).join("")+'</tbody></table><p class="sub" style="margin-top:7px">Con 3 cuentas o más de ese tipo.</p></div>';
+}
+
+/* ---------- arranque ---------- */
+document.querySelectorAll("#nMode button").forEach(function(b){ b.onclick=function(){
+  document.querySelectorAll("#nMode button").forEach(function(x){ x.classList.remove("on"); });
+  b.classList.add("on"); nModo=b.dataset.v; nPregunta(); }; });
+el("nReloj").onclick=function(){
+  nReloj=!nReloj; this.textContent=nReloj?"Quitar el reloj":"Poner el reloj";
+  guarda(); nPregunta();
+};
+el("nReset").onclick=function(){
+  nEst={n:0,ok:0,ms:0,tarde:0,por:{}}; try{ localStorage.removeItem(NL); }catch(e){}
+  nMarcador(); el("nEjes").innerHTML=""; nPregunta();
+};
+carga();
+el("nReloj").textContent = nReloj?"Quitar el reloj":"Poner el reloj";
+nMarcador(); nPregunta();
+window.__mbPausa=function(){ nPara(); };
+window.__mbSigue=function(){ if(nCur&&!el("nFb").innerHTML) nArranca(); };
+/* gancho de pruebas: permite verificar cada respuesta contra un calculo
+   independiente sin tocar la interfaz */
+window.__mbGen=function(m){ return NGEN[m](); };
 })();
 </script>
 <script>
