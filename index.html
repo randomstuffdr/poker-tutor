@@ -353,6 +353,40 @@ html.sinPersonal nav button[data-t="s8"]{display:none}
 #s4.corto #fkCortoBox .card,#s4.corto #fkCortoBox .warn,#s4.corto #fkCortoBox .note{display:block}
 #fkCortoBtn.on{background-color:#ff5ecb!important;background-image:var(--metal)!important;color:#2a0620!important;border-color:#ffb0e2!important}
 
+.mreloj{height:5px;border-radius:3px;background:var(--bg3);margin:11px 0 0;overflow:hidden}
+.mreloj i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--grn),var(--ylw));
+  transition:width .1s linear}
+.mreloj.mal i{background:linear-gradient(90deg,var(--ylw),var(--red))}
+.mopts{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:9px}
+.mopts.dos{grid-template-columns:1fr 1fr}
+.mopts button{background:var(--bg3);border:1px solid var(--line);color:var(--tx);border-radius:9px;
+  padding:13px 2px;font:800 15px/1 ui-monospace,Menlo,monospace;cursor:pointer;font-family:ui-monospace,Menlo,monospace}
+.mopts button:disabled{opacity:.45}
+.mopts button.ok{background:rgba(69,211,138,.22);border-color:var(--grn);color:#9ff0ab}
+.mopts button.no{background:rgba(255,106,69,.18);border-color:var(--red);color:#ffb199}
+.mq{text-align:center;padding:4px 0 2px}
+.mq .txt{font-size:16px;color:var(--dim);line-height:1.6}
+.mq .txt b{color:var(--tx);font-size:17.5px}
+.mq .big{font:800 27px/1.15 ui-monospace,Menlo,monospace;color:var(--tx);letter-spacing:-.5px;margin-top:9px}
+@media(max-width:380px){.mq .txt{font-size:15px}.mq .txt b{font-size:16.5px}.mq .big{font-size:23px}}
+.mreloj.fuera i{background:var(--red)}
+.fueraTxt{color:var(--red);font-weight:700}
+.abc>div{padding:9px 0;border-top:1px solid #2e2540}
+.abc>div:first-child{border-top:none;padding-top:2px}
+.abc h5{margin:0 0 3px;font:700 13px inherit;color:var(--mag2)}
+.abc p{margin:0;font-size:12.5px;color:#cbbedb;line-height:1.55}
+.abc p b{color:var(--tx)}
+.abc .cuenta{display:inline-block;background:var(--bg3);border:1px solid var(--line);border-radius:6px;
+  padding:1px 7px;font:700 12px ui-monospace,Menlo,monospace;color:var(--mag2);margin:3px 2px 0}
+.mq .big em{font-style:normal;color:var(--mag2)}
+.truco{background:var(--bg3);border-left:3px solid var(--vio);border-radius:0 8px 8px 0;padding:9px 11px;
+  margin-top:8px;font-size:12.5px;color:#cbbedb;line-height:1.5}
+.truco b{color:var(--vio)}
+.anc{display:grid;grid-template-columns:1fr auto;gap:0 10px;font-size:12.5px}
+.anc>div{padding:6px 0;border-top:1px solid #2e2540;color:var(--dim)}
+.anc>div:nth-child(-n+2){border-top:none}
+.anc .v{font:800 13px ui-monospace,Menlo,monospace;color:var(--mag2);text-align:right}
+
 /* ============ piel: magenta metalico ============ */
 :root{
   --mag:#ff5ecb; --mag2:#ff9fd6; --mag3:#e23fae;
@@ -461,7 +495,6 @@ h2::before{content:"♠";
 <nav>
   <button class="on" data-t="s0" data-slug="asesor">Antes del flop</button>
   <button data-t="s4" data-slug="mi-mano">Con la mesa</button>
-  <button data-t="sN">Narrador</button>
   <button data-t="s9">Entrenador</button>
   <button data-t="s8">Mi juego</button>
   <button data-t="s7">Diccionario</button>
@@ -724,41 +757,7 @@ h2::before{content:"♠";
   <div class="note"><b>Implied odds:</b> lo que esperas ganar <i>además</i> si ligas. Con proyectos fuertes (color, escalera) contra rivales que pagan mucho, puedes justificar pagar algo peor que las pot odds. Con proyectos débiles (gutshot), casi nunca.</div>
 </section>
 
-<!-- ============ NARRADOR ============ -->
-<section id="sN">
-  <h2>Narrador</h2>
-  <p>Le vas cantando la mano y te contesta en voz alta. Sin tocar la pantalla.</p>
 
-  <div class="warn" style="margin-bottom:11px"><b>Cuándo usarlo.</b> Repasando una mano de memoria, es estudio y no pasa nada.
-  Usándolo mientras juegas en una mesa de dinero, es asistencia en tiempo real: la mayoría de las salas lo prohíben
-  y arriesgas la cuenta y el saldo. La herramienta es la misma; lo que cambia es cuándo la usas.</p>
-
-  <div class="pick" style="margin-top:2px">
-    <button id="nrMic" style="flex:0 0 auto"><span class="mico">●</span> Empezar a escuchar</button>
-    <button id="nrNew" style="flex:0 0 auto">Mano nueva</button>
-    <button id="nrVoz" style="flex:0 0 auto" class="on">Responde en voz</button>
-  </div>
-
-  <div class="card" style="margin-top:11px">
-    <div class="lbl">La mano, según te he entendido</div>
-    <div id="nrEstado" class="nrest"></div>
-    <div id="nrDicho" class="nrdicho"></div>
-  </div>
-
-  <div id="nrResp"></div>
-
-  <details class="ref"><summary>Qué le puedes decir</summary><div class="in">
-    <p class="sub" style="margin-top:0"><b>Tus cartas y la mesa.</b> Basta con nombrarlas: «as de picas, siete de corazones».
-    Las tres primeras van a tu mano y a la mesa por orden. Si quieres marcar la calle, di «flop», «turn» o «river» antes de las cartas.</p>
-    <p class="sub"><b>Cuánta gente queda.</b> «Somos tres», «quedan dos», «uno más». Solo puede bajar.</p>
-    <p class="sub"><b>Lo que te apuestan.</b> «Me apuestan medio bote», «me apuestan el bote», «me apuestan dos tercios»,
-    o con cifras: «en el bote hay veinte, me apuestan doce».</p>
-    <p class="sub"><b>All-in.</b> «Va con todo», «all in», «todo dentro». Como un all-in puede ser cualquier tamaño,
-    dile también cuánto es: «va con todo, el doble del bote», o «en el bote hay veinte y va con todo por treinta».</p>
-    <p class="sub"><b>Preguntas.</b> «¿Qué tengo?», «¿cuánto gano?», «¿quién me gana?», «¿cuántos outs?», «¿pago?».</p>
-    <p class="sub"><b>Control.</b> «Mano nueva», «borra», «quita la última», «calla» para que deje de hablar.</p>
-  </div></details>
-</section>
 
 
 <!-- ============ 5. DUELOS ============ -->
@@ -773,7 +772,7 @@ h2::before{content:"♠";
 <!-- ============ 9. ENTRENADOR ============ -->
 <section id="s9">
   <h2>Entrenador</h2>
-  <div class="pick" id="trMode" style="margin-bottom:10px"><button data-m="pre" class="on">Manos iniciales</button><button data-m="bet">Tamaño de apuesta</button></div>
+  <div class="pick" id="trMode" style="margin-bottom:10px"><button data-m="pre" class="on">Manos iniciales</button><button data-m="bet">Tamaño de apuesta</button><button data-m="mat">Las cuentas</button></div>
   <div id="trPre">
   <p>Te planteo una situación real y decides. Luego te digo si coincide con la chuleta de rangos y por qué.</p>
 
@@ -827,6 +826,82 @@ h2::before{content:"♠";
   </div>
   <div class="stats"><div class="stat"><div class="n" id="bOK">0</div><div class="k">aciertos</div></div><div class="stat"><div class="n" id="bPct">–</div><div class="k">porcentaje</div></div><div class="stat"><div class="n" id="bTot">0</div><div class="k">situaciones</div></div></div>
   <div class="warn"><b>Los márgenes son convención, no matemáticas.</b> No existe un único número correcto: depende del rival y de la mesa. Lo que sí es un error medible es apostar el 15 % del bote con una mano fuerte, o el 240 % con cualquier cosa — y las dos te han pasado.</div>
+</div>
+
+<div id="trMat" style="display:none">
+  <p>Las cuentas que de verdad se hacen en la mesa. Con reloj, porque acertar en quince segundos no sirve de nada.</p>
+  <div class="card">
+    <div class="lbl">Qué practicas</div>
+    <div class="pick" id="mMode">
+      <button data-v="dec" class="on">La decisión</button>
+      <button data-v="pre">El precio</button>
+      <button data-v="out">Tus cartas</button>
+      <button data-v="riv">El river</button>
+      <button data-v="fic">Fichas</button>
+    </div>
+    <div id="mQ" style="margin-top:10px"></div>
+    <div class="mreloj"><i id="mBar"></i></div>
+    <p class="sub" id="mTime" style="text-align:center;margin:3px 0 0"></p>
+    <div id="mOpts" class="mopts"></div>
+    <div id="mFb"></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n" id="mPct">–</div><div class="k">aciertos</div></div>
+    <div class="stat"><div class="n" id="mSeg">–</div><div class="k">tiempo medio</div></div>
+    <div class="stat"><div class="n" id="mTot">0</div><div class="k">cuentas hechas</div></div>
+  </div>
+  <div class="pick">
+    <button id="mReloj" style="flex:0 0 auto">Quitar el reloj</button>
+    <button id="mReset" style="flex:0 0 auto">Reiniciar marcador</button>
+  </div>
+  <div id="mEjes"></div>
+
+  <div class="card">
+    <div class="lbl">Las anclas · con estas siete te vale para casi todo</div>
+    <div class="anc" id="mAnc"></div>
+    <p class="sub" style="margin-top:8px">Lo demás se interpola. En la mesa nadie divide: se reconoce el tamaño de la apuesta y se compara con lo que tienes.</p>
+  </div>
+  <div class="card">
+    <div class="lbl">Lo básico, si empiezas de cero</div>
+    <div class="abc">
+      <div>
+        <h5>Qué es un «out»</h5>
+        <p>Una carta que todavía está en la baraja y que <b>convierte tu mano perdedora en ganadora</b>.
+        Si tienes cuatro cartas de corazones y te falta una para el color, quedan <b>nueve corazones</b>
+        en la baraja: tienes <b>9 outs</b>. Contar outs es contar cuántas cartas te salvan.</p>
+      </div>
+      <div>
+        <h5>De dónde sale la regla del 2 y el 4</h5>
+        <p>Después del flop hay <b>47 cartas que no has visto</b> (las 52 menos tus 2 y las 3 de la mesa).
+        Si 9 de esas 47 te salvan, la próxima carta te salva <b>9 ÷ 47 ≈ 19 %</b> de las veces.
+        Como 1 entre 47 es casi el 2 %, cada out vale más o menos <b>2 puntos por carta que quede</b>.
+        De ahí:</p>
+        <p><span class="cuenta">outs × 2 = queda una carta</span><span class="cuenta">outs × 4 = quedan dos</span></p>
+      </div>
+      <div>
+        <h5>Para qué sirve esa cuenta</h5>
+        <p>Para poder <b>comparar</b>. «Tengo proyecto de color» no se puede comparar con nada;
+        <b>«tengo un 36 %»</b> sí. El bote te pide un porcentaje y tu mano te da otro: si el tuyo es mayor,
+        pagar gana dinero a la larga; si es menor, lo pierde. Toda la decisión es poner
+        esos dos números uno al lado del otro.</p>
+      </div>
+      <div>
+        <h5>Y dónde falla</h5>
+        <p>El ×4 se pasa de optimista cuando tienes muchos outs. Con 15 outs da 60 % y el real es 54 %,
+        porque la cuenta suma dos veces cartas que solo pueden salir una vez. Con más de 8 outs,
+        <b>réstale unos puntos a ojo</b>.</p>
+      </div>
+      <div>
+        <h5>«Equity mínima»</h5>
+        <p>Es el porcentaje de veces que necesitas ganar para que pagar <b>no pierda dinero</b>.
+        Depende solo del tamaño de la apuesta, no de tus cartas. Por eso media apuesta son siempre
+        25 % y el bote entero siempre 33 %: son números que conviene sabérselos.</p>
+      </div>
+    </div>
+  </div>
+  <p class="sub" id="mFuera" style="margin-bottom:4px"></p>
+  <p class="sub" id="mGuardado"></p>
 </div>
 <div id="trPre2">
   <div class="stats">
@@ -2244,17 +2319,23 @@ var TAM=document.getElementById("bAns").innerHTML;
 document.querySelectorAll("#trMode button").forEach(function(b){b.onclick=function(){
   document.querySelectorAll("#trMode button").forEach(function(x){x.classList.remove("on")});
   b.classList.add("on");
-  var bet=b.dataset.m==="bet";
-  document.getElementById("trPre").style.display=bet?"none":"";
-  document.getElementById("trBet").style.display=bet?"":"none";
+  var m=b.dataset.m;                       /* pre | bet | mat */
+  document.getElementById("trPre").style.display = m==="pre"?"":"none";
+  document.getElementById("trBet").style.display = m==="bet"?"":"none";
+  var mat=document.getElementById("trMat");
+  if(mat) mat.style.display = m==="mat"?"":"none";
+  /* estos bloques viven fuera de trPre y hay que esconderlos a mano */
   var pre=[document.getElementById("tOK").closest(".stats"),
            document.getElementById("tReset").closest(".pick"),
            document.getElementById("tFallos"),
            document.getElementById("tEjes"),
            document.getElementById("tGuardado"),
            document.querySelector("#s9 > .note")];
-  pre.forEach(function(e){ if(e) e.style.display=bet?"none":""; });
-  if(bet && !cur) ask();
+  pre.forEach(function(e){ if(e) e.style.display = m==="pre"?"":"none"; });
+  /* el reloj de las cuentas no debe correr en una pestana que no se ve */
+  if(m==="mat"){ if(window.__matSigue) window.__matSigue(); }
+  else if(window.__matPausa) window.__matPausa();
+  if(m==="bet" && !cur) ask();
 };});
 ask();
 })();
@@ -3591,7 +3672,7 @@ function slug(t){
 var porSlug={}, porId={};
 btns.forEach(function(b){ var sg=b.dataset.slug||slug(b.textContent); porSlug[sg]=b; porId[b.dataset.t]=sg; });
 // direcciones viejas que ya no tienen pestana propia
-var ALIAS={"pila-corta":{a:"mi-mano",modo:"corto"}};
+var ALIAS={"pila-corta":{a:"mi-mano",modo:"corto"},"narrador":{a:"entrenador"}};
 var aplicando=false;
 function activa(b, scroll){
   if(!b) return;
@@ -3993,6 +4074,252 @@ document.getElementById("mgBorrarBtn").onclick=function(){
 /* al abrir: si ya hay historial guardado, se usa */
 abre().then(todas).then(function(ss){ if(ss.length){ CACHE=agrega(ss); repinta(); } else estado(); })
       .catch(function(){ estado(); });
+})();
+</script>
+<script>
+(function(){
+/* ============================================================================
+   Las cuentas. No entrena aritmetica: entrena RECONOCER. En la mesa nadie
+   divide 120 entre 480; se ve "media apuesta" y se sabe que son 25 %. Por eso
+   las respuestas admiten margen y por eso hay reloj: acertar en quince
+   segundos no sirve, en la mesa ya te habrias pasado de tiempo.
+   ========================================================================= */
+var LL="pt.cuentas.v1", LIMITE=12000;   /* 12 s por pregunta */
+var modo="dec", cur=null, t0=0, tmr=null, conReloj=true;
+var est={n:0, ok:0, ms:0, tarde:0, por:{}};
+
+var ANCLAS=[
+ ["Te apuestan ¼ del bote","17 %"],
+ ["Te apuestan ⅓ del bote","20 %"],
+ ["Te apuestan ½ del bote","25 %"],
+ ["Te apuestan ⅔ del bote","29 %"],
+ ["Te apuestan el bote entero","33 %"],
+ ["9 outs (color), quedan dos cartas","36 %"],
+ ["8 outs (escalera), quedan dos cartas","32 %"]
+];
+var FRACS=[[0.25,"¼ del bote",17],[0.33,"⅓ del bote",20],[0.5,"½ del bote",25],
+           [0.66,"⅔ del bote",29],[0.75,"¾ del bote",30],[1,"el bote entero",33],
+           [1.5,"vez y media el bote",37],[2,"el doble del bote",40]];
+var OUTS=[[2,"pareja a trío"],[4,"escalera por dentro"],[6,"dos sobrecartas"],
+          [8,"escalera abierta"],[9,"proyecto de color"],[12,"color + carta alta"],
+          [15,"color y escalera a la vez"]];
+/* valores exactos, para el comentario de despues */
+var EXACTO={2:[8.4,4.3],4:[16.5,8.7],6:[24.1,13.0],8:[31.5,17.4],9:[35.0,19.6],12:[45.0,26.1],15:[54.1,32.6]};
+
+function el(i){ return document.getElementById(i); }
+function elige(a){ return a[Math.floor(Math.random()*a.length)]; }
+function bote(){ var b=[120,160,180,240,300,320,420,480,540,700,900]; return elige(b); }
+function fmt(n){ return Math.round(n).toLocaleString("es-ES"); }
+
+/* ---------- memoria ---------- */
+function guarda(){ try{ localStorage.setItem(LL,JSON.stringify({est:est,reloj:conReloj})); }catch(e){} }
+function carga(){ try{ var s=localStorage.getItem(LL); if(!s) return;
+  var d=JSON.parse(s); est=d.est||est; if(d.reloj===false) conReloj=false; }catch(e){} }
+
+/* ---------- generadores ---------- */
+function opciones(bueno, paso){
+  /* cuatro opciones separadas lo suficiente para que acertar sea saber, no elegir */
+  var o=[bueno], intentos=0;
+  while(o.length<4 && intentos++<80){
+    var v=bueno+(Math.random()<0.5?-1:1)*paso*(1+Math.floor(Math.random()*3));
+    if(v>0 && v<100 && o.every(function(x){return Math.abs(x-v)>=paso;})) o.push(v);
+  }
+  while(o.length<4) o.push(bueno+o.length*paso);
+  return o.sort(function(){return Math.random()-0.5;});
+}
+function qPrecio(){
+  var P=bote(), f=elige(FRACS), B=Math.round(P*f[0]);
+  return {tipo:"pre", txt:"En el bote hay <b>"+fmt(P)+"</b><br>te apuestan <b>"+fmt(B)+"</b> ("+f[1]+")",
+    big:"¿qué % necesitas <em>ganar</em>?", ok:f[2], opts:opciones(f[2],4), suf:" %",
+    truco:"<b>El atajo:</b> "+f[1]+" son <b>siempre "+f[2]+" %</b>, salga el bote que salga. "+
+      "La cuenta es apuesta ÷ (bote + 2 × apuesta), pero no hace falta hacerla: se reconoce el tamaño y ya.",
+    eje:"precio"};
+}
+function qOuts(){
+  var o=elige(OUTS), dos=Math.random()<0.6;
+  var ok = dos ? o[0]*4 : o[0]*2, ex=EXACTO[o[0]][dos?0:1];
+  return {tipo:"out", txt:"Tienes <b>"+o[0]+" outs</b> ("+o[1]+")<br>"+(dos?"quedan <b>dos cartas</b>":"queda <b>una carta</b>")+" por salir",
+    big:"¿qué % tienes de <em>ligar</em>?", ok:ok, opts:opciones(ok,4), suf:" %",
+    truco:"<b>La regla del 2 y el 4:</b> outs × 4 si quedan dos cartas, × 2 si queda una. "+
+      o[0]+" × "+(dos?4:2)+" = <b>"+ok+" %</b>. El exacto es "+String(ex).replace(".",",")+" %"+
+      (o[0]>8&&dos?", así que con muchos outs la regla se pasa de optimista.":"."),
+    eje:"outs"};
+}
+function qDecision(){
+  var P,f,B,o,dos,eq,pide,intentos=0;
+  do{
+    P=bote(); f=elige(FRACS); B=Math.round(P*f[0]);
+    o=elige(OUTS); dos=Math.random()<0.5;
+    eq = dos ? o[0]*4 : o[0]*2; pide=f[2];
+  /* Si la equidad y el precio quedan a menos de 4 puntos, la regla del 2 y el 4
+     ya no distingue de verdad: preguntarlo seria puntuar ruido, no criterio. */
+  }while(Math.abs(eq-pide)<4 && intentos++<40);
+  var paga = eq>pide;
+  return {tipo:"dec",
+    txt:"En el bote hay <b>"+fmt(P)+"</b> · te apuestan <b>"+fmt(B)+"</b> ("+f[1]+")<br>"+
+        "tienes <b>"+o[0]+" outs</b> y "+(dos?"quedan <b>dos cartas</b>":"queda <b>una carta</b>"),
+    big:"¿<em>pagas</em>?", ok:paga?"si":"no", opts:["si","no"], dos:true,
+    truco:"<b>El bote pide "+pide+" % y tú tienes ~"+eq+" %.</b> "+
+      (paga?"Tienes más de lo que te piden: pagar gana dinero a la larga."
+           :"Tienes menos de lo que te piden: pagar pierde dinero a la larga.")+
+      " Ni divisiones ni nada: "+f[1]+" → "+pide+" %, y "+o[0]+" × "+(dos?4:2)+" = "+eq+" %.",
+    eje:(dos?"decision-flop":"decision-turn")};
+}
+function qRiver(){
+  var P=bote(), f=elige(FRACS.slice(2)), B=Math.round(P*f[0]);
+  return {tipo:"riv",
+    txt:"River. En el bote hay <b>"+fmt(P)+"</b> y te apuestan <b>"+fmt(B)+"</b> ("+f[1]+").<br>"+
+        "Tu mano solo gana si él va de farol.",
+    big:"¿cada cuánto tiene que <em>farolear</em><br>para que pagar sea neutro?", ok:f[2],
+    opts:opciones(f[2],4), suf:" %",
+    truco:"<b>Es el mismo número que el precio.</b> Si el bote te pide ganar el "+f[2]+" %, "+
+      "necesitas que esté faroleando el "+f[2]+" % de las veces. Por eso un rival equilibrado "+
+      "te deja siempre indiferente: no existe el pago mágico. La decisión la gana leer a ESE rival, no la cuenta.",
+    eje:"river"};
+}
+function qFichas(){
+  var t=Math.floor(Math.random()*3);
+  if(t===0){
+    var P=bote(), f=elige(FRACS.slice(0,6)), ok=Math.round(P*f[0]);
+    return {tipo:"fic", txt:"En el bote hay <b>"+fmt(P)+"</b>", big:"¿cuánto es <em>"+f[1]+"</em>?",
+      ok:ok, opts:opciones(ok,Math.max(5,Math.round(P*0.08))), suf:"", num:true,
+      truco:"<b>Para partir rápido:</b> la mitad y luego ajustas. La mitad de "+fmt(P)+" es "+fmt(P/2)+
+        "; de ahí sacas un tercio, dos tercios o tres cuartos sin dividir del todo.", eje:"fichas"};
+  }
+  if(t===1){
+    var bb=elige([0.02,0.05,0.10,0.25]), n=elige([20,35,50,60,80,100]);
+    var pila=Math.round(n*bb*100)/100;
+    return {tipo:"fic", txt:"Tienes <b>"+pila.toFixed(2).replace(".",",")+" €</b> y la ciega grande es <b>"+
+        bb.toFixed(2).replace(".",",")+" €</b>", big:"¿cuántas <em>ciegas</em> tienes?",
+      ok:n, opts:opciones(n,10), suf:" bb", num:true,
+      truco:"<b>Pila ÷ ciega grande.</b> Es la cuenta que decide si estás en zona de all-in o retirar: "+
+        "por debajo de 15 ciegas no hay término medio.", eje:"fichas"};
+  }
+  var P2=bote(), f2=elige(FRACS), B2=Math.round(P2*f2[0]);
+  var pct=Math.round(B2/P2*100);
+  return {tipo:"fic", txt:"En el bote había <b>"+fmt(P2)+"</b> y te han apostado <b>"+fmt(B2)+"</b>",
+    big:"¿qué <em>fracción del bote</em> es?", ok:pct, opts:opciones(pct,10), suf:" %", num:true,
+    truco:"<b>Leer el tamaño es lo primero:</b> de ahí sale el precio y el rango que le supones. "+
+      fmt(B2)+" sobre "+fmt(P2)+" es aproximadamente "+f2[1]+".", eje:"fichas"};
+}
+var GEN={dec:qDecision, pre:qPrecio, out:qOuts, riv:qRiver, fic:qFichas};
+
+/* ---------- reloj ---------- */
+function paraReloj(){ if(tmr){ clearInterval(tmr); tmr=null; } }
+function arrancaReloj(){
+  paraReloj();
+  var bar=el("mBar"), caja=bar.parentNode;
+  caja.classList.remove("mal","fuera");
+  if(!conReloj){ bar.style.width="100%"; el("mTime").textContent=""; el("mTime").className="sub"; return; }
+  t0=Date.now();
+  /* Cuando se acaba el tiempo NO se contesta por ti: la cuenta sigue corriendo
+     en rojo y respondes cuando puedas. Lo que se registra es el exceso. */
+  tmr=setInterval(function(){
+    var t=Date.now()-t0, q=1-t/LIMITE;
+    if(q>0){
+      bar.style.width=(q*100).toFixed(1)+"%";
+      caja.classList.toggle("mal", q<0.35);
+      el("mTime").textContent="te quedan "+Math.ceil(LIMITE/1000*q)+" s";
+      el("mTime").className="sub";
+    } else {
+      bar.style.width="100%";
+      caja.classList.add("fuera");
+      el("mTime").textContent="se acabó el tiempo · +"+Math.floor(-q*LIMITE/1000)+" s de más";
+      el("mTime").className="sub fueraTxt";
+    }
+  },100);
+}
+
+/* ---------- pintar ---------- */
+function pregunta(){
+  cur=GEN[modo]();
+  el("mQ").innerHTML='<div class="mq"><div class="txt">'+cur.txt+'</div><div class="big">'+cur.big+'</div></div>';
+  el("mFb").innerHTML="";
+  var w=el("mOpts");
+  w.className="mopts"+(cur.dos?" dos":"");
+  w.innerHTML=cur.opts.map(function(v){
+    var et = cur.dos ? (v==="si"?"PAGAR":"RETIRARSE") : (fmt(v)+(cur.suf||""));
+    return '<button data-v="'+v+'">'+et+'</button>';
+  }).join("");
+  w.querySelectorAll("button").forEach(function(b){ b.onclick=function(){ responde(b.dataset.v); }; });
+  arrancaReloj();
+}
+function responde(v){
+  if(!cur) return;
+  paraReloj();
+  var ms = conReloj ? (Date.now()-t0) : 0;
+  var exceso = Math.max(0, ms-LIMITE);
+  var bien = (v!==null) && (cur.dos ? v===cur.ok : Math.abs(+v-cur.ok)<0.5);
+  est.n++; if(bien){ est.ok++; } est.ms+=ms;
+  if(exceso>0) est.tarde=(est.tarde||0)+1;
+  var e=est.por[cur.eje]=est.por[cur.eje]||[0,0,0];
+  e[1]++; if(bien) e[0]++; e[2]+=ms;
+  guarda();
+  el("mOpts").querySelectorAll("button").forEach(function(b){
+    b.disabled=true;
+    var esta = cur.dos ? b.dataset.v===cur.ok : Math.abs(+b.dataset.v-cur.ok)<0.5;
+    if(esta) b.classList.add("ok");
+    else if(v!==null && b.dataset.v===String(v)) b.classList.add("no");
+  });
+  var tit = bien?"✔ Correcto":"✘ No";
+  var tiempo = "";
+  if(conReloj){
+    tiempo = ' · '+(ms/1000).toFixed(1).replace(".",",")+' s';
+    if(exceso>0) tiempo += ' <span class="fueraTxt">(+'+(exceso/1000).toFixed(1).replace(".",",")+' s de más)</span>';
+  }
+  el("mFb").innerHTML=
+    '<div class="verdict v-'+(bien?"rai":"fld")+'" style="margin-top:10px">'+
+      '<p class="act">'+tit+tiempo+'</p>'+
+      '<p class="why">La respuesta es <b>'+(cur.dos?(cur.ok==="si"?"PAGAR":"RETIRARSE"):fmt(cur.ok)+(cur.suf||""))+'</b>.</p></div>'+
+    '<div class="truco">'+cur.truco+'</div>'+
+    '<div class="pick"><button id="mNext" class="on" style="flex:1">Siguiente →</button></div>';
+  el("mNext").onclick=pregunta;
+  marcador();
+}
+function marcador(){
+  el("mPct").textContent = est.n?Math.round(est.ok/est.n*100)+"%":"–";
+  el("mSeg").textContent = (est.n&&est.ms)?((est.ms/est.n/1000).toFixed(1).replace(".",",")+" s"):"–";
+  el("mTot").textContent = est.n;
+  var ft=el("mFuera");
+  if(ft) ft.innerHTML = est.tarde ? "De ellas, <b>"+est.tarde+"</b> las resolviste <b class=\"fueraTxt\">fuera de tiempo</b>. "+
+     "En la mesa esas son las que te delatan: el rival ve que te lo estás pensando." : "";
+  var NM={precio:"el precio",outs:"tus cartas","decision-flop":"decidir en el flop",
+          "decision-turn":"decidir en el turn",river:"el river",fichas:"fichas"};
+  var f=Object.keys(est.por).map(function(k){ var v=est.por[k];
+    return {k:NM[k]||k, ok:v[0], n:v[1], s:v[2]/v[1]/1000}; }).filter(function(x){return x.n>=3;});
+  if(!f.length){ el("mEjes").innerHTML=""; return; }
+  f.sort(function(a,b){ return a.ok/a.n-b.ok/b.n; });
+  el("mEjes").innerHTML='<h3>Dónde te cuesta</h3><div class="card"><table><tbody>'+
+    f.map(function(x){ var p=Math.round(x.ok/x.n*100);
+      var c=p>=80?"var(--grn)":(p>=60?"var(--ylw)":"var(--red)");
+      return '<tr><td>'+x.k+'</td><td class="num" style="color:'+c+'"><b>'+p+' %</b></td>'+
+             '<td class="num sub">'+x.ok+'/'+x.n+'</td><td class="num sub">'+x.s.toFixed(1).replace(".",",")+' s</td></tr>';
+    }).join("")+'</tbody></table><p class="sub" style="margin-top:7px">Con 3 cuentas o más. El tiempo importa: '+
+    'en la mesa no tienes doce segundos.</p></div>';
+}
+
+/* ---------- arranque ---------- */
+el("mAnc").innerHTML=ANCLAS.map(function(a){
+  return '<div>'+a[0]+'</div><div class="v">'+a[1]+'</div>'; }).join("");
+document.querySelectorAll("#mMode button").forEach(function(b){ b.onclick=function(){
+  document.querySelectorAll("#mMode button").forEach(function(x){x.classList.remove("on")});
+  b.classList.add("on"); modo=b.dataset.v; pregunta(); }; });
+el("mReloj").onclick=function(){
+  conReloj=!conReloj; this.textContent=conReloj?"Quitar el reloj":"Poner el reloj";
+  guarda(); pregunta();
+};
+el("mReset").onclick=function(){
+  est={n:0,ok:0,ms:0,tarde:0,por:{}}; try{ localStorage.removeItem(LL); }catch(e){}
+  marcador(); el("mEjes").innerHTML=""; pregunta();
+};
+carga();
+el("mReloj").textContent = conReloj?"Quitar el reloj":"Poner el reloj";
+var hay=false; try{ hay=!!localStorage.getItem(LL); }catch(e){}
+el("mGuardado").textContent = hay||true
+  ? "Tu marcador se guarda en este navegador. No sale de tu dispositivo." : "";
+marcador(); pregunta();
+window.__matPausa=function(){ paraReloj(); };
+window.__matSigue=function(){ if(cur&&!el("mFb").innerHTML) arrancaReloj(); };
 })();
 </script>
 <script>

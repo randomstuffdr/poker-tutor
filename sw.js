@@ -1,4 +1,4 @@
-const V = "pokertutor-0e36bc352c";
+const V = "pokertutor-603b5bf365";
 const ASSETS = ["./","./index.html","./manifest.webmanifest",
   "./icon-192.png","./icon-512.png","./icon-maskable-512.png","./apple-touch-icon.png"];
 
