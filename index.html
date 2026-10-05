@@ -489,6 +489,76 @@ h2::before{content:"♠";
 /* que el degradado no se coma los avisos de colores propios */
 .alrt b,.calhead b{-webkit-text-fill-color:currentColor}
 
+
+#sP .ptSvg svg{display:block;width:100%;max-width:520px;height:auto;margin:4px auto 0}
+#sP .ptBar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 2px}
+#sP .ptBig{flex:1 1 220px;background:var(--metal,#ff5ecb);color:#2a0620;border:1px solid #ffb0e2;
+  border-radius:10px;padding:12px 14px;font:700 15px/1.25 inherit;font-family:inherit;cursor:pointer;
+  min-height:48px;text-align:center}
+#sP .ptBig:disabled{opacity:.4;cursor:default}
+#sP .ptSec{flex:0 1 auto;background:var(--bg3);color:var(--tx);border:1px solid var(--line);border-radius:10px;
+  padding:10px 13px;font:600 13.5px/1.2 inherit;font-family:inherit;cursor:pointer;min-height:44px}
+#sP .ptSec:disabled{opacity:.4;cursor:default}
+#sP .ptSec.peligro{color:#ffb3a0;border-color:rgba(255,106,69,.45)}
+#sP .ptSec.armado{background:rgba(255,106,69,.16);border-color:var(--red);color:#ffd2c6}
+#sP .ptChips{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+#sP .ptChip{background:var(--bg3);color:var(--tx);border:1px solid var(--line);border-radius:999px;
+  padding:10px 15px;font:600 14px/1.1 inherit;font-family:inherit;cursor:pointer;min-height:44px}
+#sP .ptChip.on{background:var(--mag,#ff5ecb);color:#2a0620;border-color:#ffb0e2}
+#sP .ptChip small{font-weight:500;margin-left:5px;opacity:.85}
+#sP .ptRows{display:grid;margin-top:6px}
+#sP .ptRow{display:grid;grid-template-columns:minmax(0,1fr) 104px 74px;gap:8px;align-items:center;
+  padding:8px 0;border-top:1px solid #2e2540}
+#sP .ptRow:first-child{border-top:none}
+#sP .ptNom{font-weight:600;font-size:14.5px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#sP .ptNom small{display:block;font-weight:500;font-size:12px;color:var(--dim2);white-space:normal}
+#sP .ptNom .tag{display:inline-block;font:700 10px/1 ui-monospace,Menlo,monospace;padding:3px 5px;border-radius:5px;
+  margin-left:5px;vertical-align:2px;background:#3a2c4c;color:#e9d9f6}
+#sP .ptNom .tag.ai{background:rgba(255,94,203,.22);color:#ffc2ea}
+#sP input.ptNum,#sP input.ptTxt{width:100%;box-sizing:border-box;background:#120e19;color:var(--tx);
+  border:1px solid var(--line);border-radius:8px;padding:10px 9px;font-size:16px;min-height:44px}
+#sP input.ptNum{font-family:ui-monospace,Menlo,monospace;font-weight:700;text-align:right;
+  font-variant-numeric:tabular-nums}
+#sP input.ptNum:focus,#sP input.ptTxt:focus{outline:2px solid var(--mag,#ff5ecb);outline-offset:1px;border-color:var(--mag,#ff5ecb)}
+#sP .ptMini{background:var(--bg3);color:#ffc2ea;border:1px solid var(--line);border-radius:8px;
+  padding:9px 6px;font:700 12.5px/1 inherit;font-family:inherit;cursor:pointer;min-height:44px;width:100%}
+#sP .ptMini.on{background:rgba(255,94,203,.2);border-color:var(--mag,#ff5ecb)}
+#sP .ptPar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
+#sP .ptPar input.ptNum{width:96px;flex:0 0 96px}
+#sP .ptPar input.ptTxt{flex:1 1 160px;width:auto}
+#sP .ptPar span{color:var(--dim)}
+#sP .ptPot{background:var(--bg3);border:1px solid var(--line);border-radius:10px;padding:10px 11px;margin-top:8px}
+#sP .ptPot.dev{border-style:dashed;background:transparent}
+#sP .ptPot .cab{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:700;font-size:14px}
+#sP .ptPot .cab b{font:800 16px/1 ui-monospace,Menlo,monospace;color:#ffc2ea;font-variant-numeric:tabular-nums}
+#sP .ptPot .quien{font-size:12.5px;color:var(--dim);margin-top:3px}
+#sP .ptPot .res{font-size:13.5px;margin-top:6px}
+#sP .ptPot .res b{color:var(--grn)}
+#sP .ptLinea{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:9px 0;
+  border-top:1px solid #2e2540;font-size:14px}
+#sP .ptLinea:first-child{border-top:none}
+#sP .ptLinea .n{font:700 14px/1.2 ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+#sP .pos{color:var(--grn)} #sP .neg{color:var(--red)}
+#sP .ptJug{padding:11px 0;border-top:1px solid #2e2540}
+#sP .ptJug:first-child{border-top:none}
+#sP .ptJug .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+#sP .ptJug .top b{font-size:15px}
+#sP .ptJug .det{font-size:12.5px;color:var(--dim);margin-top:2px}
+#sP .ptJug .acc{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+#sP .ptJug .acc .ptSec{min-height:40px;padding:8px 11px;font-size:13px}
+#sP .ptJug.ido{opacity:.7}
+#sP .ptMano{font-size:13px;padding:10px 0;border-top:1px solid #2e2540}
+#sP .ptMano:first-child{border-top:none}
+#sP .ptMano .cab{display:flex;justify-content:space-between;gap:8px;font-weight:700}
+#sP .ptMano .det{color:var(--dim);margin-top:3px;line-height:1.5}
+#sP textarea.ptResumen{width:100%;box-sizing:border-box;min-height:220px;background:#120e19;color:var(--tx);
+  border:1px solid var(--line);border-radius:8px;padding:10px;font:13px/1.5 ui-monospace,Menlo,monospace;margin-top:8px}
+#sP .ptAviso{margin-top:8px}
+#sP .ptCuadra{font-weight:700}
+#sP button:focus-visible{outline:2px solid var(--mag,#ff5ecb);outline-offset:2px}
+@media (max-width:420px){
+  #sP .ptRow{grid-template-columns:minmax(0,1fr) 92px 66px;gap:6px}
+}
 @media print{body{background:#fff;color:#000}nav{display:none}section{display:block!important}}
 </style>
 </head>
@@ -496,7 +566,7 @@ h2::before{content:"♠";
 
 <header>
   <div class="hrow"><h1><span class="mark" aria-hidden="true"><b class="sp">♠</b><b class="hr">♥</b></span>Poker Tutor · Texas Hold'em</h1><div class="modeSw" id="modeSw"><button data-v="compact">Móvil</button><button data-v="wide">Escritorio</button></div></div>
-  <p>Manos iniciales · Análisis de flop · Narrador · Tu juego</p>
+  <p>Manos iniciales · Análisis de flop · Entrenador · Tu juego · Partida con amigos</p>
 </header>
 
 <nav>
@@ -505,6 +575,7 @@ h2::before{content:"♠";
   <button data-t="s9">Entrenador</button>
   <button data-t="s8">Mi juego</button>
   <button data-t="s7">Diccionario</button>
+  <button data-t="sP" data-slug="partida">Partida con amigos</button>
 </nav>
 
 <main>
@@ -1192,6 +1263,23 @@ h2::before{content:"♠";
   <details><summary>Cómo se calcula la nota</summary><div class="in" id="mgRub"></div></details>
 
   <div class="warn"><b>Qué vale y qué no.</b> Los <b>criterios y sus pesos los elegí yo</b> y son discutibles; la <b>medición</b> sobre esos criterios es objetiva y sale igual cada vez. La nota mide <b>decisiones</b>, no resultados: puedes ganar un torneo con nota baja y perderlo con nota alta. De hecho te ha pasado.</div>
+</section>
+
+
+<!-- ============ PARTIDA CON AMIGOS ============ -->
+<section id="sP">
+  <h2>Partida con amigos</h2>
+  <p class="sub" style="margin-bottom:8px">Para cuando jugáis en vivo. Lleva las fichas de cada uno,
+  reparte los botes cuando hay all-in y al final dice quién paga a quién.
+  Todo se guarda en este dispositivo: si cierras la app, la partida sigue donde la dejaste.</p>
+  <div class="pick" id="ptVista">
+    <button data-v="mesa" class="on">Mesa</button>
+    <button data-v="caja">Caja</button>
+    <button data-v="hist">Historial</button>
+  </div>
+  <div id="ptMesa"></div>
+  <div id="ptCaja" hidden></div>
+  <div id="ptHist" hidden></div>
 </section>
 
 </main>
@@ -4853,6 +4941,770 @@ window.__mbSigue=function(){ if(nCur&&!el("nFb").innerHTML) nArranca(); };
 /* gancho de pruebas: permite verificar cada respuesta contra un calculo
    independiente sin tocar la interfaz */
 window.__mbGen=function(m){ return NGEN[m](); };
+})();
+</script>
+<script>
+(function(){
+/* ============================================================================
+   Partida con amigos.
+
+   El reparto no necesita el orden de las apuestas: solo cuanto ha puesto cada
+   jugador en total en la mano y quien llega al final. Con eso los botes se
+   construyen por capas: hasta lo que puso el mas corto, todos; de ahi al
+   siguiente, los que pusieron mas; y asi. Una capa a la que solo aporto un
+   jugador no es un bote: es una apuesta que nadie igualo y se le devuelve.
+   ========================================================================= */
+var LS="pt.partida.v1";
+var P=null;                 /* la partida guardada */
+var S=null;                 /* borrador de partida nueva, antes de empezar */
+var vista="mesa";
+var armado=null, armadoT=null;   /* confirmacion de dos toques */
+var verResumen=false;
+
+function el(i){ return document.getElementById(i); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function fmt(n){ return Math.round(n).toLocaleString("es-ES"); }
+function ent(v){ var n=parseInt(String(v==null?"":v).replace(/[^\d]/g,""),10); return isNaN(n)?0:n; }
+function dec(v){ var n=parseFloat(String(v==null?"":v).replace(",",".").replace(/[^\d.]/g,"")); return isNaN(n)?0:n; }
+function euros(c){ c=Math.round(c); var a=Math.abs(c);
+  return (c<0?"−":"")+Math.floor(a/100).toLocaleString("es-ES")+","+String(a%100).padStart(2,"0")+" €"; }
+function conSigno(c){ return (Math.round(c)>0?"+":"")+euros(c); }
+function hora(t){ var d=new Date(t); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); }
+function fecha(t){ var d=new Date(t); return String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0")+"/"+d.getFullYear(); }
+
+/* ---------------------------------------------------------------- motor */
+function mismos(a,b){ if(a.length!==b.length) return false;
+  for(var i=0;i<a.length;i++) if(a[i]!==b[i]) return false; return true; }
+
+/* puesto: {id: fichas que ha puesto en toda la mano}; vivo: {id: true si llega al final}
+   -> [{tipo:"bote"|"devolucion", importe, opta:[ids], aportan:[ids]}] del principal hacia fuera */
+function botes(puesto, vivo){
+  var ids=Object.keys(puesto).filter(function(k){ return puesto[k]>0; }).sort();
+  var niv=[]; ids.forEach(function(k){ if(niv.indexOf(puesto[k])<0) niv.push(puesto[k]); });
+  niv.sort(function(a,b){ return a-b; });
+  var out=[], prev=0;
+  niv.forEach(function(n){
+    var aportan=ids.filter(function(k){ return puesto[k]>=n; });
+    var importe=(n-prev)*aportan.length;
+    var opta=aportan.filter(function(k){ return !!vivo[k]; });
+    var tipo= aportan.length===1 ? "devolucion" : "bote";
+    var u=out[out.length-1];
+    var junta = u && u.tipo===tipo &&
+      (tipo==="bote" ? mismos(u.opta,opta) : u.aportan[0]===aportan[0]);
+    if(junta) u.importe+=importe;
+    else out.push({tipo:tipo, importe:importe, opta:opta, aportan:aportan});
+    prev=n;
+  });
+  return out;
+}
+
+/* Quien se lleva cada bote. elegidos: {firma del bote: [ids]} lo que ha marcado la persona.
+   Donde no ha marcado nada se deduce del bote anterior: quien gana un bote tiene la mejor
+   mano de un grupo que contiene al del siguiente, asi que si opta al siguiente, lo gana. */
+function firma(b){ return b.opta.join("|"); }
+function resuelve(bs, elegidos){
+  var prev=null;
+  return bs.map(function(b){
+    if(b.tipo==="devolucion") return {gana:b.aportan.slice(), como:"devuelve"};
+    if(!b.opta.length) return {gana:[], como:"error"};
+    if(b.opta.length===1){ prev=b.opta.slice(); return {gana:b.opta.slice(), como:"solo"}; }
+    var e=(elegidos||{})[firma(b)];
+    if(e && e.length){
+      var g=e.filter(function(k){ return b.opta.indexOf(k)>=0; });
+      if(g.length){ prev=g; return {gana:g, como:"elegido"}; }
+    }
+    if(prev){
+      var d=prev.filter(function(k){ return b.opta.indexOf(k)>=0; });
+      if(d.length){ prev=d; return {gana:d, como:"deducido"}; }
+    }
+    return {gana:[], como:"falta"};
+  });
+}
+
+/* Reparte cada bote entre sus ganadores. La ficha impar de un empate va al primero
+   sentado a la izquierda del boton (orden empieza ahi). */
+function paga(bs, res, orden){
+  var g={};
+  bs.forEach(function(b,i){
+    var w=res[i].gana; if(!w.length) return;
+    var ws=orden.filter(function(k){ return w.indexOf(k)>=0; });
+    w.forEach(function(k){ if(ws.indexOf(k)<0) ws.push(k); });
+    var parte=Math.floor(b.importe/ws.length), resto=b.importe-parte*ws.length;
+    ws.forEach(function(k,j){ g[k]=(g[k]||0)+parte+(j<resto?1:0); });
+  });
+  return g;
+}
+
+/* Quien paga a quien. netos: {id: centimos}. Empareja siempre al que mas debe con
+   el que mas tiene que cobrar: como mucho (jugadores - 1) pagos. */
+function liquida(netos){
+  var d=[], a=[];
+  Object.keys(netos).forEach(function(k){ var v=Math.round(netos[k]);
+    if(v<0) d.push([k,-v]); else if(v>0) a.push([k,v]); });
+  var out=[];
+  while(d.length && a.length){
+    d.sort(function(x,y){ return y[1]-x[1]; }); a.sort(function(x,y){ return y[1]-x[1]; });
+    var x=Math.min(d[0][1],a[0][1]);
+    out.push({de:d[0][0], a:a[0][0], cent:x});
+    d[0][1]-=x; a[0][1]-=x;
+    if(!d[0][1]) d.shift();
+    if(!a[0][1]) a.shift();
+  }
+  return out;
+}
+
+/* --------------------------------------------------------------- estado */
+function guarda(){ try{ localStorage.setItem(LS, JSON.stringify(P)); }catch(e){} }
+function carga(){ try{ var s=localStorage.getItem(LS); if(s){ P=JSON.parse(s); } }catch(e){ P=null; } }
+function jug(id){ for(var i=0;i<P.jug.length;i++) if(P.jug[i].id===id) return P.jug[i]; return null; }
+function nom(id){ var j=jug(id); return j?j.nom:"?"; }
+function centPorFicha(){ return P.conf.eur*100/P.conf.fichas; }
+function compradas(j){ return j.compras.reduce(function(s,c){ return s+c.fichas; },0); }
+function pagado(j){ return j.compras.reduce(function(s,c){ return s+c.cent; },0); }
+function fichasDe(j){ return j.seVa ? j.salida : j.stack; }
+function totalMesa(){ return P.jug.reduce(function(s,j){ return s+fichasDe(j); },0); }
+function totalComprado(){ return P.jug.reduce(function(s,j){ return s+compradas(j); },0); }
+function puedenJugar(){ return P.jug.filter(function(j){ return !j.seVa && !j.fuera && j.stack>0; })
+  .map(function(j){ return j.id; }); }
+function siguiente(id, lista){
+  var orden=P.jug.map(function(j){ return j.id; });
+  var i=orden.indexOf(id);
+  for(var s=1;s<=orden.length;s++){ var k=orden[((i+s)%orden.length+orden.length)%orden.length];
+    if(lista.indexOf(k)>=0) return k; }
+  return null;
+}
+function nuevoId(){ P.seq=(P.seq||0)+1; return "j"+P.seq; }
+
+/* ---------------------------------------------------------------- manos */
+function nuevaMano(){
+  var el_=puedenJugar();
+  if(el_.length<2) return;
+  var bt = el_.indexOf(P.boton)>=0 ? P.boton : siguiente(P.boton, el_);
+  var sb, bb;
+  if(el_.length===2){ sb=bt; bb=siguiente(bt,el_); }
+  else { sb=siguiente(bt,el_); bb=siguiente(sb,el_); }
+  var orden=[], k=bt;
+  for(var i=0;i<el_.length;i++){ k=siguiente(k,el_); orden.push(k); }
+  var puesto={}; orden.forEach(function(id){ puesto[id]=0; });
+  puesto[sb]=Math.min(P.conf.sb, jug(sb).stack);
+  puesto[bb]=Math.min(P.conf.bb, jug(bb).stack);
+  P.boton=bt;
+  P.nMano=(P.nMano||0)+1;
+  P.mano={n:P.nMano, t:Date.now(), boton:bt, sb:sb, bb:bb, orden:orden, puesto:puesto,
+          sigue:{}, elegidos:{}, maxAp:""};
+  guarda();
+}
+
+function calculo(){
+  var m=P.mano;
+  var vivos=m.orden.filter(function(k){ return m.sigue[k]; });
+  var puesto={};
+  m.orden.forEach(function(k){ puesto[k]=Math.min(m.puesto[k]||0, jug(k).stack); });
+  var modo = !vivos.length ? "nadie" : (vivos.length===1 ? "solo" : "showdown");
+  if(modo==="solo"){
+    /* si solo queda uno, lo que apostara de mas se le devuelve: le basta con haber
+       igualado lo maximo que pusieron los demas (o todo lo que tiene) */
+    var w=vivos[0], mx=0;
+    m.orden.forEach(function(k){ if(k!==w) mx=Math.max(mx,puesto[k]); });
+    puesto[w]=Math.max(puesto[w], Math.min(jug(w).stack, mx));
+  }
+  var vivo={}; vivos.forEach(function(k){ vivo[k]=true; });
+  var bs=botes(puesto, vivo);
+  var res=resuelve(bs, m.elegidos);
+  var avisos=[], maxp=0;
+  m.orden.forEach(function(k){ maxp=Math.max(maxp,puesto[k]); });
+  if(modo==="showdown"){
+    vivos.forEach(function(k){
+      var j=jug(k);
+      if(!puesto[k]) avisos.push("<b>"+esc(j.nom)+"</b> llega al final pero no ha puesto nada. Así no puede ganar ningún bote.");
+      else if(puesto[k]<maxp && puesto[k]<j.stack)
+        avisos.push("<b>"+esc(j.nom)+"</b> llega al final con "+fmt(puesto[k])+", menos que la apuesta más alta ("+
+          fmt(maxp)+"), y no va all-in. ¿Se retiró, o falta igualar?");
+    });
+  }
+  bs.forEach(function(b,i){ if(res[i].como==="error")
+    avisos.push("Hay "+fmt(b.importe)+" fichas que no puede ganar nadie de los que llegan al final. Revisa quién sigue en la mano."); });
+  var falta = res.some(function(r){ return r.como==="falta"; });
+  var roto  = res.some(function(r){ return r.como==="error"; });
+  var listo = modo!=="nadie" && bs.length>0 && !falta && !roto;
+  var total=0; m.orden.forEach(function(k){ total+=puesto[k]; });
+  return {modo:modo, vivos:vivos, puesto:puesto, bs:bs, res:res, avisos:avisos, listo:listo,
+          ganado: listo ? paga(bs,res,m.orden) : {}, total:total, maxp:maxp};
+}
+
+function confirmaMano(){
+  var c=calculo(); if(!c.listo) return;
+  var m=P.mano, deltas={};
+  m.orden.forEach(function(k){
+    var d=(c.ganado[k]||0)-c.puesto[k];
+    deltas[k]=d; jug(k).stack+=d;
+  });
+  P.hist.push({n:m.n, t:Date.now(), boton:m.boton, deltas:deltas, total:c.total,
+    botes:c.bs.map(function(b,i){ return {tipo:b.tipo, importe:b.importe, gana:c.res[i].gana, opta:b.opta}; })});
+  var el_=puedenJugar();
+  P.boton = siguiente(m.boton, el_) || m.boton;
+  P.mano=null;
+  guarda();
+}
+
+function deshazMano(){
+  if(P.mano || !P.hist.length) return "nada";
+  var h=P.hist[P.hist.length-1];
+  /* se deshace restando lo que cambio cada uno, no restaurando una foto: asi no se
+     pierden las recompras que haya habido despues */
+  var ids=Object.keys(h.deltas);
+  for(var i=0;i<ids.length;i++){
+    var j=jug(ids[i]); if(!j) continue;
+    var actual = j.seVa ? j.salida : j.stack;
+    if(actual-h.deltas[ids[i]]<0) return "negativo";
+  }
+  ids.forEach(function(k){ var j=jug(k); if(!j) return;
+    if(j.seVa) j.salida-=h.deltas[k]; else j.stack-=h.deltas[k]; });
+  P.hist.pop();
+  P.boton=h.boton; P.nMano=h.n-1;
+  guarda(); return "ok";
+}
+
+/* ----------------------------------------------------------------- caja */
+function compra(id, cent){
+  var j=jug(id); if(!j || cent<=0) return;
+  var fichas=Math.round(cent/centPorFicha());
+  j.compras.push({cent:cent, fichas:fichas, t:Date.now()});
+  if(j.seVa){ j.seVa=false; j.stack=j.salida; j.salida=0; }
+  j.stack+=fichas; guarda();
+}
+function quitaCompra(id){
+  var j=jug(id); if(!j || j.compras.length<2) return;
+  var c=j.compras[j.compras.length-1];
+  if(j.stack<c.fichas) return;
+  j.stack-=c.fichas; j.compras.pop(); guarda();
+}
+function seVa(id){
+  var j=jug(id); if(!j || j.seVa) return;
+  j.salida=j.stack; j.stack=0; j.seVa=true; j.tSale=Date.now();
+  if(P.boton===id){ P.boton=siguiente(id, puedenJugar()) || P.boton; }
+  guarda();
+}
+function vuelve(id){ var j=jug(id); if(!j || !j.seVa) return;
+  j.seVa=false; j.stack=j.salida; j.salida=0; guarda(); }
+function enMano(id){ return !!(P.mano && P.mano.orden.indexOf(id)>=0); }
+
+/* El cierre: fichas contadas de cada uno -> dinero -> quien paga a quien */
+function cierre(){
+  var cpf=centPorFicha(), filas=[], suma=0;
+  P.jug.forEach(function(j){
+    var f = j.seVa ? j.salida : ent(P.cuenta && P.cuenta[j.id]!=null ? P.cuenta[j.id] : j.stack);
+    var sale=Math.round(f*cpf), entra=pagado(j);
+    filas.push({id:j.id, nom:j.nom, fichas:f, entra:entra, sale:sale, neto:sale-entra});
+  });
+  var contadas=filas.reduce(function(s,f){ return s+f.fichas; },0);
+  var comp=totalComprado();
+  filas.forEach(function(f){ suma+=f.neto; });
+  var ajuste=null;
+  /* con fichas cuadradas, el descuadre solo puede ser de redondeo a centimos */
+  if(contadas===comp && suma!==0 && Math.abs(suma)<=filas.length){
+    var mayor=filas.slice().sort(function(a,b){ return b.fichas-a.fichas; })[0];
+    mayor.neto-=suma; mayor.sale-=suma; ajuste={cent:suma, nom:mayor.nom}; suma=0;
+  }
+  var netos={}; filas.forEach(function(f){ netos[f.id]=f.neto; });
+  return {filas:filas, contadas:contadas, compradas:comp, cuadra:contadas===comp,
+          sinCuadrar:suma, ajuste:ajuste, pagos:liquida(netos)};
+}
+
+function textoResumen(){
+  var r=cierre(), t=[];
+  var ini=P.creada, fin=P.cerrada||Date.now();
+  t.push("Partida de póquer · "+fecha(ini)+" · "+hora(ini)+"–"+hora(fin)+" · "+(P.hist.length)+" manos");
+  t.push("Compra: "+euros(P.conf.eur*100)+" = "+fmt(P.conf.fichas)+" fichas");
+  t.push("");
+  r.filas.slice().sort(function(a,b){ return b.neto-a.neto; }).forEach(function(f){
+    t.push(f.nom+": puso "+euros(f.entra)+", sale con "+euros(f.sale)+" → "+conSigno(f.neto));
+  });
+  t.push("");
+  if(!r.pagos.length) t.push("Nadie tiene que pagar a nadie.");
+  else { t.push("Pagos:"); r.pagos.forEach(function(p){ t.push("· "+nom(p.de)+" → "+nom(p.a)+": "+euros(p.cent)); }); }
+  if(!r.cuadra) t.push("", "Ojo: se han contado "+fmt(r.contadas)+" fichas y se compraron "+fmt(r.compradas)+".");
+  if(r.ajuste) t.push("", "Ajuste de redondeo: "+euros(Math.abs(r.ajuste.cent))+" ("+r.ajuste.nom+").");
+  return t.join("\n");
+}
+
+/* ----------------------------------------------------- mesa dibujada */
+function mesaSvg(){
+  var js=P.jug.filter(function(j){ return !j.seVa; });
+  var n=js.length; if(!n) return "";
+  var W=360,H=240,cx=180,cy=120,rx=106,ry=62,ox=142,oy=94;
+  var m=P.mano, c=m?calculo():null;
+  var g='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Mesa con las fichas de cada jugador">';
+  g+='<defs><radialGradient id="ptFieltro" cx="50%" cy="40%"><stop offset="0%" stop-color="#3b2a4d"/>'+
+     '<stop offset="100%" stop-color="#241a31"/></radialGradient></defs>';
+  g+='<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+(rx+7)+'" ry="'+(ry+7)+'" fill="none" stroke="#5b4a70" stroke-width="3"/>';
+  g+='<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" fill="url(#ptFieltro)"/>';
+  if(m){
+    g+='<text x="'+cx+'" y="'+(cy-8)+'" text-anchor="middle" font-size="10" fill="#c9b8d8">MANO '+m.n+' · BOTE</text>';
+    g+='<text x="'+cx+'" y="'+(cy+12)+'" text-anchor="middle" font-size="19" font-weight="800" fill="#ffc2ea">'+fmt(c.total)+'</text>';
+  } else {
+    g+='<text x="'+cx+'" y="'+(cy-8)+'" text-anchor="middle" font-size="10" fill="#c9b8d8">FICHAS EN LA MESA</text>';
+    g+='<text x="'+cx+'" y="'+(cy+12)+'" text-anchor="middle" font-size="19" font-weight="800" fill="#ffc2ea">'+fmt(totalMesa())+'</text>';
+  }
+  var bw = n>8 ? 62 : 70;
+  js.forEach(function(j,i){
+    var t=Math.PI/2 + 2*Math.PI*i/n;
+    var sx=cx+Math.cos(t)*ox, sy=cy+Math.sin(t)*oy;
+    var dentro = m && m.orden.indexOf(j.id)>=0;
+    var sigue = dentro && m.sigue[j.id];
+    var puesto = dentro ? c.puesto[j.id] : 0;
+    var detras = j.stack - puesto;
+    var apagado = (!dentro && m) || j.fuera || j.stack<=0;
+    var borde = sigue ? "#ff5ecb" : (dentro ? "#7d6a92" : "#4a3d5c");
+    g+='<g opacity="'+(apagado?0.5:(dentro && !sigue && c.modo!=="nadie"?0.75:1))+'">';
+    g+='<rect x="'+(sx-bw/2)+'" y="'+(sy-17)+'" width="'+bw+'" height="34" rx="8" fill="#221b2e" stroke="'+borde+'" stroke-width="'+(sigue?1.8:1.1)+'"/>';
+    var nm=j.nom.length>9 ? j.nom.slice(0,8)+"…" : j.nom;
+    g+='<text x="'+sx+'" y="'+(sy-4)+'" text-anchor="middle" font-size="9.5" fill="#d9cbe6">'+esc(nm)+'</text>';
+    var lab = j.fuera ? "fuera" : (j.stack<=0 && !m ? "sin fichas" : fmt(detras));
+    g+='<text x="'+sx+'" y="'+(sy+10)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#f4ecf8">'+lab+'</text>';
+    if(dentro && puesto>0 && detras===0)
+      g+='<text x="'+sx+'" y="'+(sy-21)+'" text-anchor="middle" font-size="8" font-weight="800" fill="#ff9fd6">ALL-IN</text>';
+    g+='</g>';
+    /* fichas puestas delante del asiento */
+    if(dentro && puesto>0){
+      var mx=cx+(sx-cx)*0.5, my=cy+(sy-cy)*0.5;
+      g+='<circle cx="'+mx+'" cy="'+my+'" r="5.5" fill="#ff5ecb" stroke="#ffd6f0" stroke-width="1"/>';
+      g+='<text x="'+(mx+(sx<cx?-8:8))+'" y="'+(my+3.5)+'" text-anchor="'+(sx<cx?"end":"start")+'" font-size="9.5" font-weight="700" fill="#ffd6f0">'+fmt(puesto)+'</text>';
+    }
+    /* boton y ciegas */
+    var marca=null;
+    if(m){ if(j.id===m.boton) marca="D"; else if(j.id===m.sb) marca="SB"; else if(j.id===m.bb) marca="BB";
+           if(j.id===m.boton && j.id===m.sb) marca="D"; }
+    else if(j.id===P.boton) marca="D";
+    if(marca){
+      var dx=cx+(sx-cx)*0.74, dy=cy+(sy-cy)*0.74;
+      if(marca==="D"){
+        g+='<circle cx="'+dx+'" cy="'+dy+'" r="7.5" fill="#f4ecf8" stroke="#2a0620" stroke-width="1"/>'+
+           '<text x="'+dx+'" y="'+(dy+3.5)+'" text-anchor="middle" font-size="9" font-weight="800" fill="#2a0620">D</text>';
+      } else {
+        g+='<rect x="'+(dx-10)+'" y="'+(dy-7)+'" width="20" height="14" rx="4" fill="#3a2c4c"/>'+
+           '<text x="'+dx+'" y="'+(dy+3.5)+'" text-anchor="middle" font-size="8.5" font-weight="800" fill="#e9d9f6">'+marca+'</text>';
+      }
+    }
+  });
+  return g+'</svg>';
+}
+
+/* --------------------------------------------------------- pantallas */
+function aviso(html){ return '<div class="warn ptAviso">'+html+'</div>'; }
+
+function pintaInicio(){
+  if(!S) S={eur:"10", fichas:"1000", sb:"5", bb:"10", jug:[], boton:0};
+  var h='<div class="card">';
+  h+='<h3 style="margin-top:2px">Nueva partida</h3>';
+  h+='<div class="lbl">Cuánto vale una compra</div>';
+  h+='<div class="ptPar"><input class="ptNum" id="ptIEur" inputmode="decimal" value="'+esc(S.eur)+'" aria-label="Euros por compra"><span>€ =</span>'+
+     '<input class="ptNum" id="ptIFi" inputmode="numeric" value="'+esc(S.fichas)+'" aria-label="Fichas por compra"><span>fichas</span></div>';
+  h+='<div class="lbl">Ciegas (pequeña / grande)</div>';
+  h+='<div class="ptPar"><input class="ptNum" id="ptISb" inputmode="numeric" value="'+esc(S.sb)+'" aria-label="Ciega pequeña"><span>/</span>'+
+     '<input class="ptNum" id="ptIBb" inputmode="numeric" value="'+esc(S.bb)+'" aria-label="Ciega grande"></div>';
+  h+='<div class="lbl">Jugadores, en el orden en que estáis sentados</div>';
+  if(S.jug.length){
+    h+='<div class="ptChips">'+S.jug.map(function(n,i){
+      return '<button class="ptChip'+(i===S.boton?' on':'')+'" data-act="iBoton" data-i="'+i+'" title="Tocar para darle el botón">'+
+             esc(n)+(i===S.boton?'<small>botón</small>':'')+'</button>';
+    }).join("")+'</div>';
+    h+='<p class="sub" style="margin-top:6px">Toca un nombre para darle el botón en la primera mano.</p>';
+  }
+  h+='<div class="ptPar"><input class="ptTxt" id="ptINom" placeholder="Nombre" maxlength="18" autocomplete="off" aria-label="Nombre del jugador">'+
+     '<button class="ptSec" data-act="iAnade">Añadir</button>'+
+     (S.jug.length?'<button class="ptSec" data-act="iQuita">Quitar el último</button>':'')+'</div>';
+  h+='<div class="ptBar"><button class="ptBig" data-act="iEmpieza"'+(S.jug.length<2?' disabled':'')+'>'+
+     (S.jug.length<2?'Añade al menos dos jugadores':'Empezar con '+S.jug.length+' jugadores')+'</button></div>';
+  h+='<p class="sub" style="margin-top:8px">Cada jugador empieza con una compra. Las recompras y quién se va '+
+     'se apuntan en la pestaña Caja.</p>';
+  h+='</div>';
+  return h;
+}
+
+function pintaMesa(){
+  var box=el("ptMesa");
+  if(!P){ box.innerHTML=pintaInicio(); return; }
+  if(P.cerrada){ box.innerHTML='<div class="note">La partida está cerrada. Tienes el reparto del dinero en la pestaña <b>Caja</b>.</div>'+
+     '<div class="ptBar"><button class="ptSec" data-act="nuevaPartida">Empezar otra partida</button></div>'; return; }
+  var h='<div class="ptSvg" id="ptSvg">'+mesaSvg()+'</div>';
+  if(!P.mano){
+    var el_=puedenJugar();
+    h+='<div class="ptBar">';
+    if(el_.length>=2){
+      var bt = el_.indexOf(P.boton)>=0 ? P.boton : siguiente(P.boton, el_);
+      var sb = el_.length===2 ? bt : siguiente(bt,el_), bb=siguiente(sb,el_);
+      h+='<button class="ptBig" data-act="nuevaMano">Nueva mano <small style="display:block;font-weight:600;font-size:12px;opacity:.85">'+
+         'ciegas: '+esc(nom(sb))+' '+fmt(P.conf.sb)+' · '+esc(nom(bb))+' '+fmt(P.conf.bb)+'</small></button>';
+    } else {
+      h+='<div class="warn" style="flex:1">Hacen falta al menos dos jugadores con fichas. Apunta una recompra en la pestaña <b>Caja</b>.</div>';
+    }
+    h+='</div>';
+    if(P.hist.length) h+='<p class="sub">Llevais '+P.hist.length+' mano'+(P.hist.length===1?'':'s')+'. Si te equivocas, en <b>Historial</b> puedes deshacer la última.</p>';
+    box.innerHTML=h; return;
+  }
+  /* mano en curso */
+  var m=P.mano;
+  h+='<div class="card" style="margin-top:10px">';
+  h+='<div class="lbl" style="margin-top:0">1 · ¿Quién llega al final de la mano?</div>';
+  h+='<p class="sub">Si solo queda uno, se lleva el bote sin enseñar. Si llegan varios, hay reparto.</p>';
+  h+='<div class="ptChips">'+m.orden.map(function(k){
+    return '<button class="ptChip'+(m.sigue[k]?' on':'')+'" data-act="sigue" data-id="'+k+'">'+esc(nom(k))+'</button>';
+  }).join("")+'</div>';
+  h+='</div>';
+  h+='<div class="card"><div class="lbl" style="margin-top:0">2 · ¿Cuánto ha puesto cada uno en toda la mano?</div>';
+  h+='<div id="ptMaxBox"></div>';
+  h+='<div class="ptRows" id="ptFilas"></div></div>';
+  h+='<div id="ptReparto"></div>';
+  box.innerHTML=h;
+  pintaFilas(); pintaReparto();
+}
+
+function pintaFilas(){
+  var m=P.mano, c=calculo();
+  var mb=el("ptMaxBox");
+  if(mb){
+    mb.innerHTML = c.modo==="showdown" ?
+      '<p class="sub">Atajo: escribe la apuesta más alta y se la pongo a todos los que llegan al final. A quien no le llegue, le pongo all-in.</p>'+
+      '<div class="ptPar"><input class="ptNum" id="ptMaxAp" inputmode="numeric" placeholder="máx." value="'+esc(m.maxAp)+'" aria-label="Apuesta más alta">'+
+      '<span>fichas, la apuesta más alta</span></div>' :
+      (c.modo==="solo" ? '<p class="sub">Solo hace falta lo que dejaron los que se retiraron (las ciegas ya están puestas). Lo de <b>'+esc(nom(c.vivos[0]))+
+        '</b> da igual: lo que apostara de más se le devuelve.</p>' : '<p class="sub">Las ciegas ya están puestas.</p>');
+  }
+  el("ptFilas").innerHTML=m.orden.map(function(k){
+    var j=jug(k), v=m.puesto[k]||0;
+    var rol = k===m.boton&&k===m.sb ? "botón · ciega pequeña" : (k===m.boton ? "botón" : (k===m.sb ? "ciega pequeña" : (k===m.bb ? "ciega grande" : "")));
+    var esAi = v>0 && v>=j.stack;
+    return '<div class="ptRow"><div class="ptNom">'+esc(j.nom)+(m.sigue[k]?'':'<span class="tag">fuera</span>')+
+      (esAi?'<span class="tag ai">ALL-IN</span>':'')+
+      '<small>tiene '+fmt(j.stack)+(rol?' · '+rol:'')+'</small></div>'+
+      '<input class="ptNum" data-act="puesto" data-id="'+k+'" inputmode="numeric" value="'+(v||"")+'" placeholder="0" aria-label="Lo que ha puesto '+esc(j.nom)+'">'+
+      '<button class="ptMini'+(esAi?' on':'')+'" data-act="allin" data-id="'+k+'">All-in</button></div>';
+  }).join("");
+}
+
+function pintaReparto(){
+  var box=el("ptReparto"); if(!box) return;
+  var c=calculo(), m=P.mano, h='';
+  if(c.modo==="nadie"){
+    box.innerHTML='<div class="card"><div class="lbl" style="margin-top:0">3 · Reparto</div><p class="sub">Marca arriba quién llega al final.</p>'+
+      '<div class="ptBar"><button class="ptSec peligro" data-act="cancelaMano">Anular esta mano</button></div></div>';
+    refrescaSvg(); return;
+  }
+  h+='<div class="card"><div class="lbl" style="margin-top:0">3 · Reparto · bote total '+fmt(c.total)+'</div>';
+  var nb=0;
+  c.bs.forEach(function(b,i){
+    var r=c.res[i];
+    if(b.tipo==="devolucion"){
+      h+='<div class="ptPot dev"><div class="cab"><span>Se le devuelve a '+esc(nom(b.aportan[0]))+'</span><b>'+fmt(b.importe)+'</b></div>'+
+         '<div class="quien">Es lo que apostó de más y nadie igualó. No es un bote.</div></div>';
+      return;
+    }
+    nb++;
+    var titulo = nb===1 ? "Bote principal" : "Bote paralelo "+(nb-1);
+    h+='<div class="ptPot"><div class="cab"><span>'+titulo+'</span><b>'+fmt(b.importe)+'</b></div>';
+    h+='<div class="quien">Pueden ganarlo: '+b.opta.map(function(k){ return esc(nom(k)); }).join(", ")+'</div>';
+    if(c.modo==="solo" || b.opta.length===1){
+      h+='<div class="res">Se lo lleva <b>'+esc(nom(r.gana[0]))+'</b>.</div>';
+    } else {
+      h+='<div class="ptChips">'+b.opta.map(function(k){
+        var on=r.gana.indexOf(k)>=0;
+        return '<button class="ptChip'+(on?' on':'')+'" data-act="gana" data-f="'+esc(firma(b))+'" data-id="'+k+'">'+esc(nom(k))+'</button>';
+      }).join("")+'</div>';
+      if(r.como==="falta") h+='<div class="res" style="color:var(--ylw)">¿Quién lo gana? Toca su nombre (dos si hay empate).</div>';
+      else if(r.como==="deducido") h+='<div class="res">Se lo lleva <b>'+r.gana.map(function(k){return esc(nom(k));}).join(" y ")+
+        '</b>: ya ha ganado un bote en el que estaban todos estos.</div>';
+      else if(r.gana.length>1) h+='<div class="res">Empate: se reparte entre <b>'+r.gana.map(function(k){return esc(nom(k));}).join(" y ")+'</b>.</div>';
+    }
+    h+='</div>';
+  });
+  c.avisos.forEach(function(a){ h+=aviso(a); });
+  if(c.listo){
+    var res=[];
+    m.orden.forEach(function(k){ var d=(c.ganado[k]||0)-c.puesto[k]; if(d) res.push({k:k,d:d}); });
+    res.sort(function(a,b){ return b.d-a.d; });
+    h+='<div class="ptRows" style="margin-top:8px">'+res.map(function(x){
+      return '<div class="ptLinea"><span>'+esc(nom(x.k))+'</span><span class="n '+(x.d>0?'pos':'neg')+'">'+(x.d>0?'+':'−')+fmt(Math.abs(x.d))+'</span></div>';
+    }).join("")+'</div>';
+  }
+  h+='<div class="ptBar"><button class="ptBig" data-act="confirma"'+(c.listo?'':' disabled')+'>'+(c.listo?'Confirmar mano':'Falta decidir quién gana')+'</button>'+
+     '<button class="ptSec peligro" data-act="cancelaMano">Anular</button></div>';
+  h+='</div>';
+  box.innerHTML=h;
+  refrescaSvg();
+}
+function refrescaSvg(){ var s=el("ptSvg"); if(s) s.innerHTML=mesaSvg(); }
+
+function pintaCaja(){
+  var box=el("ptCaja");
+  if(!P){ box.innerHTML='<div class="note">Todavía no hay partida. Empieza una desde la pestaña <b>Mesa</b>.</div>'; return; }
+  var h='', mesa=totalMesa(), comp=totalComprado(), dinero=P.jug.reduce(function(s,j){ return s+pagado(j); },0);
+  h+='<div class="stats">'+
+     '<div class="stat"><div class="n">'+fmt(mesa)+'</div><div class="k">fichas en juego</div></div>'+
+     '<div class="stat"><div class="n">'+fmt(comp)+'</div><div class="k">fichas compradas</div></div>'+
+     '<div class="stat"><div class="n">'+euros(dinero)+'</div><div class="k">dinero puesto</div></div></div>';
+  if(mesa!==comp) h+=aviso('<b>No cuadra:</b> hay '+fmt(Math.abs(mesa-comp))+' fichas de '+(mesa>comp?'más':'menos')+' respecto a lo comprado. Revisa la última mano o las recompras.');
+  if(P.cerrada){ box.innerHTML=h+pintaCierre(); return; }
+  h+='<div class="card"><div class="lbl" style="margin-top:0">Jugadores</div>';
+  h+='<p class="sub">Una compra vale '+euros(P.conf.eur*100)+' = '+fmt(P.conf.fichas)+' fichas.'+(P.mano?' Hay una mano en curso: lo de quien está jugando se toca al acabarla.':'')+'</p>';
+  P.jug.forEach(function(j){
+    var bloq = enMano(j.id);
+    var valor=Math.round(fichasDe(j)*centPorFicha()), neto=valor-pagado(j);
+    h+='<div class="ptJug'+(j.seVa?' ido':'')+'"><div class="top"><b>'+esc(j.nom)+(j.seVa?' <span class="sub" style="display:inline">· se fue</span>':(j.fuera?' <span class="sub" style="display:inline">· sentado fuera</span>':''))+'</b>'+
+       '<span class="n '+(neto>0?'pos':(neto<0?'neg':''))+'" style="font:700 14px ui-monospace,Menlo,monospace">'+conSigno(neto)+'</span></div>';
+    h+='<div class="det">'+j.compras.length+' compra'+(j.compras.length===1?'':'s')+' · '+euros(pagado(j))+' · '+
+       (j.seVa?'se fue con ':'tiene ')+fmt(fichasDe(j))+' fichas = '+euros(valor)+'</div>';
+    h+='<div class="acc">';
+    if(!j.seVa){
+      h+='<button class="ptSec" data-act="recompra" data-id="'+j.id+'"'+(bloq?' disabled':'')+'>+ Recompra</button>';
+      h+='<button class="ptSec" data-act="otraCompra" data-id="'+j.id+'"'+(bloq?' disabled':'')+'>Otra cantidad</button>';
+      h+='<button class="ptSec" data-act="fuera" data-id="'+j.id+'"'+(bloq?' disabled':'')+'>'+(j.fuera?'Vuelve a jugar':'Sentar fuera')+'</button>';
+      h+='<button class="ptSec'+(armado==='seva'+j.id?' armado':' peligro')+'" data-act="seva" data-id="'+j.id+'"'+(bloq?' disabled':'')+'>'+
+         (armado==='seva'+j.id?'Toca otra vez: se va con '+fmt(j.stack):'Se va')+'</button>';
+      if(j.compras.length>1) h+='<button class="ptSec" data-act="quitaCompra" data-id="'+j.id+'"'+(bloq||j.stack<j.compras[j.compras.length-1].fichas?' disabled':'')+'>Quitar última compra</button>';
+    } else {
+      h+='<button class="ptSec" data-act="vuelve" data-id="'+j.id+'">Vuelve a la mesa</button>';
+      h+='<button class="ptSec" data-act="recompra" data-id="'+j.id+'">Vuelve con una compra</button>';
+    }
+    h+='</div>';
+    if(P.otra===j.id){
+      h+='<div class="ptPar"><input class="ptNum" id="ptOtraEur" inputmode="decimal" placeholder="€" aria-label="Euros de la recompra">'+
+         '<span>€</span><button class="ptSec" data-act="otraOk" data-id="'+j.id+'">Apuntar</button></div>';
+    }
+    h+='</div>';
+  });
+  h+='</div>';
+  h+='<div class="card"><div class="lbl" style="margin-top:0">Añadir jugador</div>'+
+     '<div class="ptPar"><input class="ptTxt" id="ptNuevoNom" placeholder="Nombre" maxlength="18" autocomplete="off" aria-label="Nombre del nuevo jugador">'+
+     '<button class="ptSec" data-act="anade">Entra con una compra</button></div>';
+  h+='<div class="lbl">Ciegas</div><div class="ptPar"><input class="ptNum" id="ptCSb" inputmode="numeric" value="'+P.conf.sb+'" aria-label="Ciega pequeña"><span>/</span>'+
+     '<input class="ptNum" id="ptCBb" inputmode="numeric" value="'+P.conf.bb+'" aria-label="Ciega grande">'+
+     '<button class="ptSec" data-act="ciegas"'+(P.mano?' disabled':'')+'>Cambiar ciegas</button></div></div>';
+  h+='<div class="card"><div class="lbl" style="margin-top:0">Fin de la partida</div>'+
+     '<p class="sub">Contáis las fichas de cada uno, se comprueba que cuadran con lo comprado y te digo quién paga a quién con el menor número de pagos.</p>'+
+     '<div class="ptBar"><button class="ptBig" data-act="aCierre"'+(P.mano?' disabled':'')+'>'+(P.mano?'Acaba antes la mano en curso':'Cerrar la partida')+'</button></div></div>';
+  box.innerHTML=h;
+}
+
+function pintaCierre(){
+  var r=cierre(), h='';
+  if(!P.cerradaOk){
+    h+='<div class="card"><div class="lbl" style="margin-top:0">Recuento final</div>';
+    h+='<p class="sub">Pongo lo que tengo apuntado. Si al contar las fichas de verdad sale otra cosa, corrígelo aquí.</p>';
+    P.jug.forEach(function(j){
+      if(j.seVa){ h+='<div class="ptRow" style="grid-template-columns:minmax(0,1fr) 104px"><div class="ptNom">'+esc(j.nom)+'<small>se fue antes</small></div>'+
+        '<div class="ptNum" style="text-align:right;font:700 16px ui-monospace,Menlo,monospace;padding:10px 9px">'+fmt(j.salida)+'</div></div>'; return; }
+      var v = P.cuenta && P.cuenta[j.id]!=null ? P.cuenta[j.id] : j.stack;
+      h+='<div class="ptRow" style="grid-template-columns:minmax(0,1fr) 104px"><div class="ptNom">'+esc(j.nom)+'<small>apuntado: '+fmt(j.stack)+'</small></div>'+
+         '<input class="ptNum" data-act="cuenta" data-id="'+j.id+'" inputmode="numeric" value="'+v+'" aria-label="Fichas contadas de '+esc(j.nom)+'"></div>';
+    });
+    h+='<div id="ptCuadre">'+cuadreHtml(r)+'</div>';
+    h+='<div class="ptBar"><button class="ptBig" data-act="liquida">Repartir el dinero</button>'+
+       '<button class="ptSec" data-act="sigueJugando">Seguir jugando</button></div></div>';
+    return h;
+  }
+  h+='<div class="card"><div class="lbl" style="margin-top:0">Cómo queda cada uno</div><div class="ptRows">';
+  r.filas.slice().sort(function(a,b){ return b.neto-a.neto; }).forEach(function(f){
+    h+='<div class="ptLinea"><span><b>'+esc(f.nom)+'</b><br><span class="sub" style="display:inline">puso '+euros(f.entra)+' · sale con '+euros(f.sale)+'</span></span>'+
+       '<span class="n '+(f.neto>0?'pos':(f.neto<0?'neg':''))+'">'+conSigno(f.neto)+'</span></div>';
+  });
+  h+='</div></div>';
+  h+='<div class="verdict v-rai"><p class="act" style="margin:0 0 6px;font-weight:700">'+(r.pagos.length?'Pagos ('+r.pagos.length+')':'Nadie tiene que pagar a nadie')+'</p>';
+  r.pagos.forEach(function(p){
+    h+='<div class="ptLinea"><span>'+esc(nom(p.de))+' → '+esc(nom(p.a))+'</span><span class="n">'+euros(p.cent)+'</span></div>';
+  });
+  h+='</div>';
+  if(!r.cuadra) h+=aviso('Se contaron '+fmt(r.contadas)+' fichas y se compraron '+fmt(r.compradas)+'. Los pagos están hechos con lo contado; quedan <b>'+euros(Math.abs(r.sinCuadrar))+'</b> sin cuadrar.');
+  if(r.ajuste) h+='<p class="sub">Ajuste de redondeo a céntimos: '+euros(Math.abs(r.ajuste.cent))+' en la cuenta de '+esc(r.ajuste.nom)+'.</p>';
+  h+='<div class="ptBar"><button class="ptBig" data-act="copia">Copiar resumen para el grupo</button>'+
+     '<button class="ptSec" data-act="reabre">Corregir el recuento</button></div>';
+  h+='<div id="ptCopiado"></div>';
+  if(verResumen) h+='<textarea class="ptResumen" id="ptResumenTxt" readonly aria-label="Resumen de la partida">'+esc(textoResumen())+'</textarea>';
+  h+='<div class="ptBar"><button class="ptSec'+(armado==='nueva'?' armado':'')+'" data-act="nuevaPartida">'+(armado==='nueva'?'Toca otra vez: se borra esta partida':'Empezar otra partida')+'</button></div>';
+  return h;
+}
+function cuadreHtml(r){
+  return r.cuadra ? '<p class="sub ptCuadra" style="color:var(--grn);margin-top:8px">✔ Cuadra: '+fmt(r.contadas)+' fichas contadas, '+fmt(r.compradas)+' compradas.</p>' :
+    aviso('<b>No cuadra:</b> '+fmt(r.contadas)+' fichas contadas y '+fmt(r.compradas)+' compradas ('+(r.contadas>r.compradas?'sobran ':'faltan ')+
+          fmt(Math.abs(r.contadas-r.compradas))+'). Contad otra vez antes de repartir el dinero.');
+}
+
+function pintaHist(){
+  var box=el("ptHist");
+  if(!P){ box.innerHTML='<div class="note">Todavía no hay partida.</div>'; return; }
+  if(!P.hist.length){ box.innerHTML='<div class="note">Aún no se ha jugado ninguna mano.</div>'; return; }
+  var h='';
+  if(!P.cerrada) h+='<div class="ptBar"><button class="ptSec'+(armado==='deshaz'?' armado':' peligro')+'" data-act="deshaz"'+(P.mano?' disabled':'')+'>'+
+    (P.mano?'Acaba la mano en curso para deshacer':(armado==='deshaz'?'Toca otra vez: deshago la mano '+P.hist[P.hist.length-1].n:'Deshacer la última mano'))+'</button></div>';
+  if(P.errDeshaz) h+=aviso(P.errDeshaz);
+  h+='<div class="card">';
+  P.hist.slice().reverse().forEach(function(x){
+    var cam=Object.keys(x.deltas).filter(function(k){ return x.deltas[k]; })
+      .sort(function(a,b){ return x.deltas[b]-x.deltas[a]; })
+      .map(function(k){ return esc(nom(k))+' '+(x.deltas[k]>0?'+':'−')+fmt(Math.abs(x.deltas[k])); });
+    var pots=x.botes.filter(function(b){ return b.tipo==="bote"; });
+    var det = pots.length>1 ? pots.map(function(b,i){ return (i?'paralelo '+i:'principal')+' '+fmt(b.importe)+' → '+b.gana.map(function(k){return esc(nom(k));}).join(" y "); }).join(' · ') : '';
+    h+='<div class="ptMano"><div class="cab"><span>Mano '+x.n+' · '+hora(x.t)+'</span><span>bote '+fmt(x.total)+'</span></div>'+
+       '<div class="det">'+cam.join(' · ')+(det?'<br>'+det:'')+'</div></div>';
+  });
+  h+='</div>';
+  box.innerHTML=h;
+}
+
+function pinta(){
+  el("ptMesa").hidden = vista!=="mesa";
+  el("ptCaja").hidden = vista!=="caja";
+  el("ptHist").hidden = vista!=="hist";
+  if(vista==="mesa") pintaMesa();
+  else if(vista==="caja") pintaCaja();
+  else pintaHist();
+}
+
+function arma(clave){
+  armado=clave; clearTimeout(armadoT);
+  armadoT=setTimeout(function(){ armado=null; pinta(); },4000);
+}
+
+/* ------------------------------------------------------------ eventos */
+function leeInicio(){
+  if(!S) return;
+  var g=function(i){ var e=el(i); return e?e.value:""; };
+  S.eur=g("ptIEur"); S.fichas=g("ptIFi"); S.sb=g("ptISb"); S.bb=g("ptIBb");
+}
+function anadeInicio(){
+  var e=el("ptINom"); if(!e) return;
+  var n=e.value.trim(); if(!n) { e.focus(); return; }
+  leeInicio(); S.jug.push(n); pintaMesa(); var e2=el("ptINom"); if(e2) e2.focus();
+}
+
+function alClick(ev){
+  var b=ev.target.closest("[data-act]"); if(!b || b.tagName==="INPUT") return;
+  var a=b.dataset.act, id=b.dataset.id;
+  if(a==="iAnade") return anadeInicio();
+  if(a==="iQuita"){ leeInicio(); S.jug.pop(); if(S.boton>=S.jug.length) S.boton=0; return pintaMesa(); }
+  if(a==="iBoton"){ leeInicio(); S.boton=+b.dataset.i; return pintaMesa(); }
+  if(a==="iEmpieza"){
+    leeInicio();
+    var eur=dec(S.eur), fi=ent(S.fichas), sb=ent(S.sb), bb=ent(S.bb);
+    if(!(eur>0) || !(fi>0) || !(bb>0) || S.jug.length<2) return;
+    P={v:1, creada:Date.now(), conf:{eur:eur, fichas:fi, sb:sb, bb:bb}, jug:[], hist:[], seq:0, nMano:0, mano:null};
+    S.jug.forEach(function(n){ var id=nuevoId();
+      P.jug.push({id:id, nom:n, stack:fi, compras:[{cent:Math.round(eur*100), fichas:fi, t:Date.now()}], fuera:false, seVa:false, salida:0}); });
+    P.boton=P.jug[S.boton] ? P.jug[S.boton].id : P.jug[0].id;
+    S=null; guarda(); return pinta();
+  }
+  if(!P) return;
+  if(a==="nuevaMano"){ nuevaMano(); return pinta(); }
+  if(a==="sigue"){ var m=P.mano; m.sigue[id]=!m.sigue[id]; guarda(); return pintaMesa(); }
+  if(a==="allin"){ var mm=P.mano; mm.puesto[id]=jug(id).stack; guarda();
+    var inp=document.querySelector('#ptFilas input[data-id="'+id+'"]'); if(inp) inp.value=mm.puesto[id];
+    pintaFilas(); return pintaReparto(); }
+  if(a==="gana"){
+    var f=b.dataset.f, e=P.mano.elegidos[f] ? P.mano.elegidos[f].slice() : [];
+    var c=calculo(), cur=null;
+    c.bs.forEach(function(x,i){ if(x.tipo==="bote" && firma(x)===f) cur=c.res[i]; });
+    if(!e.length && cur && cur.gana.length && cur.como!=="falta") e=cur.gana.slice();
+    var i=e.indexOf(id);
+    if(i>=0) e.splice(i,1); else e.push(id);
+    P.mano.elegidos[f]=e; guarda(); return pintaReparto();
+  }
+  if(a==="confirma"){ confirmaMano(); return pinta(); }
+  if(a==="cancelaMano"){
+    if(armado!=="cancela"){ arma("cancela"); b.textContent="Toca otra vez para anular"; b.classList.add("armado"); return; }
+    armado=null; P.mano=null; P.nMano=Math.max(0,P.nMano-1); guarda(); return pinta();
+  }
+  if(a==="recompra"){ compra(id, Math.round(P.conf.eur*100)); return pinta(); }
+  if(a==="otraCompra"){ P.otra = P.otra===id ? null : id; pinta(); var o=el("ptOtraEur"); if(o) o.focus(); return; }
+  if(a==="otraOk"){ var v=dec((el("ptOtraEur")||{}).value); if(v>0){ compra(id, Math.round(v*100)); } P.otra=null; guarda(); return pinta(); }
+  if(a==="quitaCompra"){ quitaCompra(id); return pinta(); }
+  if(a==="fuera"){ var j=jug(id); j.fuera=!j.fuera; if(P.boton===id && j.fuera) P.boton=siguiente(id,puedenJugar())||P.boton; guarda(); return pinta(); }
+  if(a==="seva"){ if(armado!=="seva"+id){ arma("seva"+id); return pinta(); } armado=null; seVa(id); return pinta(); }
+  if(a==="vuelve"){ vuelve(id); return pinta(); }
+  if(a==="anade"){
+    var e2=el("ptNuevoNom"), n=e2?e2.value.trim():""; if(!n) return;
+    var nid=nuevoId(), fi2=P.conf.fichas;
+    P.jug.push({id:nid, nom:n, stack:fi2, compras:[{cent:Math.round(P.conf.eur*100), fichas:fi2, t:Date.now()}], fuera:false, seVa:false, salida:0});
+    guarda(); return pinta();
+  }
+  if(a==="ciegas"){ var sb2=ent((el("ptCSb")||{}).value), bb2=ent((el("ptCBb")||{}).value);
+    if(bb2>0){ P.conf.sb=sb2; P.conf.bb=bb2; guarda(); } return pinta(); }
+  if(a==="aCierre"){ P.cerrada=Date.now(); P.cerradaOk=false; P.cuenta={}; P.jug.forEach(function(j){ if(!j.seVa) P.cuenta[j.id]=j.stack; }); guarda(); return pinta(); }
+  if(a==="sigueJugando"){ P.cerrada=null; P.cerradaOk=false; P.cuenta=null; guarda(); return pinta(); }
+  if(a==="liquida"){ P.cerradaOk=true; guarda(); return pinta(); }
+  if(a==="reabre"){ P.cerradaOk=false; verResumen=false; guarda(); return pinta(); }
+  if(a==="copia"){
+    var txt=textoResumen(), aviso_=el("ptCopiado");
+    var ok=function(){ if(aviso_) aviso_.innerHTML='<p class="sub" style="color:var(--grn)">✔ Copiado. Pégalo en el grupo.</p>'; };
+    var falla=function(){ verResumen=true; pinta(); var t=el("ptResumenTxt"); if(t){ t.focus(); t.select(); }
+      var a2=el("ptCopiado"); if(a2) a2.innerHTML='<p class="sub">No he podido copiarlo solo: está seleccionado abajo, cópialo tú.</p>'; };
+    try{ navigator.clipboard.writeText(txt).then(ok, falla); }catch(e){ falla(); }
+    return;
+  }
+  if(a==="deshaz"){
+    if(armado!=="deshaz"){ arma("deshaz"); return pinta(); }
+    armado=null; var r=deshazMano();
+    P.errDeshaz = r==="negativo" ? "No puedo deshacer esa mano: dejaría a alguien con fichas negativas (se fue o vendió fichas después). Corrígelo a mano en Caja." : null;
+    return pinta();
+  }
+  if(a==="nuevaPartida"){
+    if(armado!=="nueva"){ arma("nueva"); return pinta(); }
+    armado=null; P=null; S=null; verResumen=false; try{ localStorage.removeItem(LS); }catch(e){}
+    vista="mesa"; marcaVista(); return pinta();
+  }
+}
+
+function alEscribir(ev){
+  var t=ev.target; if(!t.dataset) return;
+  if(t.id==="ptMaxAp" && P && P.mano){
+    var m=P.mano, v=ent(t.value); m.maxAp=t.value;
+    m.orden.forEach(function(k){ if(m.sigue[k] && v>0) m.puesto[k]=Math.min(v, jug(k).stack); });
+    guarda();
+    document.querySelectorAll('#ptFilas input[data-act="puesto"]').forEach(function(i){ var k=i.dataset.id; i.value=m.puesto[k]||""; });
+    actualizaEtiquetas(); pintaReparto(); return;
+  }
+  if(t.dataset.act==="puesto" && P && P.mano){
+    var k=t.dataset.id, val=ent(t.value), st=jug(k).stack;
+    if(val>st){ val=st; t.value=st; }
+    P.mano.puesto[k]=val; guarda(); actualizaEtiquetas(); pintaReparto(); return;
+  }
+  if(t.dataset.act==="cuenta" && P){
+    P.cuenta=P.cuenta||{}; P.cuenta[t.dataset.id]=ent(t.value); guarda();
+    var cb=el("ptCuadre"); if(cb) cb.innerHTML=cuadreHtml(cierre()); return;
+  }
+}
+/* las etiquetas ALL-IN de las filas, sin repintar los campos (no se pierde el foco) */
+function actualizaEtiquetas(){
+  var m=P.mano;
+  document.querySelectorAll('#ptFilas .ptRow').forEach(function(row){
+    var inp=row.querySelector('input'), k=inp.dataset.id, j=jug(k), v=m.puesto[k]||0, ai=v>0&&v>=j.stack;
+    var nomEl=row.querySelector('.ptNom'), tag=nomEl.querySelector('.tag.ai');
+    if(ai && !tag){ var s=document.createElement('span'); s.className='tag ai'; s.textContent='ALL-IN'; nomEl.insertBefore(s, nomEl.querySelector('small')); }
+    if(!ai && tag) tag.remove();
+    var bt=row.querySelector('.ptMini'); if(bt) bt.classList.toggle('on', ai);
+  });
+}
+
+function marcaVista(){
+  document.querySelectorAll("#ptVista button").forEach(function(x){ x.classList.toggle("on", x.dataset.v===vista); });
+}
+
+/* ------------------------------------------------------------ arranque */
+var sec=document.getElementById("sP"); if(!sec) return;
+carga();
+document.querySelectorAll("#ptVista button").forEach(function(b){ b.onclick=function(){
+  vista=b.dataset.v; armado=null; marcaVista(); pinta(); }; });
+sec.addEventListener("click", alClick);
+sec.addEventListener("input", alEscribir);
+sec.addEventListener("keydown", function(ev){
+  if(ev.key!=="Enter") return;
+  if(ev.target.id==="ptINom"){ ev.preventDefault(); anadeInicio(); }
+  if(ev.target.id==="ptNuevoNom"){ ev.preventDefault(); var b=sec.querySelector('[data-act="anade"]'); if(b) b.click(); }
+  if(ev.target.id==="ptOtraEur"){ ev.preventDefault(); var b2=sec.querySelector('[data-act="otraOk"]'); if(b2) b2.click(); }
+});
+pinta();
+/* gancho de pruebas: el motor puro, para compararlo con un calculo independiente */
+window.__ptPartida={botes:botes, resuelve:resuelve, paga:paga, liquida:liquida};
 })();
 </script>
 <script>
